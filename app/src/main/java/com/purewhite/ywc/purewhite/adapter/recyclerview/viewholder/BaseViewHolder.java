@@ -1,0 +1,31 @@
+package com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder;
+
+import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
+import android.view.View;
+
+/**
+ * Created by yuwenchao on 2018/11/15.
+ */
+
+public class BaseViewHolder extends RecyclerView.ViewHolder {
+
+    private SparseArray<View> sparseArray;
+    public BaseViewHolder(View itemView) {
+        super(itemView);
+        sparseArray=new SparseArray<>();
+    }
+
+
+    public <T extends View>T findViewId(int id)
+    {
+        View view = sparseArray.get(id);
+        if (view==null)
+        {
+            view=itemView.findViewById(id);
+            sparseArray.put(id,view);
+        }
+        return (T) view;
+    }
+
+}
