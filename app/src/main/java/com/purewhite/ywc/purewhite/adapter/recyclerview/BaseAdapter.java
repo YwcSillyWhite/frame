@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,6 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerView.Adapter<V>{
 
-    private SparseIntArray sparseIntArray;
     private List<T> mData;
     //加载最多项
     private int pageSize=10;
@@ -42,7 +42,7 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     private final int FOOT_ITEM=10002;
     private final int LOAD_ITEM=10003;
     //监听
-    private OnItemListener onItemListener;
+    private OnItemListener<T> onItemListener;
     public OnItemListener getOnItemListener() {
         return onItemListener;
     }
@@ -54,8 +54,6 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
         this.mData = list!=null?list:new ArrayList<T>();
     }
 
-    //加载更多的布局
-    protected abstract int getLayoutLoad();
     //创建布局
     protected V createV(ViewGroup parent,int layout)
     {
@@ -74,21 +72,12 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     {
         if (position<mData.size())
         {
-            return obtainT(position);
+            return mData.get(position);
         }
         return null;
     }
 
 
-    //添加布局
-    protected void addLayout(int viewType,int layoutid)
-    {
-        if (sparseIntArray==null)
-        {
-            sparseIntArray=new SparseIntArray();
-        }
-        sparseIntArray.put(viewType,layoutid);
-    }
 
     @Override
     public V onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -102,15 +91,17 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
                 viewhold=createV(mFooterLayout);
                 break;
             case LOAD_ITEM:
-                viewhold=createV(parent,getLayoutLoad());
+                viewhold=createV(parent,-1);
                 break;
                 default:
-                    viewhold=createV(parent,sparseIntArray.get(viewType));
+                    viewhold = onCreateData(parent,viewType);
                     //设置监听
                     bindViewListener(viewhold);
         }
         return viewhold;
     }
+
+    protected abstract V onCreateData(ViewGroup parent, int viewType);
 
     protected void bindViewListener(final V viewhold)
     {
@@ -126,8 +117,8 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
             view.setOnClickListener(new OnSingleListener() {
                 @Override
                 public void onSingleClick(View v) {
-                    getOnItemListener().OnItemCall(BaseAdapter.this,view,
-                            viewhold.getLayoutPosition() - getFootCount());
+                    int position=viewhold.getLayoutPosition() - getFootCount();
+                    getOnItemListener().OnItemCall(BaseAdapter.this,view, position,obtainT(position));
                 }
             });
         }
@@ -139,40 +130,26 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     @Override
     public void onBindViewHolder(V holder, int position) {
         int itemViewType = holder.getItemViewType();
-        if (itemViewType!=HEAD_ITEM&&itemViewType!=FOOT_ITEM)
+        if (itemViewType!=HEAD_ITEM&&itemViewType!=FOOT_ITEM&&itemViewType!=LOAD_ITEM)
         {
-            if (itemViewType==LOAD_ITEM)
-            {
-
-            }
-            else
-            {
-                onData(holder,position,obtainT(position-getHeadCount()));
-            }
+            onData(holder,position,obtainT(position-getHeadCount()));
         }
     }
-
 
     //赋值数据
     protected abstract void onData(V holder,int position,T t);
 
 
-
-
     //请不要重写这个方法,多布局重写getDataType这个方法
     @Override
     public int getItemViewType(int position) {
-        if (position==0)
+        if (position==0&&getHeadCount()!=0)
         {
-            if (getHeadCount()!=0) {
-                return HEAD_ITEM;
-            } else {
-                return super.getItemViewType(position);
-            }
+            return HEAD_ITEM;
         }
         else if (position<getHeadCount()+getDataCount())
         {
-            return getDataType(position);
+            return getDataType(position-getHeadCount());
         }
         else if(position<getHeadCount()+getDataCount()+getFootCount())
         {
@@ -185,10 +162,7 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     }
 
 
-    protected int getDataType(int position)
-    {
-        return super.getItemViewType(position);
-    }
+    protected abstract int getDataType(int position);
 
     @Override
     public int getItemCount() {
@@ -276,7 +250,7 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     }
 
     public void addHeadView(View header, int index, int orientation) {
-        if (mHeaderLayout==null)
+        if (header.getParent()==null&&mHeaderLayout==null)
         {
             mHeaderLayout=new LinearLayout(header.getContext());
             if (orientation==LinearLayout.VERTICAL)
@@ -304,17 +278,17 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
 
 
     //添加尾部
-    public void addFoot(View foot)
+    public void addFootView(View foot)
     {
-        addFoot(foot,-1);
+        addFootView(foot,-1);
     }
 
-    public void addFoot(View foot,int index)
+    public void addFootView(View foot,int index)
     {
-        addFoot(foot,index,LinearLayout.VERTICAL);
+        addFootView(foot,index,LinearLayout.VERTICAL);
     }
 
-    public void addFoot(View header, int index, int orientation) {
+    public void addFootView(View header, int index, int orientation) {
         if (mFooterLayout==null)
         {
             mFooterLayout=new LinearLayout(header.getContext());
@@ -354,18 +328,22 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
         return itemViewType==HEAD_ITEM||itemViewType==FOOT_ITEM||itemViewType==LOAD_ITEM;
     }
 
+
+
     //解决grid 添加头尾不占全部得问题
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        Log.d("ywc","bucuo");
         if(layoutManager instanceof GridLayoutManager)
         {
+            Log.d("ywc","bucuo1");
             final GridLayoutManager gridManager = ((GridLayoutManager) layoutManager);
             gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    return noDataItem(getItemViewType(position))?  1: gridManager.getSpanCount();
+                    return noDataItem(getItemViewType(position))?  gridManager.getSpanCount():1 ;
                 }
             });
         }

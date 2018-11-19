@@ -14,7 +14,7 @@ import com.purewhite.ywc.purewhite.mvp.view.BaseView;
 public abstract class MvpActivity<DB extends ViewDataBinding,P extends PresenterImp>
         extends BaseActivity<DB> implements BaseView {
 
-    private P mPresenter;
+    protected P mPresenter;
     @Override
     public Context getContext() {
         return this;

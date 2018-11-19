@@ -10,6 +10,6 @@ import com.purewhite.ywc.purewhite.adapter.recyclerview.BaseAdapter;
  * 子类点击事件
  */
 
-public interface OnItemListener {
-    void OnItemCall(BaseAdapter adapter, View view, int position);
+public interface OnItemListener<T> {
+    void OnItemCall(BaseAdapter adapter, View view, int position,T t);
 }

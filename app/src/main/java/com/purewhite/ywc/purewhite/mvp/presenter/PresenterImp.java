@@ -11,7 +11,7 @@ import java.lang.ref.WeakReference;
 
 public class PresenterImp<V extends BaseView> implements BasePresenter<V> {
 
-    private V mView;
+    protected V mView;
     private WeakReference<V> vWeakReference;
 
     @Override

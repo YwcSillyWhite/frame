@@ -10,6 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/relative">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recycler">
+        </android.support.v7.widget.RecyclerView>
         <com.purewhite.ywc.purewhite.view.BottomLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
