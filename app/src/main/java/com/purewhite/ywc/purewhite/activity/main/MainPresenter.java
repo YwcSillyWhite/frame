@@ -15,7 +15,7 @@ public class MainPresenter extends PresenterImp<MainContract.View> implements Ma
     @Override
     public void getData() {
         List<MainBean> list=new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 40; i++) {
             MainBean mainBean=new MainBean();
             list.add(mainBean);
         }

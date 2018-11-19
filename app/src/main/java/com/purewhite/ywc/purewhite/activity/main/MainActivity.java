@@ -8,6 +8,7 @@ import android.view.View;
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.activity.main.adapter.MainAdapter;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.BaseAdapter;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnLoadListener;
 import com.purewhite.ywc.purewhite.databinding.ActivityMainBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
 
@@ -34,7 +35,12 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
         mainAdapter = new MainAdapter();
         mDataBinding.recycler.setLayoutManager(new GridLayoutManager(this,2));
         mDataBinding.recycler.setAdapter(mainAdapter);
+        mainAdapter.setOnLoadListener(new OnLoadListener() {
+            @Override
+            public void loadback() {
 
+            }
+        });
         mPresenter.getData();
 
         View head = LayoutInflater.from(this).inflate(R.layout.head, mDataBinding.recycler, false);

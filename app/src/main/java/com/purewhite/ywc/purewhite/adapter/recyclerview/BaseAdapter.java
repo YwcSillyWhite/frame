@@ -41,6 +41,10 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     private List<T> mData;
     //加载最多项
     private int pageSize=10;
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
     //头部
     private LinearLayout mHeaderLayout;
     //尾部
@@ -241,6 +245,12 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
         return 1;
     }
 
+
+    //加载失败
+    public void loadFail()
+    {
+        loadView.setState(LoadView.STATE_FAIL);
+    }
 
     //刷新数据
     public void flush(List<T> list)

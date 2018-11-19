@@ -6,13 +6,15 @@
             type="com.purewhite.ywc.purewhite.activity.main.MainActivity">
         </variable>
     </data>
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/relative">
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp"
             android:id="@+id/recycler">
         </android.support.v7.widget.RecyclerView>
         <com.purewhite.ywc.purewhite.view.BottomLayout
@@ -65,5 +67,5 @@
                 app:checkImg_flase="@mipmap/icon_tab_mime_normal">
             </com.purewhite.ywc.purewhite.view.BottomMenu>
         </com.purewhite.ywc.purewhite.view.BottomLayout>
-    </RelativeLayout>
+    </LinearLayout>
 </layout>
