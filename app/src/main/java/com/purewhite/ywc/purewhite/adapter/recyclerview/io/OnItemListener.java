@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.adapter.recyclerview.listener;
+package com.purewhite.ywc.purewhite.adapter.recyclerview.io;
 
 import android.view.View;
 

@@ -1,17 +1,20 @@
 package com.purewhite.ywc.purewhite.adapter.recyclerview;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
-import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.purewhite.ywc.purewhite.adapter.recyclerview.listener.OnItemListener;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnItemListener;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnLoadListener;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadView;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadViewImp;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BaseViewHolder;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
 
@@ -27,6 +30,14 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerView.Adapter<V>{
 
+    //用于延迟
+    private Handler handler=new Handler();
+    //加载布局
+    private LoadView loadView=new LoadViewImp();
+    public void setLoadView(LoadView loadView) {
+        this.loadView = loadView;
+    }
+
     private List<T> mData;
     //加载最多项
     private int pageSize=10;
@@ -34,8 +45,6 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     private LinearLayout mHeaderLayout;
     //尾部
     private LinearLayout mFooterLayout;
-    //是否允许加载更多
-    private boolean canLoad=false;
     //是否加载更多
     private boolean isLoadMord=false;
     private final int HEAD_ITEM=10001;
@@ -50,19 +59,17 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
         this.onItemListener = onItemListener;
     }
 
+    private OnLoadListener onLoadListener;
+
+    public void setOnLoadListener(OnLoadListener onLoadListener) {
+        this.onLoadListener = onLoadListener;
+    }
+
     public BaseAdapter(List<T> list) {
         this.mData = list!=null?list:new ArrayList<T>();
     }
 
-    //创建布局
-    protected V createV(ViewGroup parent,int layout)
-    {
-        Context context = parent.getContext();
-        View inflate = LayoutInflater.from(context).inflate(layout, parent, false);
-        return ((V) new BaseViewHolder(inflate));
-    }
-
-    protected V createV(View view)
+    private V createV(View view)
     {
         return ((V) new BaseViewHolder(view));
     }
@@ -91,7 +98,15 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
                 viewhold=createV(mFooterLayout);
                 break;
             case LOAD_ITEM:
-                viewhold=createV(parent,-1);
+                View viewLoad = LayoutInflater.from(parent.getContext())
+                        .inflate(loadView.getLayoutId(), parent, false);
+                viewhold=createV(viewLoad);
+                viewLoad.setOnClickListener(new OnSingleListener() {
+                    @Override
+                    public void onSingleClick(View v) {
+                        //加载失败，点击重新加载
+                    }
+                });
                 break;
                 default:
                     viewhold = onCreateData(parent,viewType);
@@ -129,10 +144,36 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
 
     @Override
     public void onBindViewHolder(V holder, int position) {
+        loadMore(position);
         int itemViewType = holder.getItemViewType();
-        if (itemViewType!=HEAD_ITEM&&itemViewType!=FOOT_ITEM&&itemViewType!=LOAD_ITEM)
+        if (itemViewType==LOAD_ITEM)
+        {
+            loadView.onBindView(holder);
+        }
+        else if (itemViewType!=HEAD_ITEM&&itemViewType!=FOOT_ITEM)
         {
             onData(holder,position,obtainT(position-getHeadCount()));
+        }
+    }
+
+    //判断是不是加载更多
+    protected  void loadMore(int position)
+    {
+        if (getLoadCount()==0)
+            return;
+        if (onLoadListener==null)
+            return;
+        if (position<getItemCount()-1)
+            return;
+        //加载结束
+        if (loadView.getState()==LoadView.STATE_FINISH) {
+            loadView.setState(LoadView.STATE_LOAD);
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    onLoadListener.loadback();
+                }
+            }, 200);
         }
     }
 
@@ -195,44 +236,55 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     //加载更多
     public int getLoadCount()
     {
-        return isLoadMord?1:0;
+        if (loadView==null||onLoadListener==null)
+            return 0;
+        return 1;
     }
 
 
     //刷新数据
     public void flush(List<T> list)
     {
-        mData=list!=null&&list.size()>0?list:new ArrayList<T>();
-        if (mData.size()>=pageSize)
+        if (list!=null&&list.size()>=pageSize)
         {
-            canLoad=true;
+            loadView.setState(LoadView.STATE_FINISH);
+            loadView.setCanLoad(true);
         }
         else
         {
-            canLoad=false;
+            loadView.setCanLoad(false);
+            loadView.setState(LoadView.STATE_NOSHOW);
         }
+        mData=list!=null&&list.size()>0?list:new ArrayList<T>();
         notifyDataSetChanged();
     }
 
     //添加数据
     public void addData(List<T> list)
     {
-        if (list.size()>0)
+        if (list!=null&&list.size()>=pageSize)
         {
-            mData.addAll(list);
-            if (list.size()>=pageSize)
-            {
-                canLoad=true;
-            }
-            else
-            {
-                canLoad=false;
-            }
-            notifyItemRangeInserted(mData.size()-list.size() + getHeadCount(), list.size());
+            loadView.setState(LoadView.STATE_FINISH);
+            loadView.setCanLoad(true);
         }
         else
         {
-            canLoad=false;
+            loadView.setCanLoad(false);
+            if (mData.size()>0)
+            {
+                loadView.setState(LoadView.STATE_NOMOR);
+            }
+            else
+            {
+                loadView.setState(LoadView.STATE_NOSHOW);
+            }
+        }
+        if (list!=null&&list.size()>0)
+        {
+
+            mData.addAll(list);
+            loadView.setCanLoad(list.size()>pageSize);
+            notifyItemRangeInserted(mData.size()-list.size() + getHeadCount(), list.size());
         }
     }
 
@@ -335,10 +387,8 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-        Log.d("ywc","bucuo");
         if(layoutManager instanceof GridLayoutManager)
         {
-            Log.d("ywc","bucuo1");
             final GridLayoutManager gridManager = ((GridLayoutManager) layoutManager);
             gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override

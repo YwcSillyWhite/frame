@@ -16,18 +16,11 @@ import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
  */
 public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter> implements MainContract.View {
 
-
-    private MainActivity mainActivity;
     private MainAdapter mainAdapter;
 
     @Override
     protected MainPresenter creartPresenter() {
         return new MainPresenter();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -43,6 +36,7 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
         mDataBinding.recycler.setAdapter(mainAdapter);
 
         mPresenter.getData();
+
         View head = LayoutInflater.from(this).inflate(R.layout.head, mDataBinding.recycler, false);
         mainAdapter.addHeadView(head);
 

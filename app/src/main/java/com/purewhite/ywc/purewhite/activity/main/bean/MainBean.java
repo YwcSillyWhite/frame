@@ -7,6 +7,7 @@ import com.purewhite.ywc.purewhite.adapter.recyclerview.bean.BindBean;
  */
 
 public class MainBean implements BindBean {
+
     @Override
     public int getType() {
         return 0;
