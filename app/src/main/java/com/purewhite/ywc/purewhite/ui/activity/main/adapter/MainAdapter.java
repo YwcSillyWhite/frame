@@ -1,7 +1,7 @@
-package com.purewhite.ywc.purewhite.activity.main.adapter;
+package com.purewhite.ywc.purewhite.ui.activity.main.adapter;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.activity.main.bean.MainBean;
+import com.purewhite.ywc.purewhite.ui.activity.main.bean.MainBean;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.BindAdapter;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BindHolder;
 import com.purewhite.ywc.purewhite.databinding.AdapterMianBinding;

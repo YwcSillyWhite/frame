@@ -1,11 +1,11 @@
-package com.purewhite.ywc.purewhite.activity.guide;
+package com.purewhite.ywc.purewhite.ui.activity.guide;
 
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.activity.main.MainActivity;
+import com.purewhite.ywc.purewhite.ui.activity.main.MainActivity;
 import com.purewhite.ywc.purewhite.app.ActivityUtils;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
 import com.purewhite.ywc.purewhite.databinding.ActivityGuideBinding;

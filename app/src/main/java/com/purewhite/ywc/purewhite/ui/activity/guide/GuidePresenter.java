@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.activity.guide;
+package com.purewhite.ywc.purewhite.ui.activity.guide;
 
 import com.purewhite.ywc.purewhite.mvp.presenter.PresenterImp;
 

@@ -1,6 +1,6 @@
-package com.purewhite.ywc.purewhite.activity.main;
+package com.purewhite.ywc.purewhite.ui.activity.main;
 
-import com.purewhite.ywc.purewhite.activity.main.adapter.MainAdapter;
+import com.purewhite.ywc.purewhite.ui.activity.main.adapter.MainAdapter;
 import com.purewhite.ywc.purewhite.mvp.presenter.BasePresenter;
 import com.purewhite.ywc.purewhite.mvp.view.BaseView;
 

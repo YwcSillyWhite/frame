@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="activity"
-            type="com.purewhite.ywc.purewhite.activity.main.MainActivity">
+            type="com.purewhite.ywc.purewhite.ui.activity.main.MainActivity">
         </variable>
     </data>
     <LinearLayout

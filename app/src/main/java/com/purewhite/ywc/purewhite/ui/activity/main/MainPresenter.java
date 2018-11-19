@@ -1,6 +1,6 @@
-package com.purewhite.ywc.purewhite.activity.main;
+package com.purewhite.ywc.purewhite.ui.activity.main;
 
-import com.purewhite.ywc.purewhite.activity.main.bean.MainBean;
+import com.purewhite.ywc.purewhite.ui.activity.main.bean.MainBean;
 import com.purewhite.ywc.purewhite.mvp.presenter.PresenterImp;
 
 import java.util.ArrayList;

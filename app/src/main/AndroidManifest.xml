@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:name=".app.BaseApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.guide.GuideActivity">
+        <activity android:name=".ui.activity.guide.GuideActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.main.MainActivity"></activity>
+        <activity android:name=".ui.activity.main.MainActivity"></activity>
     </application>
 
 </manifest>

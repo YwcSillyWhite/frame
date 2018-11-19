@@ -3,7 +3,7 @@
     <data>
         <variable
             name="activity"
-            type="com.purewhite.ywc.purewhite.activity.guide.GuideActivity"></variable>
+            type="com.purewhite.ywc.purewhite.ui.activity.guide.GuideActivity"></variable>
     </data>
     <RelativeLayout
         android:layout_width="match_parent"

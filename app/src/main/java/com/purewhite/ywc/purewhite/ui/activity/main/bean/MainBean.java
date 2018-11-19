@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.activity.main.bean;
+package com.purewhite.ywc.purewhite.ui.activity.main.bean;
 
 import com.purewhite.ywc.purewhite.adapter.recyclerview.bean.BindBean;
 
