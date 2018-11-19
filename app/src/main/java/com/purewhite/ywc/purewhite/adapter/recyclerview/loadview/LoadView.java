@@ -4,6 +4,8 @@ import android.view.View;
 
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BaseViewHolder;
 
+import java.text.BreakIterator;
+
 /**
  * Created by yuwenchao on 2018/11/19.
  */
@@ -12,16 +14,13 @@ public abstract class LoadView {
     private int state;
     //是否能加载
     private boolean isCanLoad;
-
-    //不显示
-    public static final int STATE_NOSHOW=0;
     //加载更多
     public static final int STATE_LOAD=1;
     //加载失败
     public static final int STATE_FAIL=2;
     //没有数据
     public static final int STATE_NOMOR=3;
-    //完成
+    //加载结束，下次还可以进行加载
     public static final int STATE_FINISH=4;
 
 
@@ -54,11 +53,15 @@ public abstract class LoadView {
                 visible(holder,getNoMoreViewId(), View.VISIBLE);
                 break;
             case STATE_FINISH:
-            case STATE_NOSHOW:
                 visible(holder,getLoadViewId(), View.GONE);
                 visible(holder,getFailViewId(), View.GONE);
                 visible(holder,getNoMoreViewId(), View.GONE);
                 break;
+                default:
+                    visible(holder,getLoadViewId(), View.GONE);
+                    visible(holder,getFailViewId(), View.GONE);
+                    visible(holder,getNoMoreViewId(), View.GONE);
+                    break;
         }
     }
 

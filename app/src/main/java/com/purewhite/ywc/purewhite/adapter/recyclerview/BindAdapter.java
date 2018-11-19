@@ -6,7 +6,6 @@ import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.bean.BindBean;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BindHolder;
 

@@ -3,7 +3,6 @@ package com.purewhite.ywc.purewhite.mvp.activity;
 import android.content.Context;
 import android.databinding.ViewDataBinding;
 
-
 import com.purewhite.ywc.purewhite.mvp.presenter.PresenterImp;
 import com.purewhite.ywc.purewhite.mvp.view.BaseView;
 

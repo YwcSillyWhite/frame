@@ -1,7 +1,7 @@
 package com.purewhite.ywc.purewhite.activity.guide;
 
-import com.purewhite.ywc.purewhite.mvp.view.BaseView;
 import com.purewhite.ywc.purewhite.mvp.presenter.BasePresenter;
+import com.purewhite.ywc.purewhite.mvp.view.BaseView;
 
 /**
  * Created by yuwenchao on 2018/11/6.

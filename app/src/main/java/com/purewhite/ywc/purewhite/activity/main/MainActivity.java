@@ -1,13 +1,11 @@
 package com.purewhite.ywc.purewhite.activity.main;
 
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.activity.main.adapter.MainAdapter;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.BaseAdapter;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnLoadListener;
 import com.purewhite.ywc.purewhite.databinding.ActivityMainBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;

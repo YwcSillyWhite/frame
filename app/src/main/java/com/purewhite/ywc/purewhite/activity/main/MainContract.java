@@ -1,7 +1,6 @@
 package com.purewhite.ywc.purewhite.activity.main;
 
 import com.purewhite.ywc.purewhite.activity.main.adapter.MainAdapter;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.BaseAdapter;
 import com.purewhite.ywc.purewhite.mvp.presenter.BasePresenter;
 import com.purewhite.ywc.purewhite.mvp.view.BaseView;
 

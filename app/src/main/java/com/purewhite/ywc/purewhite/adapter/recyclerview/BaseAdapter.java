@@ -1,6 +1,5 @@
 package com.purewhite.ywc.purewhite.adapter.recyclerview;
 
-import android.content.Context;
 import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +34,8 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     //加载布局
     private LoadView loadView=new LoadViewImp();
     public void setLoadView(LoadView loadView) {
+        if (loadView==null)
+            throw new UnsupportedOperationException("loadvuew can not null");
         this.loadView = loadView;
     }
 
@@ -49,8 +50,6 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     private LinearLayout mHeaderLayout;
     //尾部
     private LinearLayout mFooterLayout;
-    //是否加载更多
-    private boolean isLoadMord=false;
     private final int HEAD_ITEM=10001;
     private final int FOOT_ITEM=10002;
     private final int LOAD_ITEM=10003;
@@ -255,15 +254,14 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     //刷新数据
     public void flush(List<T> list)
     {
+        loadView.setState(LoadView.STATE_FINISH);
         if (list!=null&&list.size()>=pageSize)
         {
-            loadView.setState(LoadView.STATE_FINISH);
             loadView.setCanLoad(true);
         }
         else
         {
             loadView.setCanLoad(false);
-            loadView.setState(LoadView.STATE_NOSHOW);
         }
         mData=list!=null&&list.size()>0?list:new ArrayList<T>();
         notifyDataSetChanged();
@@ -286,7 +284,7 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
             }
             else
             {
-                loadView.setState(LoadView.STATE_NOSHOW);
+                loadView.setState(LoadView.STATE_FINISH);
             }
         }
         if (list!=null&&list.size()>0)
