@@ -11,6 +11,7 @@
             android:layout_height="wrap_content"
             android:text="不错数据"
             android:textSize="15sp"
+            android:id="@+id/main_tv"
             android:gravity="center"/>
     </LinearLayout>
 </layout>

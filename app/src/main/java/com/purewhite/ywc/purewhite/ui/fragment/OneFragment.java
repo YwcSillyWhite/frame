@@ -1,5 +1,6 @@
 package com.purewhite.ywc.purewhite.ui.fragment;
 
+
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.databinding.FragmentOneBinding;
 import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;

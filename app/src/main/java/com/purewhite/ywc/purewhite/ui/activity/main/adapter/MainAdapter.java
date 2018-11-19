@@ -25,6 +25,6 @@ public class MainAdapter extends BindAdapter<MainBean>{
     @Override
     protected void onData(BindHolder holder, int position, MainBean mainBean) {
         AdapterMianBinding viewDataBinding = (AdapterMianBinding) holder.getViewDataBinding();
-
+        viewDataBinding.mainTv.setText(mainBean.getType());
     }
 }
