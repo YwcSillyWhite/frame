@@ -5,10 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
+import com.purewhite.ywc.purewhite.retrofit.base.HttpUtils;
+import com.purewhite.ywc.purewhite.retrofit.io.NewService;
 import com.purewhite.ywc.purewhite.ui.activity.main.adapter.MainAdapter;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnLoadListener;
 import com.purewhite.ywc.purewhite.databinding.ActivityMainBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * @author yuwenchao
@@ -29,6 +36,10 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
 
     @Override
     protected void initView() {
+
+
+
+
 
         mainAdapter = new MainAdapter();
         mDataBinding.recycler.setLayoutManager(new GridLayoutManager(this,2));

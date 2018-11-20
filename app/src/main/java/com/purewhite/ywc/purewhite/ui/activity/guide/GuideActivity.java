@@ -29,9 +29,11 @@ public class GuideActivity extends MvpActivity<ActivityGuideBinding,GuidePresent
     private OnSingleListener onSingleListener=new OnSingleListener() {
         @Override
         public void onSingleClick(View v) {
+
             ActivityUtils.newInstance().startActivity(new Intent(GuideActivity.this,
                     MainActivity.class));
             finish();
+
         }
     };
 
