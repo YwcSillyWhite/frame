@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.config;
+package com.purewhite.ywc.purewhite.imageload.img;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -13,7 +13,7 @@ public class ImgUtils {
      * view转换成图片
      * @param view
      */
-    public static Bitmap obtain(View view)
+    public static Bitmap obtainBitmap(View view)
     {
         if (view==null)
             return null;

@@ -20,6 +20,12 @@ public class ImageDownLoader implements Runnable{
     private File mFile;
     private Handler handler;
     private ImageDownCall imageDownCall;
+
+    public static ImageDownLoader newInstance(Context context,Object url,File file,ImageDownCall imageDownCall) {
+        ImageDownLoader imageDownLoader = new ImageDownLoader(context,url,file,imageDownCall);
+        return imageDownLoader;
+    }
+
     public ImageDownLoader(Context context,Object url,File file,ImageDownCall imageDownCall) {
         mContext=context;
         mUrl=url;
