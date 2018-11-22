@@ -25,4 +25,6 @@ public class PtrLayout extends BasePtrFrameLayout {
         super.init();
         addHeadView(new PtrFrameHead(getContext()));
     }
+
+
 }

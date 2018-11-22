@@ -7,6 +7,7 @@ import android.view.View;
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.network.retrofit.request.http.HttpUtils;
 import com.purewhite.ywc.purewhite.network.rxjava.HttpObserver;
+import com.purewhite.ywc.purewhite.ptr.io.PtrCallBack;
 import com.purewhite.ywc.purewhite.ui.activity.main.adapter.MainAdapter;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnLoadListener;
 import com.purewhite.ywc.purewhite.databinding.ActivityMainBinding;
@@ -35,6 +36,17 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
     protected void initView() {
 
         mDataBinding.ptrLayout.setEnabled(true);
+        mDataBinding.ptrLayout.setPtrHandler(new PtrCallBack() {
+            @Override
+            public void onPullDown() {
+
+            }
+
+            @Override
+            public boolean checkCanPullDown() {
+                return super.checkCanPullDown();
+            }
+        });
         mainAdapter = new MainAdapter();
         mDataBinding.recycler.setLayoutManager(new GridLayoutManager(this,2));
         mDataBinding.recycler.setAdapter(mainAdapter);
