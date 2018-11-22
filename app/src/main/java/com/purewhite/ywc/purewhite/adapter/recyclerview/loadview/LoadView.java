@@ -4,8 +4,6 @@ import android.view.View;
 
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BaseViewHolder;
 
-import java.text.BreakIterator;
-
 /**
  * Created by yuwenchao on 2018/11/19.
  */

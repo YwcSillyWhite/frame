@@ -33,7 +33,23 @@ import com.purewhite.ywc.purewhite.R;
 
 public class ImageLoadWrapperImp implements ImageLoadWrapper{
 
-    private RequestOptions options;
+    private RequestOptions options,optionsCricle;
+
+    public RequestOptions getOptionsCricle() {
+        if (optionsCricle==null)
+        {
+            options=new RequestOptions();
+            //不加载动画
+            options.dontTransform()
+                    //占位图片
+                    .placeholder(R.mipmap.ic_launcher)
+                    //加载失败的图片
+                    .error(R.mipmap.ic_launcher)
+                    //圆形图片
+                    .circleCrop();
+        }
+        return optionsCricle;
+    }
 
     private RequestOptions getOptions(boolean skipMrmpry)
     {
@@ -59,24 +75,27 @@ public class ImageLoadWrapperImp implements ImageLoadWrapper{
          * DiskCacheStrategy.ALL ： 表示既缓存原始图片，也缓存转换过后的图片。
          * DiskCacheStrategy.AUTOMATIC： 表示让Glide根据图片资源智能地选择使用哪一种缓存策略（默认选项）。
          */
-
-
         return options;
     }
 
+
+
+
     @Override
     public void init(ImageView imageView, Object url) {
-        Glide.with(imageView)
+        Glide.with(imageView.getContext())
                 .load(url)
-                .apply(getOptions(false));
+                .apply(getOptions(false))
+                .into(imageView);
     }
 
     @Override
     public void initCircle(ImageView imageView, Object url) {
-        Glide.with(imageView)
+        Glide.with(imageView.getContext())
                 .asBitmap()
                 .load(url)
-                .apply(getOptions(false));
+                .apply(getOptionsCricle())
+                .into(imageView);
 
                 //只允许加载静态图片
 
@@ -89,10 +108,11 @@ public class ImageLoadWrapperImp implements ImageLoadWrapper{
 
     @Override
     public void initBig(ImageView imageView, Object url) {
-        Glide.with(imageView)
+        Glide.with(imageView.getContext())
                 .asBitmap()
                 .load(url)
-                .apply(getOptions(true));
+                .apply(getOptions(true))
+                .into(imageView);
     }
 
     @Override

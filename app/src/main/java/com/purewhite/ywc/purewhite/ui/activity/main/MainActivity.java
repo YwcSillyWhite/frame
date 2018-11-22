@@ -5,15 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.network.retrofit.request.http.HttpUtils;
-import com.purewhite.ywc.purewhite.network.rxjava.HttpObserver;
-import com.purewhite.ywc.purewhite.ptr.io.PtrCallBack;
-import com.purewhite.ywc.purewhite.ui.activity.main.adapter.MainAdapter;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnLoadListener;
 import com.purewhite.ywc.purewhite.databinding.ActivityMainBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
-
-import okhttp3.ResponseBody;
+import com.purewhite.ywc.purewhite.ptr.io.PtrCallBack;
+import com.purewhite.ywc.purewhite.ui.activity.main.adapter.MainAdapter;
 
 /**
  * @author yuwenchao

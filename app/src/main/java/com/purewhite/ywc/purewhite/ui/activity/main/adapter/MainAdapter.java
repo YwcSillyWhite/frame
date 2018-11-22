@@ -1,10 +1,10 @@
 package com.purewhite.ywc.purewhite.ui.activity.main.adapter;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.ui.bean.activity.main.MainBean;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.BindAdapter;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BindHolder;
 import com.purewhite.ywc.purewhite.databinding.AdapterMianBinding;
+import com.purewhite.ywc.purewhite.ui.bean.activity.main.MainBean;
 
 import java.util.ArrayList;
 
