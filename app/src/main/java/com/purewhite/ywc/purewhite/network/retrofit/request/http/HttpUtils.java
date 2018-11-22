@@ -5,7 +5,6 @@ import com.purewhite.ywc.purewhite.network.retrofit.base.BaseRetrofit;
 import com.purewhite.ywc.purewhite.network.rxjava.HttpObserver;
 import com.purewhite.ywc.purewhite.network.rxjava.RxSchedulers;
 
-import io.reactivex.Observer;
 import okhttp3.ResponseBody;
 
 //第3方封装利于后期的修改第3方数据

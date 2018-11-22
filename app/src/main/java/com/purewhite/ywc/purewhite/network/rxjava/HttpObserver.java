@@ -11,7 +11,6 @@ import retrofit2.HttpException;
 
 public abstract class HttpObserver<T> implements Observer<T> {
 
-    private int type;
 
     @Override
     public void onSubscribe(Disposable d) {

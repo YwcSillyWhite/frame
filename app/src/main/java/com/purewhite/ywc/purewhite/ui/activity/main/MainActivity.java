@@ -34,7 +34,7 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
     @Override
     protected void initView() {
 
-
+        mDataBinding.ptrLayout.setEnabled(true);
         mainAdapter = new MainAdapter();
         mDataBinding.recycler.setLayoutManager(new GridLayoutManager(this,2));
         mDataBinding.recycler.setAdapter(mainAdapter);
@@ -52,13 +52,6 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
         View foot = LayoutInflater.from(this).inflate(R.layout.foot, mDataBinding.recycler, false);
         mainAdapter.addFootView(foot);
 
-
-        HttpUtils.newInstance().request(new HttpObserver<ResponseBody>() {
-            @Override
-            public void onSuccess(ResponseBody responseBody) {
-
-            }
-        });
 
     }
 
