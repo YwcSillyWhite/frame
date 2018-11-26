@@ -10,7 +10,9 @@ import com.purewhite.ywc.purewhite.mvp.activity.BaseActivity;
 import java.util.Stack;
 
 /**
- * Created by yuwenchao on 2018/11/13.
+ *
+ * @author yuwenchao
+ * @date 2018/11/13
  */
 
 public final class  AppUtils {

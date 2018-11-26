@@ -12,7 +12,9 @@ import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.config.ClickUtils;
 
 /**
- * Created by yuwenchao on 2018/11/3.
+ *
+ * @author yuwenchao
+ * @date 2018/11/3
  */
 
 public class BottomLayout extends LinearLayout implements BottomMenu.OnBottomListener{

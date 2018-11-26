@@ -15,7 +15,9 @@ import android.widget.TextView;
 import com.purewhite.ywc.purewhite.R;
 
 /**
- * Created by yuwenchao on 2018/11/2.
+ *
+ * @author yuwenchao
+ * @date 2018/11/2
  */
 
 public class BottomMenu extends RelativeLayout implements GestureDetector.OnDoubleTapListener{

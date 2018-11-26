@@ -8,6 +8,9 @@ import com.purewhite.ywc.purewhite.ptr.head.PtrFrameHead;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 
+/**
+ * @author yuwenchao
+ */
 public abstract class BasePtrFrameLayout extends PtrFrameLayout {
     public BasePtrFrameLayout(Context context) {
         super(context);

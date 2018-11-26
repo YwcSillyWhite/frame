@@ -13,6 +13,9 @@ import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BindHolder;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author yuwenchao
+ */
 public abstract class VlayoutBindAdapter<T extends BindBean> extends VlayoutBaseAdapter<T,BindHolder>{
 
     private SparseIntArray sparseIntArray;

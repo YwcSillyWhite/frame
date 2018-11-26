@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by yuwenchao on 2018/11/17.
+ *
+ * @author yuwenchao
+ * @date 2018/11/17
  */
 
 public class MainPresenter extends PresenterImp<MainContract.View> implements MainContract.Presenter{

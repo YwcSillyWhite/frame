@@ -1,7 +1,9 @@
 package com.purewhite.ywc.purewhite.imageload;
 
 /**
- * Created by yuwenchao on 2018/11/14.
+ *
+ * @author yuwenchao
+ * @date 2018/11/14
  * 图片加载
  */
 

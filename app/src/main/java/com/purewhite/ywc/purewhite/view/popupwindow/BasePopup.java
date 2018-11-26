@@ -14,7 +14,9 @@ import android.widget.PopupWindow;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
 
 /**
- * Created by yuwenchao on 2018/11/20.
+ *
+ * @author yuwenchao
+ * @date 2018/11/20
  * 根据需求进行修改这个类
  */
 

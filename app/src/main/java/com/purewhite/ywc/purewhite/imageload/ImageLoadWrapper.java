@@ -4,7 +4,9 @@ import android.content.Context;
 import android.widget.ImageView;
 
 /**
- * Created by yuwenchao on 2018/11/14.
+ *
+ * @author yuwenchao
+ * @date 2018/11/14
  * 图片加载包装接口
  */
 

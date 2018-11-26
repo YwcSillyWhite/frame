@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import java.util.List;
 
 /**
- * Created by yuwenchao on 2018/11/6.
+ *
+ * @author yuwenchao
+ * @date 2018/11/6
  */
 
 public class BasePagerAdapter extends PagerAdapter {

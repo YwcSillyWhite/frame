@@ -1,5 +1,8 @@
 package com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io;
 
+/**
+ * @author yuwenchao
+ */
 public abstract class OnLoadListenerImp implements OnLoadListener{
 
     @Override

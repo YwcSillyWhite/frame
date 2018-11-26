@@ -5,7 +5,9 @@ import com.purewhite.ywc.purewhite.mvp.view.BaseView;
 import java.lang.ref.WeakReference;
 
 /**
- * Created by yuwenchao on 2018/11/5.
+ *
+ * @author yuwenchao
+ * @date 2018/11/5
  * Presenter实现类
  */
 

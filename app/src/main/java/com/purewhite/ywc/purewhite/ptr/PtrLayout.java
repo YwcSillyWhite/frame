@@ -6,6 +6,9 @@ import android.util.AttributeSet;
 import com.purewhite.ywc.purewhite.ptr.base.BasePtrFrameLayout;
 import com.purewhite.ywc.purewhite.ptr.head.PtrFrameHead;
 
+/**
+ * @author yuwenchao
+ */
 public class PtrLayout extends BasePtrFrameLayout {
 
     public PtrLayout(Context context) {

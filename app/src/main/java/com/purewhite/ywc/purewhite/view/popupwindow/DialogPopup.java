@@ -4,6 +4,9 @@ import android.content.Context;
 
 import com.purewhite.ywc.purewhite.R;
 
+/**
+ * @author yuwenchao
+ */
 public class DialogPopup extends BasePopup{
 
     public DialogPopup(Context context) {

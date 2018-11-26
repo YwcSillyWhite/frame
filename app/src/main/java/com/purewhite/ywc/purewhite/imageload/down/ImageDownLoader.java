@@ -12,6 +12,7 @@ import java.io.IOException;
 
 /**
  * glide图片下载到指定的地方
+ * @author yuwenchao
  */
 public class ImageDownLoader implements Runnable{
 

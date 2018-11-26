@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by yuwenchao on 2018/11/14.
+ *
+ * @author yuwenchao
+ * @date 2018/11/14
  */
 
 public abstract class BaseFragment<DB extends ViewDataBinding> extends Fragment{

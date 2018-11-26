@@ -7,7 +7,9 @@ import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;
 import com.purewhite.ywc.purewhite.mvp.presenter.PresenterImp;
 
 /**
- * Created by yuwenchao on 2018/11/19.
+ *
+ * @author yuwenchao
+ * @date 2018/11/19
  */
 
 public class OneFragment extends MvpFragment<FragmentOneBinding,PresenterImp>{

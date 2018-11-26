@@ -6,7 +6,9 @@ import android.view.View;
 
 
 /**
- * Created by yuwenchao on 2018/11/15.
+ *
+ * @author yuwenchao
+ * @date 2018/11/15
  * 子类点击事件
  */
 

@@ -6,7 +6,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by yuwenchao on 2018/11/20.
+ *
+ * @author yuwenchao
+ * @date 2018/11/20
  */
 
 public class BaseRetrofit {

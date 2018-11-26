@@ -15,6 +15,9 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrUIHandler;
 import in.srain.cube.views.ptr.indicator.PtrIndicator;
 
+/**
+ * @author yuwenchao
+ */
 public class PtrFrameHead extends FrameLayout implements PtrUIHandler {
 
     private AnimationDrawable background;

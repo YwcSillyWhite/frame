@@ -5,7 +5,9 @@ import com.purewhite.ywc.purewhite.mvp.view.BaseView;
 import com.purewhite.ywc.purewhite.ui.activity.main.adapter.MainAdapter;
 
 /**
- * Created by yuwenchao on 2018/11/17.
+ *
+ * @author yuwenchao
+ * @date 2018/11/17
  */
 
 public class MainContract {

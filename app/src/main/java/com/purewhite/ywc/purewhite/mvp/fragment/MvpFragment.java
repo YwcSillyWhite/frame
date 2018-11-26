@@ -8,7 +8,9 @@ import com.purewhite.ywc.purewhite.mvp.presenter.PresenterImp;
 import com.purewhite.ywc.purewhite.mvp.view.BaseView;
 
 /**
- * Created by yuwenchao on 2018/11/14.
+ *
+ * @author yuwenchao
+ * @date 2018/11/14
  */
 
 public abstract class MvpFragment<DB extends ViewDataBinding,P extends PresenterImp>

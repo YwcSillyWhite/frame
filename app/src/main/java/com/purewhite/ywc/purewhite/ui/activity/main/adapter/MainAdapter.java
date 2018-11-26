@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 /**
  * Created by yuwenchao on 2018/11/17
+ * @author yuwenchao
  */
 
 public class MainAdapter extends BindAdapter<MainBean>{

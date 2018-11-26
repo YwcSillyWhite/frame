@@ -1,7 +1,9 @@
 package com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io;
 
 /**
- * Created by yuwenchao on 2018/11/19.
+ *
+ * @author yuwenchao
+ * @date 2018/11/19
  * 滑动监听
  */
 

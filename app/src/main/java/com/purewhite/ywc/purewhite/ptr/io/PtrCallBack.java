@@ -5,6 +5,9 @@ import android.view.View;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 
+/**
+ * @author yuwenchao
+ */
 public abstract class PtrCallBack extends PtrDefaultHandler {
     @Override
     public void onRefreshBegin(PtrFrameLayout frame) {

@@ -8,7 +8,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.purewhite.ywc.purewhite.R;
 
 /**
- * Created by yuwenchao on 2018/11/14.
+ *
+ * @author yuwenchao
+ * @date 2018/11/14
  * 图片包装实现接口 根据自己的需求加入自己需要的图片框架
  *
  *

@@ -8,7 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 /**
- * Created by yuwenchao on 2018/11/3.
+ *
+ * @author yuwenchao
+ * @date 2018/11/3
  */
 
 public abstract class BaseActivity<DB extends ViewDataBinding> extends AppCompatActivity{

@@ -3,7 +3,9 @@ package com.purewhite.ywc.purewhite.adapter.recyclerview.loadview;
 import com.purewhite.ywc.purewhite.R;
 
 /**
- * Created by yuwenchao on 2018/11/19.
+ *
+ * @author yuwenchao
+ * @date 2018/11/19
  */
 
 public class LoadViewImp extends LoadView{

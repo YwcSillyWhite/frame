@@ -8,6 +8,9 @@ import com.purewhite.ywc.purewhite.imageload.down.ImageDownLoader;
 
 import java.io.File;
 
+/**
+ * @author yuwenchao
+ */
 public class ImgFileUtils {
     /**
      * 生成文件夹路径

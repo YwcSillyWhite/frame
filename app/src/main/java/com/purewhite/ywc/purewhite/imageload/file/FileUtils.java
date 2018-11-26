@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.IOException;
 
 
+/**
+ * @author yuwenchao
+ */
 public final class FileUtils {
 
     private FileUtils() {

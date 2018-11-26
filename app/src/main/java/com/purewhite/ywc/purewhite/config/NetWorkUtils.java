@@ -6,7 +6,9 @@ import android.net.NetworkInfo;
 
 import com.purewhite.ywc.purewhite.app.AppUtils;
 
-//网络utils
+/**
+ * @author yuwenchao
+ */ //网络utils
 public class NetWorkUtils {
 
     public static boolean isNetworkConnected() {

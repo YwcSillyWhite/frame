@@ -17,7 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by yuwenchao on 2018/11/6.
+ *
+ * @author yuwenchao
+ * @date 2018/11/6
  */
 
 public class GuideActivity extends MvpActivity<ActivityGuideBinding,GuidePresenter>

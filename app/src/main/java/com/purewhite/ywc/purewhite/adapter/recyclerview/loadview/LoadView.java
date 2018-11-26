@@ -5,7 +5,9 @@ import android.view.View;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BaseViewHolder;
 
 /**
- * Created by yuwenchao on 2018/11/19.
+ *
+ * @author yuwenchao
+ * @date 2018/11/19
  */
 
 public abstract class LoadView {

@@ -4,7 +4,9 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 /**
- * Created by yuwenchao on 2018/11/6.
+ *
+ * @author yuwenchao
+ * @date 2018/11/6
  */
 
 public class AimaTransforme implements ViewPager.PageTransformer {

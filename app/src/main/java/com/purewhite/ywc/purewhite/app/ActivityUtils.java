@@ -3,7 +3,9 @@ package com.purewhite.ywc.purewhite.app;
 import android.content.Intent;
 
 /**
- * Created by yuwenchao on 2018/11/13.
+ *
+ * @author yuwenchao
+ * @date 2018/11/13
  */
 public class ActivityUtils {
     private static ActivityUtils activityUtils;

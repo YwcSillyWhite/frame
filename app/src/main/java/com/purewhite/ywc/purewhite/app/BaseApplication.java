@@ -4,7 +4,9 @@ import android.app.Application;
 //import android.support.multidex.MultiDex;
 
 /**
- * Created by yuwenchao on 2018/11/3.
+ *
+ * @author yuwenchao
+ * @date 2018/11/3
  */
 
 public class BaseApplication extends Application{

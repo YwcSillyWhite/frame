@@ -6,7 +6,9 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
-//图片utils
+/**
+ * @author yuwenchao
+ */ //图片utils
 public class ImgUtils {
 
     /**

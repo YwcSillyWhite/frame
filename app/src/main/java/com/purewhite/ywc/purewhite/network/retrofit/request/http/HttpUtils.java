@@ -7,7 +7,9 @@ import com.purewhite.ywc.purewhite.network.rxjava.RxSchedulers;
 
 import okhttp3.ResponseBody;
 
-//第3方封装利于后期的修改第3方数据
+/**
+ * @author yuwenchao
+ */ //第3方封装利于后期的修改第3方数据
 public class HttpUtils {
 
     private static HttpUtils httpUtils;
