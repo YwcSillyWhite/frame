@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.adapter.recyclerview.io;
+package com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io;
 
 /**
  * Created by yuwenchao on 2018/11/19.

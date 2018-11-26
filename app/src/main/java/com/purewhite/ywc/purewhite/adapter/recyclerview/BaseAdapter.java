@@ -10,9 +10,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnItemListener;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnLoadListener;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListener;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadView;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadViewImp;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BaseViewHolder;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
 
@@ -61,10 +62,10 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
         this.onItemListener = onItemListener;
     }
 
-    private OnLoadListener onLoadListener;
+    private OnLoadListenerImp onLoadListenerImp;
 
-    public void setOnLoadListener(OnLoadListener onLoadListener) {
-        this.onLoadListener = onLoadListener;
+    public void setOnLoadListener(OnLoadListenerImp onLoadListenerImp) {
+        this.onLoadListenerImp = onLoadListenerImp;
     }
 
     public BaseAdapter(List<T> list) {
@@ -107,6 +108,11 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
                     @Override
                     public void onSingleClick(View v) {
                         //加载失败，点击重新加载
+                        if (loadView.getState()==LoadView.STATE_FAIL)
+                        {
+                            loadView.setState(LoadView.STATE_LOAD);
+                            onLoadListenerImp.loadAgain();
+                        }
                     }
                 });
                 break;
@@ -169,7 +175,7 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    onLoadListener.loadback();
+                    onLoadListenerImp.loadSuccess();
                 }
             }, 200);
         }
@@ -234,7 +240,7 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     //加载更多
     public int getLoadCount()
     {
-        if (onLoadListener==null)
+        if (onLoadListenerImp==null)
             return 0;
         return 1;
     }

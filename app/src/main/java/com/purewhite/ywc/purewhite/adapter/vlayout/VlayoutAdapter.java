@@ -9,20 +9,28 @@ import android.view.ViewGroup;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnLoadListener;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListener;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadView;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadViewImp;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BaseViewHolder;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
 
 import java.util.List;
 
+/**
+ * @author yuwenchao
+ */
 public class VlayoutAdapter extends DelegateAdapter
 {
     //加载更多load itemtype
     private final int LOAD_VIEW=0x00010001;
     //加载更多监听
-    private OnLoadListener onLoadListener;
+    private OnLoadListenerImp onLoadListenerImp;
+    public void setOnLoadListenerImp(OnLoadListenerImp onLoadListenerImp) {
+        this.onLoadListenerImp = onLoadListenerImp;
+    }
+
     private LoadView loadView=new LoadViewImp();
     private Handler handler=new Handler();
     private int mPagesize=10;
@@ -59,7 +67,7 @@ public class VlayoutAdapter extends DelegateAdapter
     //加载更多布局的item
     private int getLoadCount()
     {
-        if (onLoadListener==null)
+        if (onLoadListenerImp==null)
             return 0;
         return 1;
     }
@@ -90,6 +98,12 @@ public class VlayoutAdapter extends DelegateAdapter
             @Override
             public void onSingleClick(View v) {
                 //点击加载失败的接口
+                //加载失败，点击重新加载
+                if (loadView.getState()==LoadView.STATE_FAIL)
+                {
+                    loadView.setState(LoadView.STATE_LOAD);
+                    onLoadListenerImp.loadAgain();
+                }
             }
         });
         return viewHolder;
@@ -115,7 +129,7 @@ public class VlayoutAdapter extends DelegateAdapter
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    onLoadListener.loadback();
+                    onLoadListenerImp.loadSuccess();
                 }
             },200);
         }

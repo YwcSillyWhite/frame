@@ -1,8 +1,8 @@
 package com.purewhite.ywc.purewhite.adapter.recyclerview.io;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.purewhite.ywc.purewhite.adapter.recyclerview.BaseAdapter;
 
 
 /**
@@ -11,5 +11,5 @@ import com.purewhite.ywc.purewhite.adapter.recyclerview.BaseAdapter;
  */
 
 public interface OnItemListener<T> {
-    void OnItemCall(BaseAdapter adapter, View view, int position,T t);
+    void OnItemCall(RecyclerView.Adapter adapter, View view, int position, Object t);
 }
