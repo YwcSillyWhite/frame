@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.purewhite.ywc.purewhite.R;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
 import com.purewhite.ywc.purewhite.ptr.io.PtrCallBack;
 import com.purewhite.ywc.purewhite.ui.activity.main.adapter.MainAdapter;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListener;
@@ -47,9 +48,14 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
         mainAdapter = new MainAdapter();
         mDataBinding.recycler.setLayoutManager(new GridLayoutManager(this,2));
         mDataBinding.recycler.setAdapter(mainAdapter);
-        mainAdapter.setOnLoadListener(new OnLoadListener() {
+        mainAdapter.setOnLoadListenerImp(new OnLoadListenerImp() {
             @Override
-            public void loadback() {
+            public void loadSuccess() {
+
+            }
+
+            @Override
+            public void loadAgain() {
 
             }
         });

@@ -64,7 +64,7 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
 
     private OnLoadListenerImp onLoadListenerImp;
 
-    public void setOnLoadListener(OnLoadListenerImp onLoadListenerImp) {
+    public void setOnLoadListenerImp(OnLoadListenerImp onLoadListenerImp) {
         this.onLoadListenerImp = onLoadListenerImp;
     }
 

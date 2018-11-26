@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.multidex.MultiDex;
+import android.support.v4.math.MathUtils;
 
 import com.purewhite.ywc.purewhite.mvp.activity.BaseActivity;
 
@@ -70,6 +72,7 @@ public final class  AppUtils {
     public static void init(final BaseApplication app) {
         application=app;
         app.registerActivityLifecycleCallbacks(activityLifecycleCallbacks);
+        MultiDex.install(app);
     }
 
 
