@@ -8,8 +8,6 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        // 设置MultiDex可用
-        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
     }
@@ -21,12 +19,6 @@ android {
     }
     dataBinding {
         enabled = true
-    }
-
-
-    dexOptions {
-        preDexLibraries = false
-        javaMaxHeapSize "2g"
     }
 }
 

@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnItemListener;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListener;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadView;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadViewImp;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;

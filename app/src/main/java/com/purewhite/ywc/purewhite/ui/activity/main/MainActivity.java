@@ -11,11 +11,10 @@ import android.view.WindowManager;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
-import com.purewhite.ywc.purewhite.ptr.io.PtrCallBack;
-import com.purewhite.ywc.purewhite.ui.activity.main.adapter.MainAdapter;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListener;
 import com.purewhite.ywc.purewhite.databinding.ActivityMainBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
+import com.purewhite.ywc.purewhite.ptr.io.PtrCallBack;
+import com.purewhite.ywc.purewhite.ui.activity.main.adapter.MainAdapter;
 import com.purewhite.ywc.purewhite.view.popupwindow.DialogPopup;
 
 /**

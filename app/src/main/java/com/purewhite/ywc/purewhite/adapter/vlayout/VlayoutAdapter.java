@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListener;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadView;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadViewImp;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
