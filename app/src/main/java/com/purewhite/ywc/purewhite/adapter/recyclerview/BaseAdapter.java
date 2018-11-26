@@ -161,14 +161,10 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     //判断是不是加载更多
     protected  void loadMore(int position)
     {
-        if (getLoadCount()==0)
-            return;
-        if (onLoadListener==null)
-            return;
-        if (position<getItemCount()-1)
+        if (getLoadCount()==0||position<getItemCount()-1)
             return;
         //加载结束
-        if (loadView.getState()==LoadView.STATE_FINISH) {
+        if (loadView.getState()==LoadView.STATE_FINISH_TRUE) {
             loadView.setState(LoadView.STATE_LOAD);
             handler.postDelayed(new Runnable() {
                 @Override
@@ -238,7 +234,7 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     //加载更多
     public int getLoadCount()
     {
-        if (loadView==null||onLoadListener==null)
+        if (onLoadListener==null)
             return 0;
         return 1;
     }
@@ -253,14 +249,13 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     //刷新数据
     public void flush(List<T> list)
     {
-        loadView.setState(LoadView.STATE_FINISH);
         if (list!=null&&list.size()>=pageSize)
         {
-            loadView.setCanLoad(true);
+            loadView.setState(LoadView.STATE_FINISH_TRUE);
         }
         else
         {
-            loadView.setCanLoad(false);
+            loadView.setState(LoadView.STATE_FINISH_FALSE);
         }
         mData=list!=null&&list.size()>0?list:new ArrayList<T>();
         notifyDataSetChanged();
@@ -269,29 +264,29 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     //添加数据
     public void addData(List<T> list)
     {
-        if (list!=null&&list.size()>=pageSize)
+        if (mData==null&&mData.size()==0)
         {
-            loadView.setState(LoadView.STATE_FINISH);
-            loadView.setCanLoad(true);
+            flush(list);
         }
         else
         {
-            loadView.setCanLoad(false);
-            if (mData.size()>0)
+            if (list!=null&&list.size()>0)
             {
-                loadView.setState(LoadView.STATE_NOMOR);
+                if (list.size()>=pageSize)
+                {
+                    loadView.setState(LoadView.STATE_FINISH_TRUE);
+                }
+                else
+                {
+                    loadView.setState(LoadView.STATE_FINISH_NODATA);
+                }
+                mData.addAll(list);
+                notifyItemRangeInserted(mData.size()-list.size() + getHeadCount(), list.size());
             }
             else
             {
-                loadView.setState(LoadView.STATE_FINISH);
+                loadView.setState(LoadView.STATE_FINISH_NODATA);
             }
-        }
-        if (list!=null&&list.size()>0)
-        {
-
-            mData.addAll(list);
-            loadView.setCanLoad(list.size()>pageSize);
-            notifyItemRangeInserted(mData.size()-list.size() + getHeadCount(), list.size());
         }
     }
 

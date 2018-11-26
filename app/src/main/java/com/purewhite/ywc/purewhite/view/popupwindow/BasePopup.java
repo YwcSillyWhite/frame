@@ -18,9 +18,11 @@ import com.purewhite.ywc.purewhite.config.OnSingleListener;
  * 根据需求进行修改这个类
  */
 
-public class BasePopup extends PopupWindow{
+public abstract class BasePopup extends PopupWindow{
     //全屏
-    public final static  int FULL=0;
+    public final static int FULL=0;
+    //dialog
+    public final static int DIALOG=1;
     private View parentView;
     //这是
     public BasePopup(Context context,int layoutId) {
@@ -30,25 +32,41 @@ public class BasePopup extends PopupWindow{
     public BasePopup(Context context,int layoutId,int type)
     {
         parentView=LayoutInflater.from(context).inflate(layoutId,null);
-        setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        setOutsideTouchable(true);
-        setTouchable(true);
         switch (type)
         {
             case FULL:
-                setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
-                setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-                parentView.setOnClickListener(new OnSingleListener() {
-                    @Override
-                    public void onSingleClick(View v) {
-                        dismiss();
-                    }
-                });
+                initFull();
                 break;
-                default:
-                    throw new UnsupportedOperationException("you must set type");
+            case DIALOG:
+                initDialog();
+                break;
         }
         setContentView(parentView);
+    }
+
+    private void initFull()
+    {
+        setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        setOutsideTouchable(true);
+        setTouchable(true);
+        setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+        setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        parentView.setOnClickListener(new OnSingleListener() {
+            @Override
+            public void onSingleClick(View v) {
+                dismiss();
+            }
+        });
+    }
+
+
+    private void initDialog()
+    {
+        setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        setOutsideTouchable(false);
+        setTouchable(true);
+        setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
 

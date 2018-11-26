@@ -10,16 +10,17 @@ import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BaseViewHolde
 
 public abstract class LoadView {
     private int state;
-    //是否能加载
-    private boolean isCanLoad;
     //加载更多
     public static final int STATE_LOAD=1;
     //加载失败
     public static final int STATE_FAIL=2;
-    //没有数据
-    public static final int STATE_NOMOR=3;
     //加载结束，下次还可以进行加载
-    public static final int STATE_FINISH=4;
+    public static final int STATE_FINISH_TRUE=3;
+    //加载结束或者开始状态，下次不能进行加载
+    public static final int STATE_FINISH_FALSE=4;
+    //加载结束，没有更多数据的时候
+    public static final int STATE_FINISH_NODATA=5;
+
 
 
     public abstract  int getLayoutId();
@@ -45,12 +46,13 @@ public abstract class LoadView {
                 visible(holder,getFailViewId(), View.VISIBLE);
                 visible(holder,getNoMoreViewId(), View.GONE);
                 break;
-            case STATE_NOMOR:
+            case STATE_FINISH_NODATA:
                 visible(holder,getLoadViewId(), View.GONE);
                 visible(holder,getFailViewId(), View.GONE);
                 visible(holder,getNoMoreViewId(), View.VISIBLE);
                 break;
-            case STATE_FINISH:
+            case STATE_FINISH_TRUE:
+            case STATE_FINISH_FALSE:
                 visible(holder,getLoadViewId(), View.GONE);
                 visible(holder,getFailViewId(), View.GONE);
                 visible(holder,getNoMoreViewId(), View.GONE);
@@ -68,20 +70,11 @@ public abstract class LoadView {
         holder.setVisibility(id, visible);
     }
 
-
     public int getState() {
         return state;
     }
     public void setState(int state) {
         this.state = state;
     }
-    public boolean isCanLoad() {
-        return isCanLoad;
-    }
-
-    public void setCanLoad(boolean canLoad) {
-        isCanLoad = canLoad;
-    }
-
 
 }
