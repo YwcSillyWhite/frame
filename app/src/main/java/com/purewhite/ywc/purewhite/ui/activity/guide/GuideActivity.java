@@ -5,13 +5,13 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.purewhite.ywc.purewhite.R;
+import com.purewhite.ywc.purewhite.adapter.pagerview.BasePagerAdapter;
 import com.purewhite.ywc.purewhite.app.ActivityUtils;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
 import com.purewhite.ywc.purewhite.databinding.ActivityGuideBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
 import com.purewhite.ywc.purewhite.ui.activity.main.MainActivity;
 import com.purewhite.ywc.purewhite.view.pagerview.AimaTransforme;
-import com.purewhite.ywc.purewhite.view.pagerview.BasePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

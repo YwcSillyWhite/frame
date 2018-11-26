@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.view.pagerview;
+package com.purewhite.ywc.purewhite.adapter.pagerview;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
