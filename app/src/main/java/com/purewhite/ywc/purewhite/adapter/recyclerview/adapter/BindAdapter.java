@@ -1,12 +1,10 @@
-package com.purewhite.ywc.purewhite.adapter.vlayout.child;
+package com.purewhite.ywc.purewhite.adapter.recyclerview.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.purewhite.ywc.purewhite.adapter.recyclerview.bean.BindBean;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnItemListener;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BindHolder;
 
@@ -14,29 +12,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *
  * @author yuwenchao
+ * @date 2018/11/17
+ * 使用数据里面的
  */
-public abstract class VlayoutBindAdapter<T> extends VlayoutBaseAdapter<T,BindHolder>{
 
+public abstract class BindAdapter<T> extends BaseAdapter<T,BindHolder>{
     private int layoutId;
 
-    protected int getLayout(int viewType)
-    {
-        return layoutId;
-    }
-
-    public VlayoutBindAdapter(List<T> list) {
+    public BindAdapter(List<T> list) {
         super(list);
     }
 
-    public VlayoutBindAdapter(int layoutId,OnItemListener<T> listener) {
-        this(new ArrayList<T>(),layoutId,listener);
+    public BindAdapter(int layoutId,OnItemListener onItemListener)
+    {
+        this(new ArrayList<T>(),layoutId,onItemListener);
     }
 
-    public VlayoutBindAdapter(List<T> list,int layoutId, OnItemListener<T> listener) {
-        this(list);
+    public BindAdapter(List<T> list,int layoutId, OnItemListener onItemListener) {
+        this(new ArrayList<T>());
         this.layoutId=layoutId;
-        setOnItemListener(listener);
+        setOnItemListener(onItemListener);
     }
 
     @Override
@@ -45,4 +42,11 @@ public abstract class VlayoutBindAdapter<T> extends VlayoutBaseAdapter<T,BindHol
                 getLayout(viewType), parent, false);
         return new BindHolder(binding);
     }
+
+    //返回布局id
+    protected int getLayout(int viewType)
+    {
+        return layoutId;
+    }
+
 }

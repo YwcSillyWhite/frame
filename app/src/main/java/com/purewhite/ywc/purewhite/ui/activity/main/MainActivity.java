@@ -41,15 +41,6 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
     @Override
     protected void initView() {
 
-
-        HttpUtils.newInstance().getRequest("", null, new HttpObserver<BindBean>() {
-            @Override
-            public void onSuccess(BindBean bindBean) {
-
-            }
-        });
-
-
         mDataBinding.ptrLayout.setEnabled(true);
         mDataBinding.ptrLayout.setPtrHandler(new PtrCallBack() {
             @Override
@@ -61,7 +52,7 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
         mDataBinding.recycler.setAdapter(mainAdapter);
         mainAdapter.setOnLoadListenerImp(new OnLoadListenerImp() {
             @Override
-            public void loadSuccess() {
+            public void onPullUp() {
 
             }
 
@@ -113,6 +104,7 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
         mainAdapter.addFootView(foot);
 
 
+        mPresenter.getRequest();
     }
 
 

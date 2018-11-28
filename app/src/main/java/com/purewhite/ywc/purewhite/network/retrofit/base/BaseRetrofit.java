@@ -50,6 +50,21 @@ public class BaseRetrofit {
         return this;
     }
 
+    //初始化
+    public Retrofit init(String baseUri)
+    {
+        return new Retrofit.Builder()
+                .baseUrl(baseUri)
+                .client(getOkHttp())
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+    }
+
+
+
+
+
 
     /**
      * 设置拦截器

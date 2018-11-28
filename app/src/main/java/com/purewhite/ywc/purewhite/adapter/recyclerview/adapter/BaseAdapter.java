@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.adapter.recyclerview;
+package com.purewhite.ywc.purewhite.adapter.recyclerview.adapter;
 
 import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;

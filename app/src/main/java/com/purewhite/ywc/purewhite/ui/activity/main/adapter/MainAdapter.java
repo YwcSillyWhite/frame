@@ -1,7 +1,7 @@
 package com.purewhite.ywc.purewhite.ui.activity.main.adapter;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.BindAdapter;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.adapter.BindTypeAdapter;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BindHolder;
 import com.purewhite.ywc.purewhite.databinding.AdapterMianBinding;
 import com.purewhite.ywc.purewhite.ui.bean.activity.main.MainBean;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author yuwenchao
  */
 
-public class MainAdapter extends BindAdapter<MainBean>{
+public class MainAdapter extends BindTypeAdapter<MainBean> {
 
     public MainAdapter() {
         super(new ArrayList<MainBean>());

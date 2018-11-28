@@ -20,5 +20,7 @@ public class MainContract {
     interface Presenter extends BasePresenter<View>
     {
         void getData();
+
+        void getRequest();
     }
 }

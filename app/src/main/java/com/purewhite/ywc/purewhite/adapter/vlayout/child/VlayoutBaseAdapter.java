@@ -36,7 +36,7 @@ public abstract class VlayoutBaseAdapter<T,V extends BaseViewHolder> extends Del
         this.onItemListener = onItemListener;
     }
 
-    private T obtain(int position)
+    public T obtain(int position)
     {
         if (position>=mData.size()-1)
         {
