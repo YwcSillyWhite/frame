@@ -174,7 +174,7 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    onLoadListenerImp.loadSuccess();
+                    onLoadListenerImp.onPullUp();
                 }
             }, 200);
         }

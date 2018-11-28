@@ -9,7 +9,7 @@ public abstract class OnLoadListenerImp implements OnLoadListener{
     public void loadback() {
         if (judge())
         {
-            loadSuccess();
+            onPullUp();
         }
     }
 
@@ -19,7 +19,7 @@ public abstract class OnLoadListenerImp implements OnLoadListener{
     }
 
     //加载更多
-    public abstract void loadSuccess();
+    public abstract void onPullUp();
 
     //重新加载
     public abstract void loadAgain();

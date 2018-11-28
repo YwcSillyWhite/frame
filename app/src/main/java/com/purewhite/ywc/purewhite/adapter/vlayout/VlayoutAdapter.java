@@ -128,7 +128,7 @@ public class VlayoutAdapter extends DelegateAdapter
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    onLoadListenerImp.loadSuccess();
+                    onLoadListenerImp.onPullUp();
                 }
             },200);
         }

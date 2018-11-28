@@ -5,6 +5,8 @@ import com.purewhite.ywc.purewhite.network.retrofit.base.BaseRetrofit;
 import com.purewhite.ywc.purewhite.network.rxjava.HttpObserver;
 import com.purewhite.ywc.purewhite.network.rxjava.RxSchedulers;
 
+import java.util.Map;
+
 import okhttp3.ResponseBody;
 
 /**
@@ -33,12 +35,11 @@ public class HttpUtils {
         httpService = BaseRetrofit.newInstance().init().create(HttpService.class);
     }
 
-    //例子
-    public void request(HttpObserver<ResponseBody> httpObserver)
-    {
-        httpService.request().compose(RxSchedulers.<ResponseBody>compose()).
-                subscribe(httpObserver);
-    }
 
+    //例子
+    public <T>void getRequest(String Url,Map<String,String> maps,HttpObserver<T> httpObserver)
+    {
+        httpService.<T>get(Url,maps).compose(RxSchedulers.<T>compose()).subscribe(httpObserver);
+    }
 
 }

@@ -4,6 +4,8 @@ import com.purewhite.ywc.purewhite.mvp.view.BaseView;
 
 import java.lang.ref.WeakReference;
 
+import io.reactivex.Observable;
+
 /**
  *
  * @author yuwenchao
@@ -28,6 +30,7 @@ public class PresenterImp<V extends BaseView> implements BasePresenter<V> {
         {
             vWeakReference.clear();
             mView=null;
+
         }
     }
 }

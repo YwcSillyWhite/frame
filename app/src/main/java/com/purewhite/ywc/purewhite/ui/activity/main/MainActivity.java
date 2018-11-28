@@ -5,12 +5,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.bean.BindBean;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
 import com.purewhite.ywc.purewhite.databinding.ActivityMainBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
+import com.purewhite.ywc.purewhite.network.retrofit.request.http.HttpService;
+import com.purewhite.ywc.purewhite.network.retrofit.request.http.HttpUtils;
+import com.purewhite.ywc.purewhite.network.rxjava.HttpObserver;
+import com.purewhite.ywc.purewhite.network.rxjava.RxSchedulers;
 import com.purewhite.ywc.purewhite.ptr.io.PtrCallBack;
 import com.purewhite.ywc.purewhite.ui.activity.main.adapter.MainAdapter;
 import com.purewhite.ywc.purewhite.view.popupwindow.DialogPopup;
+
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
 
 /**
  * @author yuwenchao
@@ -32,6 +40,15 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
 
     @Override
     protected void initView() {
+
+
+        HttpUtils.newInstance().getRequest("", null, new HttpObserver<BindBean>() {
+            @Override
+            public void onSuccess(BindBean bindBean) {
+
+            }
+        });
+
 
         mDataBinding.ptrLayout.setEnabled(true);
         mDataBinding.ptrLayout.setPtrHandler(new PtrCallBack() {

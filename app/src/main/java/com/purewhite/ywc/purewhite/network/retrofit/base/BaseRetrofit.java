@@ -1,6 +1,9 @@
 package com.purewhite.ywc.purewhite.network.retrofit.base;
 
+import com.purewhite.ywc.purewhite.config.LogUtils;
+
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -36,15 +39,40 @@ public class BaseRetrofit {
     {
         if (retrofit==null)
         {
-            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUri)
-                    .client(builder.build())
+                    .client(getOkHttp())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
         }
         return this;
+    }
+
+
+    /**
+     * 设置拦截器
+     * @return okhttpclient
+     */
+    private OkHttpClient getOkHttp()
+    {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String message) {
+                LogUtils.okHttp(message);
+            }
+        });
+        /**
+         * NONE  :  没有log
+         * BASEIC:  请求/响应行
+         * HEADER:  请求/响应行 + 头
+         * BODY  :  请求/响应航 + 头 + 体
+         */
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        builder.addInterceptor(httpLoggingInterceptor);
+        return builder.build();
     }
 
 

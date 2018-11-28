@@ -16,6 +16,7 @@ public class ImgFileUtils {
      * 生成文件夹路径
      */
     public final static String Address = Environment.getExternalStorageDirectory() + "/Yuwenchao/";
+
     //下载图片
     public static void downImg(Context context,String uri, String name,ImageDownCall imageDownCall)
     {
