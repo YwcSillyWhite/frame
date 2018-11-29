@@ -57,15 +57,12 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
         request_contet = getArguments().getString(TagUtils.fragmentString);
         mDataBinding.ptrFrame.setPtrHandler(ptrCallBack);
         initRecycler();
-        Log.d("ywc",fragmentShow+"bucuo");
-        if (homeChildAdapter.getDataCount()==0)
-        {
-            mPresenter.getShip(true,true,request_contet,page);
-        }
-//        if (fragmentShow)
-//        {
-//
-//        }
+    }
+
+    @Override
+    protected void fristLoad() {
+        super.fristLoad();
+        mPresenter.getShip(true,true,request_contet,page);
     }
 
     private void initRecycler() {

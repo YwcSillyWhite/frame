@@ -6,6 +6,7 @@ import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;
 import com.purewhite.ywc.purewhite.ui.fragment.home.adapter.HomePagerAdapter;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class HomeFragment extends MvpFragment<FragmentHomeBinding,HomePresenter> implements HomeContract.View {
 
@@ -23,10 +24,11 @@ public class HomeFragment extends MvpFragment<FragmentHomeBinding,HomePresenter>
 
     @Override
     protected void initView() {
-        homePagerAdapter = new HomePagerAdapter(getChildFragmentManager()
-                ,        Arrays.asList(getResources().getStringArray(R.array.tab_fragment_home)));
+        List<String> stringList = Arrays.asList(getResources().getStringArray(R.array.tab_fragment_home));
+        homePagerAdapter = new HomePagerAdapter(getChildFragmentManager(),stringList);
         mDataBinding.viewPager.setAdapter(homePagerAdapter);
         mDataBinding.tabLayout.setupWithViewPager(mDataBinding.viewPager);
+        mDataBinding.viewPager.setOffscreenPageLimit(stringList.size());
     }
 
 }

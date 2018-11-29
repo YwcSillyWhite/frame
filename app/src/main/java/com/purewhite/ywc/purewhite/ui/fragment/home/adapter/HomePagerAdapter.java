@@ -5,13 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import com.purewhite.ywc.purewhite.adapter.pagerview.BaseFragmentStateAdapter;
+import com.purewhite.ywc.purewhite.adapter.pagerview.BaseFragmentAdapter;
 import com.purewhite.ywc.purewhite.config.TagUtils;
 import com.purewhite.ywc.purewhite.ui.fragment.home.child.HomeChildFragment;
 
 import java.util.List;
 
-public class HomePagerAdapter extends BaseFragmentStateAdapter<String> {
+public class HomePagerAdapter extends BaseFragmentAdapter<String> {
 
     public HomePagerAdapter(FragmentManager fm) {
         super(fm);

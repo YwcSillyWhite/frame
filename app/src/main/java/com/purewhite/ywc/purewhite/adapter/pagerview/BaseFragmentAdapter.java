@@ -2,23 +2,22 @@ package com.purewhite.ywc.purewhite.adapter.pagerview;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-
+import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author yuwenchao
  */
-public abstract class BaseFragmentStateAdapter<T> extends FragmentStatePagerAdapter {
+public abstract class BaseFragmentAdapter<T> extends FragmentPagerAdapter {
 
     protected List<T> mDatas;
 
-    public BaseFragmentStateAdapter(FragmentManager fm) {
+    public BaseFragmentAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    public BaseFragmentStateAdapter(FragmentManager fm,List<T> data) {
+    public BaseFragmentAdapter(FragmentManager fm, List<T> data) {
         this(fm);
         this.mDatas=data;
     }
