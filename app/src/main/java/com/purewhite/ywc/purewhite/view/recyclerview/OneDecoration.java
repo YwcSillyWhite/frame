@@ -8,6 +8,7 @@ import android.view.View;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.adapter.BaseAdapter;
 
 /**
+ * item的间距
  * @author yuwenchao
  */
 public class OneDecoration extends RecyclerView.ItemDecoration {

@@ -44,9 +44,9 @@ public class ImageLoadWrapperImp implements ImageLoadWrapper{
             //不加载动画
             options.dontTransform()
                     //占位图片
-                    .placeholder(R.mipmap.ic_launcher)
+                    .placeholder(R.mipmap.icon_load_error)
                     //加载失败的图片
-                    .error(R.mipmap.ic_launcher)
+                    .error(R.mipmap.icon_load_error)
                     //圆形图片
                     .circleCrop();
         }
@@ -61,9 +61,9 @@ public class ImageLoadWrapperImp implements ImageLoadWrapper{
             //不加载动画
             options.dontTransform()
                     //占位图片
-                    .placeholder(R.mipmap.ic_launcher)
+                    .placeholder(R.mipmap.icon_load_error)
                     //加载失败的图片
-                    .error(R.mipmap.ic_launcher);
+                    .error(R.mipmap.icon_load_error);
         }
         //是否禁止使用内存缓存，false是使用内存缓存，true是禁止使用.默认是开启的
         options.skipMemoryCache(skipMrmpry);

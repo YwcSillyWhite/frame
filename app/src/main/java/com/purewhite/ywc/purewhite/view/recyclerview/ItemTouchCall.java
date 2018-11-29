@@ -4,6 +4,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
+/**
+ * 拽动和左右滑动
+ * @author yuwenchao
+ */
 public class ItemTouchCall extends ItemTouchHelper.Callback {
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView,

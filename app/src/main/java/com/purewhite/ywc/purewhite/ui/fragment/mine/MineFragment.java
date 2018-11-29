@@ -1,18 +1,11 @@
-package com.purewhite.ywc.purewhite.ui.fragment;
+package com.purewhite.ywc.purewhite.ui.fragment.mine;
 
+import android.databinding.ViewDataBinding;
 
-import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.databinding.FragmentOneBinding;
 import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;
 import com.purewhite.ywc.purewhite.mvp.presenter.PresenterImp;
 
-/**
- *
- * @author yuwenchao
- * @date 2018/11/19
- */
-
-public class OneFragment extends MvpFragment<FragmentOneBinding,PresenterImp>{
+public class MineFragment extends MvpFragment<ViewDataBinding,PresenterImp> {
     @Override
     protected PresenterImp creartPresenter() {
         return null;
@@ -20,7 +13,7 @@ public class OneFragment extends MvpFragment<FragmentOneBinding,PresenterImp>{
 
     @Override
     protected int getLayout() {
-        return R.layout.fragment_one;
+        return 0;
     }
 
     @Override

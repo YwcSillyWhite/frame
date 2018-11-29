@@ -17,15 +17,23 @@ import android.view.ViewGroup;
 
 public abstract class BaseFragment<DB extends ViewDataBinding> extends Fragment{
 
-    private DB mDataBind;
-
+    protected DB mDataBinding;
+    //当前fragment是否显示
+    protected boolean fragmentShow;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mDataBind=DataBindingUtil.inflate(inflater,getLayout(),container,false);
-        View view = mDataBind.getRoot();
-        return view;
+        if (getLayout()!=0)
+        {
+            mDataBinding=DataBindingUtil.inflate(inflater,getLayout(),container,false);
+            View view = mDataBinding.getRoot();
+            return view;
+        }
+        else {
+            return null;
+        }
+
     }
 
     @Override
@@ -38,4 +46,22 @@ public abstract class BaseFragment<DB extends ViewDataBinding> extends Fragment{
     protected abstract int getLayout();
     //初始化布局
     protected abstract void initView();
+
+
+    //当前fragment是否显示
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser)
+        {
+            fragmentShow=true;
+        }
+        else
+        {
+            if (fragmentShow)
+            {
+                fragmentShow=false;
+            }
+        }
+    }
 }

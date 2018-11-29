@@ -1,51 +1,47 @@
 package com.purewhite.ywc.purewhite.ui.activity.main;
 
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.support.v4.app.FragmentTransaction;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
-import com.purewhite.ywc.purewhite.config.ToolUtils;
 import com.purewhite.ywc.purewhite.databinding.ActivityMainBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
-import com.purewhite.ywc.purewhite.ptr.io.PtrCallBack;
-import com.purewhite.ywc.purewhite.ui.activity.main.adapter.MainAdapter;
-import com.purewhite.ywc.purewhite.view.popupwindow.DialogPopup;
-import com.purewhite.ywc.purewhite.view.recyclerview.ItemTouchCall;
-import com.purewhite.ywc.purewhite.view.recyclerview.LoadOnScrollListener;
-import com.purewhite.ywc.purewhite.view.recyclerview.OneDecoration;
+import com.purewhite.ywc.purewhite.mvp.fragment.BaseFragment;
+import com.purewhite.ywc.purewhite.ui.fragment.home.HomeFragment;
+import com.purewhite.ywc.purewhite.ui.fragment.mine.MineFragment;
+import com.purewhite.ywc.purewhite.view.BottomLayout;
+import com.purewhite.ywc.purewhite.view.BottomMenu;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author yuwenchao
  */
 public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter> implements MainContract.View {
 
-    private MainAdapter mainAdapter;
-    private DialogPopup dialogPopup;
-    private int page=1;
-    private PtrCallBack ptrCallBack=new PtrCallBack() {
-        @Override
-        public void onPullDown() {
-            page=1;
-            mPresenter.getShip(true,"女装",page);
-        }
-    };
-    private OnLoadListenerImp onLoadListenerImp=new OnLoadListenerImp() {
-        //上啦加载
-        @Override
-        public void onPullUp() {
-            page++;
-            mPresenter.getShip(false,"女装",page);
-        }
-        //重新加载
-        @Override
-        public void loadAgain() {
-            mPresenter.getShip(false,"女装",page);
-        }
-    };
 
+    private BottomLayout.OnBottomLayoutChageListener onBottomLayoutChageListener=new BottomLayout.OnBottomLayoutChageListener() {
+        @Override
+        public void onCheckChage(BottomMenu view) {
+            switch (view.getId())
+            {
+                case R.id.bottom_one:
+                    initFragment(0);
+                    break;
+                case R.id.bottom_two:
+                    initFragment(1);
+                    break;
+                case R.id.bottom_three:
+                    initFragment(2);
+                    break;
+                case R.id.bottom_four:
+                    initFragment(3);
+                    break;
+            }
+        }
+    };
+    private List<BaseFragment> list=new ArrayList<>();
+    private int old_position=-1;
     @Override
     protected MainPresenter creartPresenter() {
         return new MainPresenter();
@@ -58,47 +54,33 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
 
     @Override
     protected void initView() {
-        mDataBinding.ptrLayout.setEnabled(true);
-        mDataBinding.ptrLayout.setPtrHandler(ptrCallBack);
-        initRecycler();
-        mPresenter.getShip(true,"女装",page);
+        mDataBinding.bottomLayout.addOnBottomLayoutChageListener(onBottomLayoutChageListener);
+        list.add(new HomeFragment());
+        list.add(new MineFragment());
+        list.add(new MineFragment());
+        list.add(new MineFragment());
+        initFragment(0);
+        mDataBinding.bottomThree.setMessageNum(15);
     }
 
-    private void initRecycler() {
-
-
-        mDataBinding.recycler.setLayoutManager(new GridLayoutManager(this,2));
-        mDataBinding.recycler.addOnScrollListener(new LoadOnScrollListener());
-        mDataBinding.recycler.addItemDecoration(new OneDecoration(ToolUtils.dip2px(10f,this),2));
-
-
-        mainAdapter = new MainAdapter();
-        //加入加载监听
-        mainAdapter.setOnLoadListenerImp(onLoadListenerImp);
-        //加载的最大条数
-        mainAdapter.setPageSize(20);
-        View foot = LayoutInflater.from(this).inflate(R.layout.foot, mDataBinding.recycler, false);
-        //mainAdapter.addHeadView(foot);加入头部
-        //加入尾部
-        mainAdapter.addFootView(foot);
-        mDataBinding.recycler.setAdapter(mainAdapter);
-//        //先实例化Callback
-//        ItemTouchCall itemTouchCall = new ItemTouchCall();
-//        ItemTouchHelper touchHelper = new ItemTouchHelper(itemTouchCall);
-//        //调用ItemTouchHelper的attachToRecyclerView方法建立联系
-//        touchHelper.attachToRecyclerView(mDataBinding.recycler);
-
+    private void initFragment(int position) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        //是否加入
+        if (list.get(position).isAdded())
+        {
+            fragmentTransaction.show(list.get(position));
+        }
+        else
+        {
+            fragmentTransaction.add(R.id.frame_layout,list.get(position));
+        }
+        if (old_position>=0&&old_position<list.size())
+            fragmentTransaction.hide(list.get(old_position));
+        fragmentTransaction.commit();
+        old_position=position;
     }
 
 
-    @Override
-    public MainAdapter getAdapter() {
-        return mainAdapter;
-    }
 
-    @Override
-    public void loadfinish(boolean flush) {
-        if (flush)
-            mDataBinding.ptrLayout.refreshComplete();
-    }
+
 }

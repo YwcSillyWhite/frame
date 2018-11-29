@@ -109,7 +109,7 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
                         //加载失败，点击重新加载
                         if (loadView.getState()==LoadView.STATE_FAIL)
                         {
-                            loadView.setState(LoadView.STATE_LOAD);
+                            setState(LoadView.STATE_LOAD,true);
                             onLoadListenerImp.loadAgain();
                         }
                     }
@@ -170,7 +170,7 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
             return;
         //加载结束
         if (loadView.getState()==LoadView.STATE_FINISH_TRUE) {
-            loadView.setState(LoadView.STATE_LOAD);
+            setState(LoadView.STATE_LOAD,false);
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -248,7 +248,8 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     //加载失败
     public void loadFail()
     {
-        loadView.setState(LoadView.STATE_FAIL);
+        setState(LoadView.STATE_FAIL,true);
+        notifyItemChanged(getItemCount()-1);
     }
 
     //刷新数据
@@ -256,11 +257,11 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     {
         if (list!=null&&list.size()>=pageSize)
         {
-            loadView.setState(LoadView.STATE_FINISH_TRUE);
+            setState(LoadView.STATE_FINISH_TRUE,true);
         }
         else
         {
-            loadView.setState(LoadView.STATE_FINISH_FALSE);
+            setState(LoadView.STATE_FINISH_FALSE,true);
         }
         mData=list!=null&&list.size()>0?list:new ArrayList<T>();
         notifyDataSetChanged();
@@ -279,18 +280,19 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
             {
                 if (list.size()>=pageSize)
                 {
-                    loadView.setState(LoadView.STATE_FINISH_TRUE);
+                    setState(LoadView.STATE_FINISH_TRUE,true);
                 }
                 else
                 {
-                    loadView.setState(LoadView.STATE_FINISH_NODATA);
+                    setState(LoadView.STATE_FINISH_NODATA,true);
+
                 }
                 mData.addAll(list);
                 notifyItemRangeInserted(mData.size()-list.size() + getHeadCount(), list.size());
             }
             else
             {
-                loadView.setState(LoadView.STATE_FINISH_NODATA);
+                setState(LoadView.STATE_FINISH_NODATA,true);
             }
         }
     }
@@ -311,6 +313,19 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
         }
     }
 
+
+    /**
+     * 设置加载状态
+     * @param statue 状态
+     * @param flush  刷新
+     * 由于滑动过程中要是刷新数据就会导致崩盘
+     */
+    private void setState(int statue,boolean flush)
+    {
+        loadView.setState(statue);
+        if (flush)
+            notifyItemChanged(getItemCount()-1);
+    }
 
 
     //添加头尾

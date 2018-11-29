@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.ui.activity.main.adapter;
+package com.purewhite.ywc.purewhite.ui.fragment.home.child.adapter;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.adapter.BindTypeAdapter;
@@ -15,9 +15,9 @@ import java.util.ArrayList;
  * @author yuwenchao
  */
 
-public class MainAdapter extends BindTypeAdapter<MainBean.DataBean> {
+public class  HomeChildAdapter extends BindTypeAdapter<MainBean.DataBean> {
 
-    public MainAdapter() {
+    public HomeChildAdapter() {
         super(new ArrayList<MainBean.DataBean>());
         //1个使用
         addLayout(R.layout.adapter_mian);

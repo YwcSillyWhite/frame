@@ -16,7 +16,7 @@ import com.purewhite.ywc.purewhite.mvp.view.BaseView;
 public abstract class MvpFragment<DB extends ViewDataBinding,P extends PresenterImp>
         extends BaseFragment<DB> implements BaseView{
 
-    private P mPresenter;
+    protected P mPresenter;
 
     protected abstract P creartPresenter();
     @Override
