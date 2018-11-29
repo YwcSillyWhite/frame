@@ -130,4 +130,14 @@ public class ImageLoadWrapperImp implements ImageLoadWrapper{
         }).start();
 
     }
+
+    @Override
+    public void stop(Context context) {
+        Glide.with(context).pauseRequests();
+    }
+
+    @Override
+    public void start(Context context) {
+        Glide.with(context).resumeRequests();
+    }
 }

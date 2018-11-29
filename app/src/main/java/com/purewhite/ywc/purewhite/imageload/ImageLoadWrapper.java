@@ -21,4 +21,8 @@ public interface ImageLoadWrapper {
      void initBig(ImageView imageView,Object url);
      //清除缓存
      void clear(Context context);
+     //暂停加载
+     void stop(Context context);
+     //启动加载
+     void start(Context context);
 }

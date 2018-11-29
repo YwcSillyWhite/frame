@@ -1,12 +1,15 @@
 package com.purewhite.ywc.purewhite.bean.base;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * @author yuwenchao
  */
-public class ResponseBean<T> {
+public class BaseBean<T> {
 
     private int code;
     private String msg;
+    @SerializedName("returnModel")
     private T t;
 
     public int getCode() {

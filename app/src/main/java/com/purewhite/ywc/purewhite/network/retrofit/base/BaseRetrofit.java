@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BaseRetrofit {
 
-    private final String baseUri="";
+    private final String baseUri="https://hzcangyu.com/";
     private Retrofit retrofit;
     private static BaseRetrofit basRetrofit;
     public static BaseRetrofit newInstance() {
@@ -39,7 +39,6 @@ public class BaseRetrofit {
     {
         if (retrofit==null)
         {
-
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUri)
                     .client(getOkHttp())
@@ -60,10 +59,6 @@ public class BaseRetrofit {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
-
-
-
-
 
 
     /**
@@ -89,7 +84,6 @@ public class BaseRetrofit {
         builder.addInterceptor(httpLoggingInterceptor);
         return builder.build();
     }
-
 
 
 

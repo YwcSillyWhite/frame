@@ -1,13 +1,13 @@
 package com.purewhite.ywc.purewhite.network.retrofit.request.http;
 
 
+import com.purewhite.ywc.purewhite.bean.base.BaseBean;
+import com.purewhite.ywc.purewhite.bean.main.MainBean;
 import com.purewhite.ywc.purewhite.network.retrofit.base.BaseRetrofit;
 import com.purewhite.ywc.purewhite.network.rxjava.HttpObserver;
 import com.purewhite.ywc.purewhite.network.rxjava.RxSchedulers;
 
 import java.util.Map;
-
-import okhttp3.ResponseBody;
 
 /**
  * @author yuwenchao
@@ -42,4 +42,11 @@ public class HttpUtils {
         httpService.<T>get(Url,maps).compose(RxSchedulers.<T>compose()).subscribe(httpObserver);
     }
 
+
+
+    public void getShop(String content,int page,HttpObserver<BaseBean<MainBean>> httpObserver)
+    {
+        httpService.getShopList(content,20,page).
+                compose(RxSchedulers.<BaseBean<MainBean>>compose()).subscribe(httpObserver);
+    }
 }

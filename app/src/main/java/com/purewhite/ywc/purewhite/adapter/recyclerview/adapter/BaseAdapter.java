@@ -295,6 +295,22 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
         }
     }
 
+    /**
+     * @param flush 是否刷新
+     * @param list
+     */
+    public void flushOrAddData(boolean flush,List<T> list)
+    {
+        if (flush)
+        {
+            flush(list);
+        }
+        else
+        {
+            addData(list);
+        }
+    }
+
 
 
     //添加头尾

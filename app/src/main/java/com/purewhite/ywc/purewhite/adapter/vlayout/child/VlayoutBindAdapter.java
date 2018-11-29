@@ -2,11 +2,9 @@ package com.purewhite.ywc.purewhite.adapter.vlayout.child;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.purewhite.ywc.purewhite.adapter.recyclerview.bean.BindBean;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnItemListener;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BindHolder;
 
