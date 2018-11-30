@@ -1,5 +1,6 @@
 package com.purewhite.ywc.purewhite.adapter.vlayout.child;
 
+import android.util.Log;
 import android.util.SparseIntArray;
 
 import com.purewhite.ywc.purewhite.adapter.recyclerview.bean.BindBean;
@@ -57,6 +58,7 @@ public abstract class VlayoutBindTypeAdapter<T extends BindBean> extends Vlayout
     }
 
     private int getDataType(int position) {
-        return obtain(position).getType();
+        return obtain(position).getBeanType();
     }
+
 }

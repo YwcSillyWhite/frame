@@ -38,7 +38,7 @@ public abstract class VlayoutBaseAdapter<T,V extends BaseViewHolder> extends Del
 
     public T obtain(int position)
     {
-        if (position>=mData.size()-1)
+        if (position<mData.size())
         {
             return mData.get(position);
         }

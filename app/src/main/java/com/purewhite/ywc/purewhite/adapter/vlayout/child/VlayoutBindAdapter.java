@@ -5,6 +5,7 @@ import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnItemListener;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BindHolder;
 
@@ -25,6 +26,12 @@ public abstract class VlayoutBindAdapter<T> extends VlayoutBaseAdapter<T,BindHol
 
     public VlayoutBindAdapter(List<T> list) {
         super(list);
+    }
+
+    public VlayoutBindAdapter(List<T> list,int layoutId)
+    {
+        this(list);
+        this.layoutId=layoutId;
     }
 
     public VlayoutBindAdapter(int layoutId,OnItemListener<T> listener) {

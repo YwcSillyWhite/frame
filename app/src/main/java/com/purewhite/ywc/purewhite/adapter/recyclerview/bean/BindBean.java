@@ -7,5 +7,5 @@ package com.purewhite.ywc.purewhite.adapter.recyclerview.bean;
  */
 
 public interface BindBean {
-    int getType();
+    int getBeanType();
 }

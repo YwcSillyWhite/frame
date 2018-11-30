@@ -46,7 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10kb"
+                android:text="0k"
                 android:textSize="15sp"
                 android:id="@+id/mine_mSize"
                 android:textColor="#333"

@@ -7,7 +7,7 @@ public class MineContract {
 
     public interface View extends BaseView
     {
-
+        void ObtainCache(String content);
     }
 
     public interface Presenter extends BasePresenter<View>

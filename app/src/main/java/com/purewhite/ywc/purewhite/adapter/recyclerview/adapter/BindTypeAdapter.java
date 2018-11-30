@@ -59,6 +59,6 @@ public abstract class BindTypeAdapter<T extends BindBean> extends BindAdapter<T>
 
     @Override
     protected int getDataType(int position) {
-        return obtainT(position).getType();
+        return obtainT(position).getBeanType();
     }
 }

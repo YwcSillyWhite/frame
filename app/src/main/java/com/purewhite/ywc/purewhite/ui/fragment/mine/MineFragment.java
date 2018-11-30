@@ -22,5 +22,11 @@ public class MineFragment extends MvpFragment<FragmentMineBinding,MinePresenter>
     @Override
     protected void initView() {
         ImageLoader.newInstance().initHead(mDataBinding.mineHead,R.mipmap.icon_load_error);
+        mPresenter.getCache();
+    }
+
+    @Override
+    public void ObtainCache(String content) {
+        mDataBinding.mineMSize.setText(content);
     }
 }

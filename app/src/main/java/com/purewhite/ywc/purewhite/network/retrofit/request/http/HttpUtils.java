@@ -1,6 +1,9 @@
 package com.purewhite.ywc.purewhite.network.retrofit.request.http;
 
 
+import android.util.Log;
+
+import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutType;
 import com.purewhite.ywc.purewhite.bean.base.BaseBean;
 import com.purewhite.ywc.purewhite.bean.main.MainBean;
 import com.purewhite.ywc.purewhite.network.retrofit.base.BaseRetrofit;
@@ -8,6 +11,8 @@ import com.purewhite.ywc.purewhite.network.rxjava.HttpObserver;
 import com.purewhite.ywc.purewhite.network.rxjava.RxSchedulers;
 
 import java.util.Map;
+
+import io.reactivex.functions.Function;
 
 /**
  * @author yuwenchao
@@ -47,6 +52,65 @@ public class HttpUtils {
     public void getShop(String content,int page,HttpObserver<BaseBean<MainBean>> httpObserver)
     {
         httpService.getShopList(content,20,page).
+                compose(RxSchedulers.<BaseBean<MainBean>>compose()).subscribe(httpObserver);
+    }
+
+
+    public void getShopCoupon_one(String content,int page,HttpObserver<BaseBean<MainBean>> httpObserver)
+    {
+        httpService.getShopList(content,10,page).
+                map(new Function<BaseBean<MainBean>, BaseBean<MainBean>>() {
+                    @Override
+                    public BaseBean<MainBean> apply(BaseBean<MainBean> mainBeanBaseBean) throws Exception {
+                        MainBean t = mainBeanBaseBean.getT();
+                        if (t!=null&&t.getData()!=null&&t.getData().size()>0)
+                        {
+                            for (int i = 0; i < t.getData().size(); i++) {
+                                t.getData().get(i).setBeanType(VlayoutType.coupon_one);
+                            }
+                        }
+                        return mainBeanBaseBean;
+                    }
+                }).
+                compose(RxSchedulers.<BaseBean<MainBean>>compose()).subscribe(httpObserver);
+    }
+
+    public void getShopCoupon_Three(String content,int page,HttpObserver<BaseBean<MainBean>> httpObserver)
+    {
+        httpService.getShopList(content,10,page).
+                map(new Function<BaseBean<MainBean>, BaseBean<MainBean>>() {
+                    @Override
+                    public BaseBean<MainBean> apply(BaseBean<MainBean> mainBeanBaseBean) throws Exception {
+                        MainBean t = mainBeanBaseBean.getT();
+                        if (t!=null&&t.getData()!=null&&t.getData().size()>0)
+                        {
+                            for (int i = 0; i < t.getData().size(); i++) {
+                                t.getData().get(i).setBeanType(VlayoutType.coupon_three);
+                            }
+                        }
+                        return mainBeanBaseBean;
+                    }
+                }).
+                compose(RxSchedulers.<BaseBean<MainBean>>compose()).subscribe(httpObserver);
+    }
+
+
+    public void getShopCoupon_Four(String content,int page,HttpObserver<BaseBean<MainBean>> httpObserver)
+    {
+        httpService.getShopList(content,20,page).
+                map(new Function<BaseBean<MainBean>, BaseBean<MainBean>>() {
+                    @Override
+                    public BaseBean<MainBean> apply(BaseBean<MainBean> mainBeanBaseBean) throws Exception {
+                        MainBean t = mainBeanBaseBean.getT();
+                        if (t!=null&&t.getData()!=null&&t.getData().size()>0)
+                        {
+                            for (int i = 0; i < t.getData().size(); i++) {
+                                t.getData().get(i).setBeanType(VlayoutType.coupon_four);
+                            }
+                        }
+                        return mainBeanBaseBean;
+                    }
+                }).
                 compose(RxSchedulers.<BaseBean<MainBean>>compose()).subscribe(httpObserver);
     }
 }
