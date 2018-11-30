@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
 import com.purewhite.ywc.purewhite.config.SizeUtils;
@@ -18,32 +19,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author yuwenchao
+ * author: Created by HuiRan on 2018/6/1 12:20
+ * E-Mail: 15260828327@163.com
+ * description:
  */
 public class PointLoadingView extends View {
-    //球体的大小
+
     private int mPointDiameter = SizeUtils.dip2px(9);
-    //中间距离
     private int mSpace = SizeUtils.dip2px(3);
-    private int count=3;
+    private int count = 3;
     private List<Point> mPointList;
     private List<Paint> mPaintList;
     private int mAreWidth;
     private int mAreHeight;
+    private Interpolator mInterpolator = new LinearInterpolator();
     private float mProgress;
     private ValueAnimator mAnimator;
 
     public PointLoadingView(Context context) {
-        super(context,null);
+        this(context, null);
     }
 
-    public PointLoadingView(Context context,@Nullable AttributeSet attrs) {
-        super(context, attrs,0);
+    public PointLoadingView(Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, 0);
     }
 
     public PointLoadingView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mPaintList=new ArrayList<>();
+        mPaintList = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
             /**
              * Paint.ANTI_ALIAS_FLAG ：抗锯齿标志
@@ -78,6 +81,7 @@ public class PointLoadingView extends View {
         mAreHeight = mPointDiameter;
     }
 
+
     /**
      *
      * @param widthMeasureSpec
@@ -105,7 +109,6 @@ public class PointLoadingView extends View {
 
 
     /**
-     *
      * @param w
      * @param h
      * @param oldw
@@ -124,14 +127,12 @@ public class PointLoadingView extends View {
                 getHeight() - getPaddingBottom() - paddingVertical);
         mPointList = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
-            Point point = new Point(rect.left + mPointDiameter / 2 * (i + 1)
-                    + i * mSpace + i * mPointDiameter / 2
-                    , rect.centerY());
+            Point point = new Point(rect.left + mPointDiameter / 2 * (i + 1) +
+                    i * mSpace + i * mPointDiameter / 2,
+                    rect.centerY());
             mPointList.add(point);
         }
     }
-
-
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -140,7 +141,6 @@ public class PointLoadingView extends View {
         for (int i = 0; i < count; i++) {
             Point point = mPointList.get(i);
             float currentRadius = maxRadius * (i + 1) / count;
-//            float targetRadius = maxRadius * (count - i) / count;
             float radius;
             float fraction;
             float percent = 1.0f - (i * 1.0f / (count - 1));
@@ -155,8 +155,6 @@ public class PointLoadingView extends View {
         }
     }
 
-
-
     public void startLoading() {
         if (mAnimator==null)
         {
@@ -168,7 +166,7 @@ public class PointLoadingView extends View {
                     invalidate();
                 }
             });
-            mAnimator.setInterpolator(new LinearInterpolator());
+            mAnimator.setInterpolator(mInterpolator);
             mAnimator.setRepeatMode(ValueAnimator.REVERSE);
             mAnimator.setRepeatCount(ValueAnimator.INFINITE);
         }
