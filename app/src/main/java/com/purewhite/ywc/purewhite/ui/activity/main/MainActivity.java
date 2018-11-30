@@ -6,6 +6,8 @@ import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.databinding.ActivityMainBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
 import com.purewhite.ywc.purewhite.mvp.fragment.BaseFragment;
+import com.purewhite.ywc.purewhite.ui.fragment.collect.CollectFragment;
+import com.purewhite.ywc.purewhite.ui.fragment.coupon.CouponFragment;
 import com.purewhite.ywc.purewhite.ui.fragment.home.HomeFragment;
 import com.purewhite.ywc.purewhite.ui.fragment.mine.MineFragment;
 import com.purewhite.ywc.purewhite.view.BottomLayout;
@@ -56,10 +58,11 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
     protected void initView() {
         mDataBinding.bottomLayout.addOnBottomLayoutChageListener(onBottomLayoutChageListener);
         list.add(new HomeFragment());
-        list.add(new MineFragment());
-        list.add(new MineFragment());
+        list.add(new CollectFragment());
+        list.add(new CouponFragment());
         list.add(new MineFragment());
         initFragment(0);
+        //设置消息数量
         mDataBinding.bottomThree.setMessageNum(15);
     }
 

@@ -40,9 +40,9 @@ public class ImageLoadWrapperImp implements ImageLoadWrapper{
     public RequestOptions getOptionsCricle() {
         if (optionsCricle==null)
         {
-            options=new RequestOptions();
+            optionsCricle=new RequestOptions();
             //不加载动画
-            options.dontTransform()
+            optionsCricle.dontTransform()
                     //占位图片
                     .placeholder(R.mipmap.icon_load_error)
                     //加载失败的图片
@@ -105,7 +105,11 @@ public class ImageLoadWrapperImp implements ImageLoadWrapper{
 
     @Override
     public void initHead(ImageView imageView, Object url) {
-
+        Glide.with(imageView.getContext())
+                .asBitmap()
+                .load(url)
+                .apply(getOptionsCricle())
+                .into(imageView);
     }
 
     @Override

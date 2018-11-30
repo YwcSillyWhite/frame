@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.imageload.file;
+package com.purewhite.ywc.purewhite.config.file;
 
 import android.content.Context;
 import android.os.Environment;
@@ -15,11 +15,19 @@ public class ImgFileUtils {
     /**
      * 生成文件夹路径
      */
-    public final static String Address = Environment.getExternalStorageDirectory() + "/Yuwenchao/";
+    public  static String Address;
 
     //下载图片
     public static void downImg(Context context,String uri, String name,ImageDownCall imageDownCall)
     {
+        if (FileUtils.sdCan())
+        {
+            Address=context.getExternalCacheDir().getPath()+"/Pure/";
+        }
+        else
+        {
+            Address=context.getCacheDir()+"/Pure/";
+        }
         if (FileUtils.createOrExistsDir(Address))
         {
             File file=new File(Address,name+".JPEG");
