@@ -2,7 +2,8 @@ package com.purewhite.ywc.purewhite.config;
 
 import com.purewhite.ywc.purewhite.app.AppUtils;
 
-public final class ToolUtils {
+public final class SizeUtils {
+
     /**
      * dp转px
      */

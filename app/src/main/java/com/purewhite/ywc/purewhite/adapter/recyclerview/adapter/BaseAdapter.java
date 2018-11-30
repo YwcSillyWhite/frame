@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullView;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullViewImp;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnItemListener;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadView;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadViewImp;
@@ -34,8 +36,20 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     private LoadView loadView=new LoadViewImp();
     public void setLoadView(LoadView loadView) {
         if (loadView==null)
-            throw new UnsupportedOperationException("loadvuew can not null");
+            throw new UnsupportedOperationException("loadview can not null");
         this.loadView = loadView;
+    }
+    //全部布局
+    private FullView fullView=new FullViewImp();
+
+    public FullView getFullView() {
+        return fullView;
+    }
+
+    public void setFullView(FullView fullView) {
+        if (loadView==null)
+            throw new UnsupportedOperationException("fullview can not null");
+        this.fullView = fullView;
     }
 
     private List<T> mData;
@@ -49,9 +63,11 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     private LinearLayout mHeaderLayout;
     //尾部
     private LinearLayout mFooterLayout;
+
     private final int HEAD_ITEM=10001;
     private final int FOOT_ITEM=10002;
     private final int LOAD_ITEM=10003;
+    private final int FULL_ITEM=10004;
     //监听
     private OnItemListener<T> onItemListener;
     public OnItemListener getOnItemListener() {
@@ -93,6 +109,11 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
         V viewhold;
         switch (viewType)
         {
+            case FULL_ITEM:
+                View fullview = LayoutInflater.from(parent.getContext())
+                        .inflate(fullView.getLayoutId(), parent, false);
+                viewhold=createV(fullview);
+                break;
             case HEAD_ITEM:
                 viewhold=createV(mHeaderLayout);
                 break;
@@ -100,10 +121,10 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
                 viewhold=createV(mFooterLayout);
                 break;
             case LOAD_ITEM:
-                View viewLoad = LayoutInflater.from(parent.getContext())
+                View loadview = LayoutInflater.from(parent.getContext())
                         .inflate(loadView.getLayoutId(), parent, false);
-                viewhold=createV(viewLoad);
-                viewLoad.setOnClickListener(new OnSingleListener() {
+                viewhold=createV(loadview);
+                loadview.setOnClickListener(new OnSingleListener() {
                     @Override
                     public void onSingleClick(View v) {
                         //加载失败，点击重新加载
@@ -144,18 +165,20 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
                 }
             });
         }
-
     }
-
-
 
     @Override
     public void onBindViewHolder(V holder, int position) {
         loadMore(position);
         int itemViewType = holder.getItemViewType();
+
         if (itemViewType==LOAD_ITEM)
         {
             loadView.onBindView(holder);
+        }
+        else if (itemViewType==FULL_ITEM)
+        {
+            fullView.onBindView(holder);
         }
         else if (itemViewType!=HEAD_ITEM&&itemViewType!=FOOT_ITEM)
         {
@@ -187,6 +210,8 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     //请不要重写这个方法,多布局重写getDataType这个方法
     @Override
     public int getItemViewType(int position) {
+        if (getFullCount()>0)
+            return FULL_ITEM;
         if (position==0&&getHeadCount()!=0)
         {
             return HEAD_ITEM;
@@ -210,9 +235,16 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
 
     @Override
     public int getItemCount() {
-        return getHeadCount()+getDataCount()+getFootCount()+getLoadCount();
+        return getFullCount()>0?getFullCount():getHeadCount()+getDataCount()+getFootCount()+getLoadCount();
     }
 
+    //full数据
+    private int getFullCount()
+    {
+        if (mData!=null&&mData.size()>0)
+            return 0;
+        return fullView.isShow()?1:0;
+    }
 
     //头部数
     public int getHeadCount()
@@ -229,7 +261,7 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     }
 
     //尾部数
-    public int getFootCount()
+    private int getFootCount()
     {
         if (mFooterLayout!=null&&mFooterLayout.getChildCount()>0)
             return 1;
@@ -237,19 +269,43 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     }
 
     //加载更多
-    public int getLoadCount()
+    private int getLoadCount()
     {
         if (onLoadListenerImp==null)
             return 0;
         return 1;
     }
 
+    //请求失败
+    public void requestFail(boolean network,boolean flush)
+    {
+        if (flush)
+        {
+            flushFail(network);
+        }
+        else
+        {
+            loadFail();
+        }
+    }
 
     //加载失败
     public void loadFail()
     {
-        setState(LoadView.STATE_FAIL,true);
-        notifyItemChanged(getItemCount()-1);
+        if (mData!=null&&mData.size()>=pageSize)
+        {
+            setState(LoadView.STATE_FAIL,true);
+        }
+    }
+
+    //刷新失败
+    public void flushFail(boolean network)
+    {
+        if (mData==null||mData.size()==0)
+        {
+            fullView.setFullState(network?FullView.FULL_NETWORK:FullView.FULL_DATA);
+            notifyDataSetChanged();
+        }
     }
 
     //刷新数据
@@ -406,19 +462,11 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     }
 
 
-
-
-
-
-
-
-
     private boolean noDataItem(int itemViewType)
     {
-        return itemViewType==HEAD_ITEM||itemViewType==FOOT_ITEM||itemViewType==LOAD_ITEM;
+        return itemViewType==HEAD_ITEM||itemViewType==FOOT_ITEM
+                ||itemViewType==LOAD_ITEM||itemViewType==FULL_ITEM;
     }
-
-
 
     //解决grid 添加头尾不占全部得问题
     @Override

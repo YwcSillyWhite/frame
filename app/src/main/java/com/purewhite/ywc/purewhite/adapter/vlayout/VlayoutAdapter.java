@@ -30,6 +30,7 @@ public class VlayoutAdapter extends DelegateAdapter
         this.onLoadListenerImp = onLoadListenerImp;
     }
 
+
     private LoadView loadView=new LoadViewImp();
     private Handler handler=new Handler();
     private int mPagesize=10;

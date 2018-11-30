@@ -1,12 +1,12 @@
 package com.purewhite.ywc.purewhite.ui.fragment.home.child;
 
 import android.support.v7.widget.GridLayoutManager;
-import android.util.Log;
 
 import com.purewhite.ywc.purewhite.R;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullView;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
+import com.purewhite.ywc.purewhite.config.SizeUtils;
 import com.purewhite.ywc.purewhite.config.TagUtils;
-import com.purewhite.ywc.purewhite.config.ToolUtils;
 import com.purewhite.ywc.purewhite.databinding.FragmentHomeChildBinding;
 import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;
 import com.purewhite.ywc.purewhite.ptr.io.PtrCallBack;
@@ -67,13 +67,14 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
 
     private void initRecycler() {
         homeChildAdapter = new HomeChildAdapter();
+        homeChildAdapter.getFullView().setFullState(FullView.FULL_LOAD);
         //加入加载监听
         homeChildAdapter.setOnLoadListenerImp(onLoadListenerImp);
         //加载的最大条数
         homeChildAdapter.setPageSize(20);
         mDataBinding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         mDataBinding.recyclerView.addOnScrollListener(new LoadOnScrollListener());
-        mDataBinding.recyclerView.addItemDecoration(new OneDecoration(ToolUtils.dip2px(10f),2));
+        mDataBinding.recyclerView.addItemDecoration(new OneDecoration(SizeUtils.dip2px(10f),2));
         mDataBinding.recyclerView.setAdapter(homeChildAdapter);
     }
 

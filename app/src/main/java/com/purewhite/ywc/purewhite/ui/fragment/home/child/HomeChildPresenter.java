@@ -21,6 +21,10 @@ public class HomeChildPresenter extends PresenterImp<HomeChildContract.View> imp
 
                     mView.getHomeChildAdapter().flushOrAddData(flush,mainBeanBaseBean.getT().getData());
                 }
+                else
+                {
+                    mView.getHomeChildAdapter().requestFail(false,flush);
+                }
             }
 
             @Override
@@ -28,7 +32,7 @@ public class HomeChildPresenter extends PresenterImp<HomeChildContract.View> imp
                 super.onFail(content);
                 mView.loadfinish(flush);
                 //加载失败
-                mView.getHomeChildAdapter().loadFail();
+                mView.getHomeChildAdapter().requestFail(true,flush);
 
             }
         });
