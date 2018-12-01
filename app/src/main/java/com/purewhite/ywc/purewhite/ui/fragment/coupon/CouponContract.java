@@ -1,16 +1,20 @@
 package com.purewhite.ywc.purewhite.ui.fragment.coupon;
 
+import android.util.SparseArray;
+
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.purewhite.ywc.purewhite.mvp.presenter.BasePresenter;
 import com.purewhite.ywc.purewhite.mvp.view.BaseView;
 
-import java.util.List;
+
 
 public class CouponContract {
 
     public interface View extends BaseView
     {
-        List<DelegateAdapter.Adapter> getListAdapter();
+        SparseArray<DelegateAdapter.Adapter> getListAdapter();
+
+        void requst(boolean flush,boolean network,int pagesize);
     }
 
     public interface Presenter extends BasePresenter<View>

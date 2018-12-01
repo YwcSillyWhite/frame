@@ -120,4 +120,20 @@ public abstract class VlayoutBaseAdapter<T,V extends BaseViewHolder> extends Del
             }
         }
     }
+
+    /**
+     * @param flush 是否刷新
+     * @param list
+     */
+    public void flushOrAddData(boolean flush,List<T> list)
+    {
+        if (flush)
+        {
+            flush(list);
+        }
+        else
+        {
+            addData(list);
+        }
+    }
 }

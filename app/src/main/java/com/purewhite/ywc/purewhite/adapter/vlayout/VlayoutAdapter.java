@@ -2,19 +2,25 @@ package com.purewhite.ywc.purewhite.adapter.vlayout;
 
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullView;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullViewImp;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadView;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadViewImp;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BaseViewHolder;
+import com.purewhite.ywc.purewhite.app.AppUtils;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,32 +30,42 @@ public class VlayoutAdapter extends DelegateAdapter
 {
     //加载更多load itemtype
     private final int LOAD_VIEW=0x00010001;
+    private final int FULL_VIEW=0x00010002;
     //加载更多监听
     private OnLoadListenerImp onLoadListenerImp;
     public void setOnLoadListenerImp(OnLoadListenerImp onLoadListenerImp) {
         this.onLoadListenerImp = onLoadListenerImp;
     }
 
+    //数据长度
+    private int mPagesize;
+    public void setmPagesize(int mPagesize) {
+        this.mPagesize = mPagesize;
+    }
 
+    //全屏布局
+    private FullView fullView=new FullViewImp();
+
+    public FullView getFullView() {
+        return fullView;
+    }
+
+    public void setFullView(FullView fullView) {
+        if (fullView==null)
+            throw new UnsupportedOperationException("fullview can not null");
+        this.fullView = fullView;
+    }
+
+    //加载布局
     private LoadView loadView=new LoadViewImp();
-    private Handler handler=new Handler();
-    private int mPagesize=10;
-
-    public void setPagesize(int pagesize) {
-        this.mPagesize = pagesize;
-    }
-
     public void setLoadView(LoadView loadView) {
-        if (loadView!=null)
-        {
-            this.loadView = loadView;
-        }
-        else
-        {
-            throw new UnsupportedOperationException("loadvuew can not null");
-        }
-
+        if (loadView==null)
+            throw new UnsupportedOperationException("loadview can not null");
+        this.loadView = loadView;
     }
+    private Handler handler=new Handler();
+
+
 
     public VlayoutAdapter(VirtualLayoutManager layoutManager) {
         super(layoutManager);
@@ -59,9 +75,18 @@ public class VlayoutAdapter extends DelegateAdapter
         super(layoutManager, hasConsistItemType);
     }
 
+
     @Override
     public int getItemCount() {
         return super.getItemCount()+getLoadCount();
+    }
+
+    //全局布局长度
+    private int getFullCount()
+    {
+        if (getItemCount()>1)
+            return 0;
+        return fullView.isShow()?1:0;
     }
 
     //加载更多布局的item
@@ -74,21 +99,44 @@ public class VlayoutAdapter extends DelegateAdapter
 
     @Override
     public int getItemViewType(int position) {
-        int dataSize = getItemCount() - getLoadCount();
-        if (position < dataSize) {
-            return super.getItemViewType(position);
-        } else {
+        if (getFullCount()==1)
+            return FULL_VIEW;
+        if (position<getItemCount()-getLoadCount())
+        {
+            return getDataViewType(position);
+        }
+        else{
             return LOAD_VIEW;
         }
+    }
+
+    protected int getDataViewType(int position)
+    {
+        return super.getItemViewType(position);
     }
 
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        RecyclerView.ViewHolder viewHolder=null;
         if (viewType == LOAD_VIEW)
-            return getLoadViewHolder(parent);
-        return super.onCreateViewHolder(parent, viewType);
+        {
+            viewHolder=getLoadViewHolder(parent);
+        }
+        else if (viewType==FULL_VIEW)
+        {
+            View view = LayoutInflater.from(parent.getContext()).inflate(fullView.getLayoutId(),
+                    parent, false);
+            ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+            layoutParams.height=AppUtils.getScreenHeight();
+            viewHolder = new BaseViewHolder(view);
+        }
+        else
+        {
+            viewHolder = super.onCreateViewHolder(parent, viewType);
+        }
+        return viewHolder;
     }
 
     private RecyclerView.ViewHolder getLoadViewHolder(ViewGroup parent) {
@@ -101,7 +149,7 @@ public class VlayoutAdapter extends DelegateAdapter
                 //加载失败，点击重新加载
                 if (loadView.getState()==LoadView.STATE_FAIL)
                 {
-                    loadView.setState(LoadView.STATE_LOAD);
+                    setState(LoadView.STATE_LOAD,true);
                     onLoadListenerImp.loadAgain();
                 }
             }
@@ -117,6 +165,10 @@ public class VlayoutAdapter extends DelegateAdapter
         if (itemViewType == LOAD_VIEW) {
             loadView.onBindView((BaseViewHolder) holder);
         }
+        else if (itemViewType==FULL_VIEW)
+        {
+            fullView.onBindView(((BaseViewHolder) holder));
+        }
     }
 
     //判断是否能加载更多
@@ -125,7 +177,8 @@ public class VlayoutAdapter extends DelegateAdapter
             return;
         if (loadView.getState()==LoadView.STATE_FINISH_TRUE)
         {
-            loadView.setState(LoadView.STATE_LOAD);
+            //滑动刷新会报错
+            setState(LoadView.STATE_LOAD,false);
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -136,47 +189,69 @@ public class VlayoutAdapter extends DelegateAdapter
     }
 
     /**
-     * @param loadfail  加载失败
-     * @param pull_up   是否上啦刷新
+     * @param network_fail  加载失败
+     * @param flush   是否上啦刷新
      * @param pagesize  数据长度
      */
-    public void refreshComplete(boolean loadfail,boolean pull_up,int pagesize)
+    public void refreshComplete(boolean network_fail,boolean flush,int pagesize)
     {
-        if (pull_up)
+        if (getItemCount()==0)
         {
-            if (loadfail)
+           if (pagesize==0)
+           {
+               fullView.setFullState(network_fail?FullView.FULL_NETWORK:FullView.FULL_LOAD);
+               notifyDataSetChanged();
+           }
+        }
+
+        if (flush)
+        {
+            if (pagesize<mPagesize)
             {
-                loadView.setState(LoadView.STATE_FAIL);
-            }
-            else if (pagesize<mPagesize)
-            {
-                loadView.setState(LoadView.STATE_FINISH_NODATA);
+
+                setState(LoadView.STATE_FINISH_FALSE,true);
             }
             else
             {
-                loadView.setState(LoadView.STATE_FINISH_TRUE);
+                setState(LoadView.STATE_FINISH_TRUE,true);
             }
-
         }
         else
         {
-            if (loadfail)
+            if (pagesize<mPagesize)
             {
-                //加载失败
-            }
-            else if (pagesize<=0)
-            {
-                //没有数据
-            }
-            else if (pagesize<mPagesize)
-            {
-                loadView.setState(LoadView.STATE_FINISH_FALSE);
+                setState(LoadView.STATE_FINISH_NODATA,true);
             }
             else
             {
-                loadView.setState(LoadView.STATE_FINISH_TRUE);
+                setState(LoadView.STATE_FINISH_TRUE,true);
             }
-
         }
     }
+
+
+    private void setState(int statue,boolean flush)
+    {
+        loadView.setState(statue);
+        if (flush)
+            notifyItemChanged(getItemCount()-1);
+    }
+
+    //使用类型避免因为过多导致适配器混乱
+    public void setAdapters(SparseArray<Adapter> sparseArray) {
+        List<Adapter> adapters = obtainListAdapter(sparseArray);
+        super.setAdapters(adapters);
+    }
+
+    private List<Adapter> obtainListAdapter(SparseArray<Adapter> sparseArray)
+    {
+        List<Adapter> list=new ArrayList<>();
+        for (int i = 0; i < sparseArray.size(); i++) {
+            list.add(sparseArray.valueAt(i));
+        }
+        return list;
+    }
+
+
+
 }

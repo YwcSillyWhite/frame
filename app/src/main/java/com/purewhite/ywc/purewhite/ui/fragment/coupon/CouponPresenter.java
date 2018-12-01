@@ -1,5 +1,6 @@
 package com.purewhite.ywc.purewhite.ui.fragment.coupon;
 
+import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutType;
 import com.purewhite.ywc.purewhite.bean.base.BaseBean;
 import com.purewhite.ywc.purewhite.bean.main.MainBean;
 import com.purewhite.ywc.purewhite.mvp.presenter.PresenterImp;
@@ -20,7 +21,7 @@ public class CouponPresenter extends PresenterImp<CouponContract.View> implement
                         &&mainBeanBaseBean.getT().getData()!=null
                         &&mainBeanBaseBean.getT().getData().size()>0)
                 {
-                    ((OneAdapter) mView.getListAdapter().get(0)).flush(mainBeanBaseBean.getT().getData());
+                    ((OneAdapter) mView.getListAdapter().get(VlayoutType.coupon_one)).flush(mainBeanBaseBean.getT().getData());
                 }
                 else
                 {
@@ -46,12 +47,12 @@ public class CouponPresenter extends PresenterImp<CouponContract.View> implement
                         &&mainBeanBaseBean.getT().getData()!=null
                         &&mainBeanBaseBean.getT().getData().size()>0)
                 {
-                    ((TwoAdapter) mView.getListAdapter().get(1)).setShow(true);
-                    ((ThreeAdapter) mView.getListAdapter().get(2)).flush(mainBeanBaseBean.getT().getData());
+                    ((TwoAdapter) mView.getListAdapter().get(VlayoutType.coupon_two)).setShow(true);
+                    ((ThreeAdapter) mView.getListAdapter().get(VlayoutType.coupon_three)).flush(mainBeanBaseBean.getT().getData());
                 }
                 else
                 {
-                    ((TwoAdapter) mView.getListAdapter().get(1)).setShow(false);
+                    ((TwoAdapter) mView.getListAdapter().get(VlayoutType.coupon_two)).setShow(false);
                 }
                 getFoutData(1);
             }
@@ -59,14 +60,14 @@ public class CouponPresenter extends PresenterImp<CouponContract.View> implement
             @Override
             public void onFail(String content) {
                 super.onFail(content);
-                ((TwoAdapter) mView.getListAdapter().get(1)).setShow(false);
+                ((TwoAdapter) mView.getListAdapter().get(VlayoutType.coupon_two)).setShow(false);
                 getFoutData(1);
             }
         });
     }
 
     @Override
-    public void getFoutData(int page) {
+    public void getFoutData(final int page) {
         HttpUtils.newInstance().getShopCoupon_Four("内衣",page,new HttpObserver<BaseBean<MainBean>>() {
             @Override
             public void onSuccess(BaseBean<MainBean> mainBeanBaseBean) {
@@ -74,14 +75,20 @@ public class CouponPresenter extends PresenterImp<CouponContract.View> implement
                         &&mainBeanBaseBean.getT().getData()!=null
                         &&mainBeanBaseBean.getT().getData().size()>0)
                 {
-
-                    ((FourAdapter) mView.getListAdapter().get(3)).flush(mainBeanBaseBean.getT().getData());
+                    ((FourAdapter) mView.getListAdapter().get(VlayoutType.coupon_four)).flushOrAddData(page==1,mainBeanBaseBean.getT().getData());
+                    mView.requst(page==1,false,mainBeanBaseBean.getT().getData().size());
                 }
+                else
+                {
+                    mView.requst(page==1,false,0);
+                }
+
             }
 
             @Override
             public void onFail(String content) {
                 super.onFail(content);
+                mView.requst(page==1,true,0);
             }
         });
     }

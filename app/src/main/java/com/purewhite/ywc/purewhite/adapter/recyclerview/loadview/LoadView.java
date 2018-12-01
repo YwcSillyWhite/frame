@@ -79,4 +79,5 @@ public abstract class LoadView {
         this.state = state;
     }
 
+
 }

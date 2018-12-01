@@ -30,4 +30,9 @@ public class ThreeAdapter extends VlayoutBindTypeAdapter<MainBean.DataBean> {
         viewDataBinding.couponText.setText(dataBean.getItem_title());
         ImageLoader.newInstance().init(viewDataBinding.couponImg,dataBean.getItem_pic());
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        return VlayoutType.coupon_three;
+    }
 }

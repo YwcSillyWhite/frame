@@ -34,4 +34,9 @@ public class OneAdapter extends VlayoutBindTypeAdapter<MainBean.DataBean> {
         AdapterFragmentCouponOneBinding viewDataBinding = (AdapterFragmentCouponOneBinding) holder.getViewDataBinding();
         ImageLoader.newInstance().initCircle(viewDataBinding.couponImage,dataBean.getItem_pic());
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        return VlayoutType.coupon_one;
+    }
 }

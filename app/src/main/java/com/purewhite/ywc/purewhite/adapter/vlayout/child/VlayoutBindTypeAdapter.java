@@ -61,4 +61,6 @@ public abstract class VlayoutBindTypeAdapter<T extends BindBean> extends Vlayout
         return obtain(position).getBeanType();
     }
 
+
+
 }

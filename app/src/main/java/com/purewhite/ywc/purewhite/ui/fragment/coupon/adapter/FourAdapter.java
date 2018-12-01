@@ -53,4 +53,10 @@ public class FourAdapter extends VlayoutBindTypeAdapter<MainBean.DataBean> {
         viewDataBinding.shipTitle.setText(dataBean.getItem_title());
         ImageLoader.newInstance().init(viewDataBinding.shipImg,dataBean.getItem_pic());
     }
+
+
+    @Override
+    public int getItemViewType(int position) {
+        return VlayoutType.coupon_four;
+    }
 }
