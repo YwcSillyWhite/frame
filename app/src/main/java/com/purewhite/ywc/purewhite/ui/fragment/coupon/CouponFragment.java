@@ -7,20 +7,16 @@ import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullView;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListener;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
 import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutAdapter;
 import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutType;
 import com.purewhite.ywc.purewhite.databinding.FragmentCouponBinding;
 import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;
 import com.purewhite.ywc.purewhite.ptr.io.PtrCallBack;
-import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.ThreeAdapter;
-import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.OneAdapter;
 import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.FourAdapter;
+import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.OneAdapter;
+import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.ThreeAdapter;
 import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.TwoAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPresenter>
         implements CouponContract.View {

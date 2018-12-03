@@ -1,9 +1,6 @@
 package com.purewhite.ywc.purewhite.network.retrofit.request.http;
 
 
-import android.util.Log;
-
-import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutType;
 import com.purewhite.ywc.purewhite.bean.base.BaseBean;
 import com.purewhite.ywc.purewhite.bean.main.MainBean;
 import com.purewhite.ywc.purewhite.network.retrofit.base.BaseRetrofit;
@@ -11,8 +8,6 @@ import com.purewhite.ywc.purewhite.network.rxjava.HttpObserver;
 import com.purewhite.ywc.purewhite.network.rxjava.RxSchedulers;
 
 import java.util.Map;
-
-import io.reactivex.functions.Function;
 
 /**
  * @author yuwenchao

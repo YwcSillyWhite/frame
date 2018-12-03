@@ -1,6 +1,5 @@
 package com.purewhite.ywc.purewhite.config.file;
 
-import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
 

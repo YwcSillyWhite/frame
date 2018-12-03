@@ -1,6 +1,5 @@
 package com.purewhite.ywc.purewhite.adapter.vlayout.child;
 
-import android.util.Log;
 import android.util.SparseIntArray;
 
 import com.purewhite.ywc.purewhite.adapter.recyclerview.bean.BindBean;

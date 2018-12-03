@@ -11,8 +11,6 @@ import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutType;
 import com.purewhite.ywc.purewhite.adapter.vlayout.child.VlayoutBindTypeAdapter;
 import com.purewhite.ywc.purewhite.bean.main.MainBean;
 import com.purewhite.ywc.purewhite.config.SizeUtils;
-import com.purewhite.ywc.purewhite.databinding.AdapterFragmentCouponOneBinding;
-import com.purewhite.ywc.purewhite.databinding.AdapterFragmentCouponThreeBinding;
 import com.purewhite.ywc.purewhite.databinding.AdapterMianBinding;
 import com.purewhite.ywc.purewhite.imageload.ImageLoader;
 

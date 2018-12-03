@@ -1,12 +1,9 @@
 package com.purewhite.ywc.purewhite.ui.fragment.mine;
 
-import android.databinding.ViewDataBinding;
-
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.databinding.FragmentMineBinding;
 import com.purewhite.ywc.purewhite.imageload.ImageLoader;
 import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;
-import com.purewhite.ywc.purewhite.mvp.presenter.PresenterImp;
 
 public class MineFragment extends MvpFragment<FragmentMineBinding,MinePresenter> implements MineContract.View {
     @Override

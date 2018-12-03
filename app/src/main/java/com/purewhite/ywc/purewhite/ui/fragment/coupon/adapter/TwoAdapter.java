@@ -1,23 +1,11 @@
 package com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-
 import com.alibaba.android.vlayout.LayoutHelper;
-import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BaseViewHolder;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BindHolder;
 import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutType;
 import com.purewhite.ywc.purewhite.adapter.vlayout.child.VlayoutBindAdapter;
-import com.purewhite.ywc.purewhite.adapter.vlayout.child.VlayoutBindTypeAdapter;
-import com.purewhite.ywc.purewhite.bean.main.MainBean;
-import com.purewhite.ywc.purewhite.databinding.AdapterFragmentCouponOneBinding;
-import com.purewhite.ywc.purewhite.imageload.ImageLoader;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TwoAdapter extends VlayoutBindAdapter {
 

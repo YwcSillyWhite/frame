@@ -6,9 +6,9 @@ import com.purewhite.ywc.purewhite.bean.main.MainBean;
 import com.purewhite.ywc.purewhite.mvp.presenter.PresenterImp;
 import com.purewhite.ywc.purewhite.network.retrofit.request.http.HttpUtils;
 import com.purewhite.ywc.purewhite.network.rxjava.HttpObserver;
-import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.ThreeAdapter;
-import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.OneAdapter;
 import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.FourAdapter;
+import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.OneAdapter;
+import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.ThreeAdapter;
 import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.TwoAdapter;
 
 public class CouponPresenter extends PresenterImp<CouponContract.View> implements CouponContract.Presenter {

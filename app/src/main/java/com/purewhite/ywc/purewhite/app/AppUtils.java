@@ -108,18 +108,4 @@ public final class  AppUtils {
         return getApplication();
     }
 
-
-    //获取屏幕的宽度
-    public static int getScreenWidth() {
-        if (application!=null)
-            return application.getResources().getDisplayMetrics().widthPixels;
-        return -1;
-    }
-
-    //获取屏幕的高
-    public static int getScreenHeight() {
-        if (application!=null)
-            return application.getResources().getDisplayMetrics().heightPixels;
-        return -1;
-    }
 }

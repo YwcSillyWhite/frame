@@ -2,7 +2,6 @@ package com.purewhite.ywc.purewhite.adapter.vlayout;
 
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -17,8 +16,8 @@ import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadView;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadViewImp;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BaseViewHolder;
-import com.purewhite.ywc.purewhite.app.AppUtils;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
+import com.purewhite.ywc.purewhite.config.SizeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,7 +128,7 @@ public class VlayoutAdapter extends DelegateAdapter
             View view = LayoutInflater.from(parent.getContext()).inflate(fullView.getLayoutId(),
                     parent, false);
             ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-            layoutParams.height=AppUtils.getScreenHeight();
+            layoutParams.height=SizeUtils.getScreenHeight();
             viewHolder = new BaseViewHolder(view);
         }
         else
