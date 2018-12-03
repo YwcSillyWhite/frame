@@ -69,7 +69,7 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     private final int LOAD_ITEM=10003;
     private final int FULL_ITEM=10004;
     //监听
-    private OnItemListener<T> onItemListener;
+    private OnItemListener onItemListener;
     public OnItemListener getOnItemListener() {
         return onItemListener;
     }
@@ -161,7 +161,7 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
                 @Override
                 public void onSingleClick(View v) {
                     int position=viewhold.getLayoutPosition() - getFootCount();
-                    getOnItemListener().OnItemCall(BaseAdapter.this,view, position,obtainT(position));
+                    getOnItemListener().OnItemCall(BaseAdapter.this,view, position);
                 }
             });
         }

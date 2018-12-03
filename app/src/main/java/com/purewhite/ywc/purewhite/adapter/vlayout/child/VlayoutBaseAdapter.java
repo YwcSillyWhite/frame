@@ -75,15 +75,16 @@ public abstract class VlayoutBaseAdapter<T,V extends BaseViewHolder> extends Del
     }
 
     private void bindClick(final V holder) {
-        if (holder==null)
+        if (holder==null) {
             return;
+        }
         holder.itemView.setOnClickListener(new OnSingleListener() {
             @Override
             public void onSingleClick(View v) {
                 int position=holder.getLayoutPosition();
                 if (onItemListener!=null)
                 {
-                    onItemListener.OnItemCall(VlayoutBaseAdapter.this,v,position,obtain(position));
+                    onItemListener.OnItemCall(VlayoutBaseAdapter.this,v,position);
                 }
             }
         });

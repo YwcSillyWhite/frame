@@ -1,9 +1,12 @@
 package com.purewhite.ywc.purewhite.ui.fragment.home.child;
 
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullView;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnItemListener;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
 import com.purewhite.ywc.purewhite.config.SizeUtils;
 import com.purewhite.ywc.purewhite.config.TagUtils;
@@ -73,6 +76,13 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
         homeChildAdapter.setOnLoadListenerImp(onLoadListenerImp);
         //加载的最大条数
         homeChildAdapter.setPageSize(20);
+
+        homeChildAdapter.setOnItemListener(new OnItemListener() {
+            @Override
+            public void OnItemCall(RecyclerView.Adapter adapter, View view, int position, Object t) {
+
+            }
+        });
         mDataBinding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         //加入加载更多回掉，如果没有就不能家宅更多
         mDataBinding.recyclerView.addOnScrollListener(new LoadOnScrollListener());

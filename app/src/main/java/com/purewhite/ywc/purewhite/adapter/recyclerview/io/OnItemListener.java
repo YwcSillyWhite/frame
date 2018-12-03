@@ -12,6 +12,6 @@ import android.view.View;
  * 子类点击事件
  */
 
-public interface OnItemListener<T> {
-    void OnItemCall(RecyclerView.Adapter adapter, View view, int position, Object t);
+public interface OnItemListener {
+    void OnItemCall(RecyclerView.Adapter adapter, View view, int position);
 }

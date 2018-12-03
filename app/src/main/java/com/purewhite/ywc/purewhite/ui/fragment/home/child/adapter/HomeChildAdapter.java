@@ -1,9 +1,12 @@
 package com.purewhite.ywc.purewhite.ui.fragment.home.child.adapter;
 
+import android.view.View;
+
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.adapter.BindTypeAdapter;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BindHolder;
 import com.purewhite.ywc.purewhite.bean.main.MainBean;
+import com.purewhite.ywc.purewhite.config.OnSingleListener;
 import com.purewhite.ywc.purewhite.databinding.AdapterMianBinding;
 import com.purewhite.ywc.purewhite.imageload.ImageLoader;
 
@@ -25,9 +28,19 @@ public class  HomeChildAdapter extends BindTypeAdapter<MainBean.DataBean> {
 
 
     @Override
-    protected void onData(BindHolder holder, int position, MainBean.DataBean dataBean) {
+    protected void onData(BindHolder holder, final int position, MainBean.DataBean dataBean) {
         AdapterMianBinding adapterMianBinding = (AdapterMianBinding) holder.getViewDataBinding();
         adapterMianBinding.shipTitle.setText(dataBean.getItem_title());
         ImageLoader.newInstance().init(adapterMianBinding.shipImg,dataBean.getItem_pic());
+
+        adapterMianBinding.shipTitle.setOnClickListener(new OnSingleListener() {
+            @Override
+            public void onSingleClick(View v) {
+                if (getOnItemListener()!=null)
+                {
+                    getOnItemListener().OnItemCall(HomeChildAdapter.this,v,position);
+                }
+            }
+        });
     }
 }
