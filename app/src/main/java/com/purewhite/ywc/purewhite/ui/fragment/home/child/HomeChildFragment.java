@@ -67,12 +67,14 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
 
     private void initRecycler() {
         homeChildAdapter = new HomeChildAdapter();
+        //设置开始fullview加载状态
         homeChildAdapter.getFullView().setFullState(FullView.FULL_LOAD);
         //加入加载监听
         homeChildAdapter.setOnLoadListenerImp(onLoadListenerImp);
         //加载的最大条数
         homeChildAdapter.setPageSize(20);
         mDataBinding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+        //加入加载更多回掉，如果没有就不能家宅更多
         mDataBinding.recyclerView.addOnScrollListener(new LoadOnScrollListener());
         mDataBinding.recyclerView.addItemDecoration(new OneDecoration(SizeUtils.dip2px(10f),2));
         mDataBinding.recyclerView.setAdapter(homeChildAdapter);

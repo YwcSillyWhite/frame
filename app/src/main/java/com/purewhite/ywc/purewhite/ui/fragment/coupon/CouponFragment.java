@@ -50,7 +50,7 @@ public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPres
         @Override
         public void onPullDown() {
             page=1;
-            mPresenter.getFoutData(page);
+            mPresenter.getOneData();
         }
     };
 
@@ -84,6 +84,7 @@ public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPres
         mDataBinding.recyclerView.setLayoutManager(virtualLayoutManager);
         //创建vlayout的适配器
         vlayoutAdapter = new VlayoutAdapter(virtualLayoutManager);
+        vlayoutAdapter.setmPagesize(20);
         vlayoutAdapter.setOnLoadListenerImp(onLoadListenerImp);
         vlayoutAdapter.getFullView().setFullState(FullView.FULL_LOAD);
         //创建vlayout子适配器

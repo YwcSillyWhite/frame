@@ -23,10 +23,6 @@ public class CouponPresenter extends PresenterImp<CouponContract.View> implement
                 {
                     ((OneAdapter) mView.getListAdapter().get(VlayoutType.coupon_one)).flush(mainBeanBaseBean.getT().getData());
                 }
-                else
-                {
-
-                }
                 getThreeData();
             }
 
@@ -50,17 +46,12 @@ public class CouponPresenter extends PresenterImp<CouponContract.View> implement
                     ((TwoAdapter) mView.getListAdapter().get(VlayoutType.coupon_two)).setShow(true);
                     ((ThreeAdapter) mView.getListAdapter().get(VlayoutType.coupon_three)).flush(mainBeanBaseBean.getT().getData());
                 }
-                else
-                {
-                    ((TwoAdapter) mView.getListAdapter().get(VlayoutType.coupon_two)).setShow(false);
-                }
                 getFoutData(1);
             }
 
             @Override
             public void onFail(String content) {
                 super.onFail(content);
-                ((TwoAdapter) mView.getListAdapter().get(VlayoutType.coupon_two)).setShow(false);
                 getFoutData(1);
             }
         });

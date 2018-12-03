@@ -38,7 +38,7 @@ public class VlayoutAdapter extends DelegateAdapter
     }
 
     //数据长度
-    private int mPagesize;
+    private int mPagesize=10;
     public void setmPagesize(int mPagesize) {
         this.mPagesize = mPagesize;
     }
@@ -195,15 +195,12 @@ public class VlayoutAdapter extends DelegateAdapter
      */
     public void refreshComplete(boolean network_fail,boolean flush,int pagesize)
     {
-        if (getItemCount()==0)
+        //如果item的长度等于fullview的长度，并且返回的数据长度等于的0的时候
+        if (getItemCount()==getFullCount()||pagesize==0)
         {
-           if (pagesize==0)
-           {
-               fullView.setFullState(network_fail?FullView.FULL_NETWORK:FullView.FULL_LOAD);
-               notifyDataSetChanged();
-           }
+            fullView.setFullState(network_fail?FullView.FULL_NETWORK:FullView.FULL_LOAD);
+            notifyDataSetChanged();
         }
-
         if (flush)
         {
             if (pagesize<mPagesize)
@@ -218,7 +215,11 @@ public class VlayoutAdapter extends DelegateAdapter
         }
         else
         {
-            if (pagesize<mPagesize)
+            if (pagesize==0)
+            {
+                setState(network_fail?LoadView.STATE_FAIL:LoadView.STATE_FINISH_NODATA,true);
+            }
+            else if (pagesize<mPagesize)
             {
                 setState(LoadView.STATE_FINISH_NODATA,true);
             }
