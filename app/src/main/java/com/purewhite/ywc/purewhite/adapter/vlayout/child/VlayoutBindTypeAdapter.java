@@ -41,11 +41,11 @@ public abstract class VlayoutBindTypeAdapter<T extends BindBean> extends Vlayout
         super(list);
     }
 
-    public VlayoutBindTypeAdapter(OnItemListener<T> listener) {
+    public VlayoutBindTypeAdapter(OnItemListener listener) {
         this(new ArrayList<T>(),listener);
     }
 
-    public VlayoutBindTypeAdapter(List<T> list, OnItemListener<T> listener) {
+    public VlayoutBindTypeAdapter(List<T> list, OnItemListener listener) {
         this(list);
         setOnItemListener(listener);
     }

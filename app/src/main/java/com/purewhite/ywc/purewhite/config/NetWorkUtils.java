@@ -8,7 +8,7 @@ import com.purewhite.ywc.purewhite.app.AppUtils;
 
 /**
  * @author yuwenchao
- */ //网络utils
+ */
 public class NetWorkUtils {
 
     public static boolean isNetworkConnected() {

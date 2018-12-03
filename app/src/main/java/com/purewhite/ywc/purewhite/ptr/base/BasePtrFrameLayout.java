@@ -2,6 +2,8 @@ package com.purewhite.ywc.purewhite.ptr.base;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 
 import com.purewhite.ywc.purewhite.ptr.head.PtrFrameHead;
 
@@ -12,14 +14,13 @@ import in.srain.cube.views.ptr.PtrHandler;
  * @author yuwenchao
  */
 public abstract class BasePtrFrameLayout extends PtrFrameLayout {
+
     public BasePtrFrameLayout(Context context) {
-        super(context);
-        init();
+        this(context,null);
     }
 
     public BasePtrFrameLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
+        this(context, attrs,0);
     }
 
     public BasePtrFrameLayout(Context context, AttributeSet attrs, int defStyle) {
@@ -30,6 +31,7 @@ public abstract class BasePtrFrameLayout extends PtrFrameLayout {
     //初始化布局
     protected void init()
     {
+
         /**
          * ptr_resistance="1.7"：设置下拉的阻尼系数，值越大感觉越难下拉
          *
@@ -67,4 +69,6 @@ public abstract class BasePtrFrameLayout extends PtrFrameLayout {
         setHeaderView(ptrFrameHead);
         addPtrUIHandler(ptrFrameHead);
     }
+
+
 }
