@@ -64,4 +64,6 @@ public class GuideActivity extends MvpActivity<ActivityGuideBinding,GuidePresent
         mDataBinding.guideViewpager.setPageTransformer(false, new AimaTransforme());
     }
 
+
+
 }

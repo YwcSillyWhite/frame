@@ -6,6 +6,7 @@ import com.purewhite.ywc.purewhite.bean.main.MainBean;
 import com.purewhite.ywc.purewhite.mvp.presenter.PresenterImp;
 import com.purewhite.ywc.purewhite.network.retrofit.request.http.HttpUtils;
 import com.purewhite.ywc.purewhite.network.rxjava.HttpObserver;
+import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.FiveAdapter;
 import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.FourAdapter;
 import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.OneAdapter;
 import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.ThreeAdapter;
@@ -66,7 +67,8 @@ public class CouponPresenter extends PresenterImp<CouponContract.View> implement
                         &&mainBeanBaseBean.getT().getData()!=null
                         &&mainBeanBaseBean.getT().getData().size()>0)
                 {
-                    ((FourAdapter) mView.getListAdapter().get(VlayoutType.coupon_four)).flushOrAddData(page==1,mainBeanBaseBean.getT().getData());
+                    ((FourAdapter) mView.getListAdapter().get(VlayoutType.coupon_four)).setShow(true);
+                    ((FiveAdapter) mView.getListAdapter().get(VlayoutType.coupon_five)).flushOrAddData(page==1,mainBeanBaseBean.getT().getData());
                     mView.requst(page==1,false,mainBeanBaseBean.getT().getData().size());
                 }
                 else

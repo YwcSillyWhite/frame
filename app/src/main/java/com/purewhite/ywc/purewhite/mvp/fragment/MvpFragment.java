@@ -1,5 +1,6 @@
 package com.purewhite.ywc.purewhite.mvp.fragment;
 
+import android.content.Context;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -33,5 +34,4 @@ public abstract class MvpFragment<DB extends ViewDataBinding,P extends Presenter
         if (mPresenter!=null)
             mPresenter.deleteView();
     }
-
 }

@@ -20,4 +20,26 @@
     <declare-styleable name="BottomLayout">
         <attr name="checkPosition" format="integer"></attr>
     </declare-styleable>
+
+
+    //RatingBar 样式
+    <style name="RatingBarStype" parent="Base.Widget.AppCompat.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_custom</item>
+        <item name="android:minHeight">22dip</item>
+        <item name="android:maxHeight">22dip</item>
+    </style>
+
+    //RatingBar 颜色
+    <style name="RatingBarColor" parent="Base.Widget.AppCompat.RatingBar.Indicator">
+        <!--Background Color-->
+        <item name="colorControlNormal">#D7D7D7</item>
+        <!--Progress Color-->
+        <item name="colorControlActivated">@color/red</item>
+    </style>
+
+
+    //ratioimageview
+    <declare-styleable name="RatioImageView">
+        <attr name="ratio" format="float"></attr>
+    </declare-styleable>
 </resources>

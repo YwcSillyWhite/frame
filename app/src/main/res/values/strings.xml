@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">purewhite</string>
+    <string name="app_name">纯白梦</string>
 
     <string-array name="tab_fragment_home">
         <item>美妆</item>

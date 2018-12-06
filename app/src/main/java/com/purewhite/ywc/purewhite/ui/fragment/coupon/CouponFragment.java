@@ -13,6 +13,7 @@ import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutType;
 import com.purewhite.ywc.purewhite.databinding.FragmentCouponBinding;
 import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;
 import com.purewhite.ywc.purewhite.ptr.io.PtrCallBack;
+import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.FiveAdapter;
 import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.FourAdapter;
 import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.OneAdapter;
 import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.ThreeAdapter;
@@ -27,7 +28,7 @@ public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPres
     private OneAdapter oneAdapter;
     private TwoAdapter twoAdapter;
     private ThreeAdapter threeAdapter;
-    private FourAdapter fourAdapter;
+    private FiveAdapter fiveAdapter;
     private int page=1;
     private OnLoadListenerImp onLoadListenerImp=new OnLoadListenerImp() {
         @Override
@@ -49,6 +50,7 @@ public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPres
             mPresenter.getOneData();
         }
     };
+    private FourAdapter fourAdapter;
 
 
     @Override
@@ -73,7 +75,7 @@ public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPres
         recycledViewPool.setMaxRecycledViews(VlayoutType.coupon_one,10);
         recycledViewPool.setMaxRecycledViews(VlayoutType.coupon_two,1);
         recycledViewPool.setMaxRecycledViews(VlayoutType.coupon_three,10);
-        recycledViewPool.setMaxRecycledViews(VlayoutType.coupon_four,10);
+        recycledViewPool.setMaxRecycledViews(VlayoutType.coupon_five,10);
         //vlayout管理器
         virtualLayoutManager = new VirtualLayoutManager(getContext());
         //加入管理器
@@ -97,6 +99,9 @@ public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPres
 
         fourAdapter = new FourAdapter();
         sparseArray.put(VlayoutType.coupon_four,fourAdapter);
+
+        fiveAdapter = new FiveAdapter();
+        sparseArray.put(VlayoutType.coupon_five,fiveAdapter);
 
 
 

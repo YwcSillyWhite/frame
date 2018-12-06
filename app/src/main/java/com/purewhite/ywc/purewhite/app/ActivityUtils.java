@@ -28,6 +28,12 @@ public class ActivityUtils {
         AppUtils.getContext().startActivity(intent);
     }
 
+    public void startActivity(Class<?> cls)
+    {
+        Intent intent = new Intent(AppUtils.getContext(),cls);
+        AppUtils.getContext().startActivity(intent);
+    }
+
     //跳转唯一商品activity
     public void startSoleActivity(Intent intent,String id)
     {

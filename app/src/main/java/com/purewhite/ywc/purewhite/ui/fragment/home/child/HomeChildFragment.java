@@ -1,22 +1,22 @@
 package com.purewhite.ywc.purewhite.ui.fragment.home.child;
 
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullView;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnItemListener;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
+import com.purewhite.ywc.purewhite.config.OnSingleListener;
 import com.purewhite.ywc.purewhite.config.SizeUtils;
 import com.purewhite.ywc.purewhite.config.TagUtils;
 import com.purewhite.ywc.purewhite.databinding.FragmentHomeChildBinding;
 import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;
 import com.purewhite.ywc.purewhite.ptr.io.PtrCallBack;
 import com.purewhite.ywc.purewhite.ui.fragment.home.child.adapter.HomeChildAdapter;
-import com.purewhite.ywc.purewhite.view.recyclerview.LoadOnScrollListener;
+import com.purewhite.ywc.purewhite.view.recyclerview.onscroll.LoadOnScrollListener;
 import com.purewhite.ywc.purewhite.view.recyclerview.OneDecoration;
+import com.purewhite.ywc.purewhite.view.recyclerview.top.ScrollTopHelp;
+import com.purewhite.ywc.purewhite.view.recyclerview.top.ScrollTopListener;
 
 
 /**
@@ -46,8 +46,21 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
             mPresenter.getShip(false,false,request_contet,page);
         }
     };
+
+    private OnSingleListener onSingleListener=new OnSingleListener() {
+        @Override
+        public void onSingleClick(View v) {
+            switch (v.getId())
+            {
+                case R.id.img_top:
+                    mDataBinding.recyclerView.getLayoutManager().scrollToPosition(0);
+                    break;
+            }
+        }
+    };
     private HomeChildAdapter homeChildAdapter;
     private String request_contet;
+    private ScrollTopHelp scrollTopHelp;
 
     @Override
     protected HomeChildPresenter creartPresenter() {
@@ -61,6 +74,8 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
 
     @Override
     protected void initView() {
+        scrollTopHelp = new ScrollTopHelp(mDataBinding.imgTop);
+        mDataBinding.imgTop.setOnClickListener(onSingleListener);
         request_contet = getArguments().getString(TagUtils.fragmentString);
         mDataBinding.ptrFrame.setPtrHandler(ptrCallBack);
         initRecycler();
@@ -83,10 +98,9 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
 
         mDataBinding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         //加入加载更多回掉，如果没有就不能家宅更多
-        mDataBinding.recyclerView.addOnScrollListener(new LoadOnScrollListener());
+        mDataBinding.recyclerView.addOnScrollListener(new ScrollTopListener(scrollTopHelp));
         mDataBinding.recyclerView.addItemDecoration(new OneDecoration(SizeUtils.dip2px(10f),2));
         mDataBinding.recyclerView.setAdapter(homeChildAdapter);
-//        mDataBinding.recyclerView.addOnItemTouchListener(new ItemTouchHelper(ite));
     }
 
     @Override
@@ -104,5 +118,11 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
             }
             mDataBinding.ptrFrame.refreshComplete();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        scrollTopHelp.release();
     }
 }

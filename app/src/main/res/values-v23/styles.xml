@@ -1,0 +1,22 @@
+<resources>
+
+    <!-- android5.0以上 -->
+    <style name="AppTheme" parent="BaseTheme">
+        <!-- Customize your theme here. -->
+        //状态栏背景颜色
+        <item name="android:statusBarColor">@color/write</item>
+        //状态栏文字颜色
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- 避免控件会顶到状态栏上 -->
+        <!--<item name="android:fitsSystemWindows">true</item>-->
+
+    </style>
+
+
+    <style name="FullTheme" parent="BaseTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+
+</resources>

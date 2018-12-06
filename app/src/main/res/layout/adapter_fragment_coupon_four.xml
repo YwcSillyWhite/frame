@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#333"
+        android:text="商品数据"
+        android:id="@+id/coupon_text"
+        android:textSize="15sp"
+        android:background="@color/write"
+        android:padding="10dp"
+        />
+</layout>

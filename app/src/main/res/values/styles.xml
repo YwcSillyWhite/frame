@@ -9,8 +9,16 @@
     <style name="BaseTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <!--//状态栏颜色-->
+        <!--<item name="colorPrimaryDark">@color/write</item>-->
+        //文字颜色
+        <item name="android:textColorPrimary">@color/text_deep</item>
         //背景颜色
         <item name="android:windowBackground">@color/back</item>
+    </style>
+
+    <style name="FullTheme" parent="BaseTheme">
+
     </style>
 
 </resources>

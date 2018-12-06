@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.view.recyclerview;
+package com.purewhite.ywc.purewhite.view.recyclerview.onscroll;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
