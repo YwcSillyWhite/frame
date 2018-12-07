@@ -1,9 +1,8 @@
-package com.purewhite.ywc.purewhite.ui.activity.web;
+package com.purewhite.ywc.purewhite.ui.activity.mine.web;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -12,7 +11,6 @@ import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;

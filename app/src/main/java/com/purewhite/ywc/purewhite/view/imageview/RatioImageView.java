@@ -8,9 +8,13 @@ import android.util.AttributeSet;
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.config.SizeUtils;
 
+/**
+ * 比例图片
+ * @author yuwenchao
+ */
 public class RatioImageView extends AppCompatImageView {
 
-    private float ratio=1f;
+    private float scale=1f;
     public RatioImageView(Context context) {
         this(context,null);
     }
@@ -21,14 +25,14 @@ public class RatioImageView extends AppCompatImageView {
 
     public RatioImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(attrs);
+        init(context,attrs);
     }
 
-    private void init(AttributeSet attrs) {
+    private void init(Context context,AttributeSet attrs) {
         if (attrs!=null)
         {
-            TypedArray typedArray = getContext().obtainStyledAttributes(R.styleable.RatioImageView);
-            ratio = typedArray.getFloat(R.styleable.RatioImageView_ratio, this.ratio);
+            TypedArray typedArray = context.obtainStyledAttributes(attrs,R.styleable.RatioImageView);
+            scale = typedArray.getFloat(R.styleable.RatioImageView_scale, scale);
         }
     }
 
@@ -42,22 +46,22 @@ public class RatioImageView extends AppCompatImageView {
         if (MeasureSpec.EXACTLY==widthMode)
         {
             width=widthSize;
-            height= ((int) (widthSize * ratio));
+            height= ((int) (widthSize * scale));
         }
         else if (MeasureSpec.EXACTLY==heightMode)
         {
             height=heightSize;
-            width= ((int) (heightSize / ratio));
+            width= ((int) (heightSize / scale));
         }
         else if (MeasureSpec.AT_MOST==widthMode)
         {
             width=widthSize;
-            height= ((int) (widthSize * ratio));
+            height= ((int) (widthSize * scale));
         }
         else
         {
             width=SizeUtils.dip2px(50);
-            height= ((int) (width * ratio));
+            height= ((int) (width * scale));
         }
         setMeasuredDimension(width, height);
     }

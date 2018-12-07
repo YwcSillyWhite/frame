@@ -353,6 +353,26 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
         }
     }
 
+    //删除数据
+    public void removeFlush(int position)
+    {
+        if (mData!=null&&mData.size()>position)
+        {
+            mData.remove(position);
+            notifyDataSetChanged();
+        }
+    }
+
+    //删除数据
+    public void remove(int position)
+    {
+        if (mData!=null&&mData.size()>position)
+        {
+            mData.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
     /**
      * @param flush 是否刷新
      * @param list
@@ -498,4 +518,6 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
             }
         }
     }
+
+
 }

@@ -49,4 +49,6 @@ public abstract class BindAdapter<T> extends BaseAdapter<T,BindHolder>{
         return layoutId;
     }
 
+
+
 }

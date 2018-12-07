@@ -13,7 +13,6 @@ import com.purewhite.ywc.purewhite.databinding.FragmentHomeChildBinding;
 import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;
 import com.purewhite.ywc.purewhite.ptr.io.PtrCallBack;
 import com.purewhite.ywc.purewhite.ui.fragment.home.child.adapter.HomeChildAdapter;
-import com.purewhite.ywc.purewhite.view.recyclerview.onscroll.LoadOnScrollListener;
 import com.purewhite.ywc.purewhite.view.recyclerview.OneDecoration;
 import com.purewhite.ywc.purewhite.view.recyclerview.top.ScrollTopHelp;
 import com.purewhite.ywc.purewhite.view.recyclerview.top.ScrollTopListener;
@@ -53,7 +52,7 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
             switch (v.getId())
             {
                 case R.id.img_top:
-                    mDataBinding.recyclerView.getLayoutManager().scrollToPosition(0);
+                    mDataBinding.recyclerView.smoothScrollToPosition(0);
                     break;
             }
         }

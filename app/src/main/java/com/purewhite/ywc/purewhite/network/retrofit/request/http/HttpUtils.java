@@ -69,4 +69,11 @@ public class HttpUtils {
         httpService.getShopList(content,20,page).
                 compose(RxSchedulers.<BaseBean<MainBean>>compose()).subscribe(httpObserver);
     }
+
+
+    public void getShop_friend(String content,int page,HttpObserver<BaseBean<MainBean>> httpObserver)
+    {
+        httpService.getShopList(content,10,page).
+                compose(RxSchedulers.<BaseBean<MainBean>>compose()).subscribe(httpObserver);
+    }
 }

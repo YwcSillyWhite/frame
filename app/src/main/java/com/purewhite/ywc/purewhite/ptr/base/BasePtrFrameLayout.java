@@ -2,8 +2,6 @@ package com.purewhite.ywc.purewhite.ptr.base;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 
 import com.purewhite.ywc.purewhite.ptr.head.PtrFrameHead;
 

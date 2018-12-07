@@ -40,6 +40,6 @@
 
     //ratioimageview
     <declare-styleable name="RatioImageView">
-        <attr name="ratio" format="float"></attr>
+        <attr name="scale" format="float"></attr>
     </declare-styleable>
 </resources>

@@ -1,6 +1,5 @@
 package com.purewhite.ywc.purewhite.mvp.fragment;
 
-import android.content.Context;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
