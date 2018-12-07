@@ -11,7 +11,8 @@ import android.widget.LinearLayout;
 
 import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullView;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullViewImp;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnItemListener;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnDataListener;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnAllLongListener;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadView;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadViewImp;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
@@ -32,56 +33,12 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
 
     //用于延迟
     private Handler handler=new Handler();
-    //加载布局
-    private LoadView loadView=new LoadViewImp();
-    public void setLoadView(LoadView loadView) {
-        if (loadView==null)
-            throw new UnsupportedOperationException("loadview can not null");
-        this.loadView = loadView;
-    }
-    //全部布局
-    private FullView fullView=new FullViewImp();
-
-    public FullView getFullView() {
-        return fullView;
-    }
-
-    public void setFullView(FullView fullView) {
-        if (loadView==null)
-            throw new UnsupportedOperationException("fullview can not null");
-        this.fullView = fullView;
-    }
-
-    private List<T> mData;
     //加载最多项
     private int pageSize=10;
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
 
-    //头部
-    private LinearLayout mHeaderLayout;
-    //尾部
-    private LinearLayout mFooterLayout;
-
-    private final int HEAD_ITEM=10001;
-    private final int FOOT_ITEM=10002;
-    private final int LOAD_ITEM=10003;
-    private final int FULL_ITEM=10004;
-    //监听
-    private OnItemListener onItemListener;
-    public OnItemListener getOnItemListener() {
-        return onItemListener;
-    }
-    public void setOnItemListener(OnItemListener onItemListener) {
-        this.onItemListener = onItemListener;
-    }
-
-    private OnLoadListenerImp onLoadListenerImp;
-
-    public void setOnLoadListenerImp(OnLoadListenerImp onLoadListenerImp) {
-        this.onLoadListenerImp = onLoadListenerImp;
-    }
 
     public BaseAdapter(List<T> list) {
         this.mData = list!=null?list:new ArrayList<T>();
@@ -101,8 +58,6 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
         }
         return null;
     }
-
-
 
     @Override
     public V onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -139,39 +94,20 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
                 default:
                     viewhold = onCreateData(parent,viewType);
                     //设置监听
-                    bindViewListener(viewhold);
+                    bindDataListener(viewhold);
         }
+        bindAllListener(viewhold);
         return viewhold;
     }
 
     protected abstract V onCreateData(ViewGroup parent, int viewType);
 
-    protected void bindViewListener(final V viewhold)
-    {
-        if (viewhold == null) {
-            return;
-        }
-        final View view = viewhold.itemView;
-        if (view == null) {
-            return;
-        }
-        if (getOnItemListener()!=null)
-        {
-            view.setOnClickListener(new OnSingleListener() {
-                @Override
-                public void onSingleClick(View v) {
-                    int position=viewhold.getLayoutPosition() - getFootCount();
-                    getOnItemListener().OnItemCall(BaseAdapter.this,view, position);
-                }
-            });
-        }
-    }
+
 
     @Override
     public void onBindViewHolder(V holder, int position) {
         loadMore(position);
         int itemViewType = holder.getItemViewType();
-
         if (itemViewType==LOAD_ITEM)
         {
             loadView.onBindView(holder);
@@ -185,6 +121,9 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
             onData(holder,position,obtainT(position-getHeadCount()));
         }
     }
+
+    //赋值数据
+    protected abstract void onData(V holder,int position,T t);
 
     //判断是不是加载更多
     protected  void loadMore(int position)
@@ -203,83 +142,41 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
         }
     }
 
-    //赋值数据
-    protected abstract void onData(V holder,int position,T t);
 
 
-    //请不要重写这个方法,多布局重写getDataType这个方法
-    @Override
-    public int getItemViewType(int position) {
-        if (getFullCount()>0)
-            return FULL_ITEM;
-        if (position==0&&getHeadCount()!=0)
-        {
-            return HEAD_ITEM;
-        }
-        else if (position<getHeadCount()+getDataCount())
-        {
-            return getDataType(position-getHeadCount());
-        }
-        else if(position<getHeadCount()+getDataCount()+getFootCount())
-        {
-            return FOOT_ITEM;
-        }
-        else
-        {
-            return LOAD_ITEM;
-        }
-    }
 
 
-    protected abstract int getDataType(int position);
+    /************  状态处理   ****************/
 
-    @Override
-    public int getItemCount() {
-        return getFullCount()>0?getFullCount():getHeadCount()+getDataCount()+getFootCount()+getLoadCount();
-    }
-
-    //full数据
-    private int getFullCount()
+    /**
+     * 设置加载状态
+     * @param statue 状态
+     * @param flush  刷新
+     * 由于滑动过程中要是刷新数据就会导致崩盘
+     */
+    private void setState(int statue,boolean flush)
     {
-        if (mData!=null&&mData.size()>0)
-            return 0;
-        return fullView.isShow()?1:0;
-    }
-
-    //头部数
-    public int getHeadCount()
-    {
-        if (mHeaderLayout!=null&&mHeaderLayout.getChildCount()>0)
-            return 1;
-        return 0;
-    }
-
-    //中间数据项
-    public int getDataCount()
-    {
-        return mData!=null?mData.size():0;
-    }
-
-    //尾部数
-    private int getFootCount()
-    {
-        if (mFooterLayout!=null&&mFooterLayout.getChildCount()>0)
-            return 1;
-        return 0;
-    }
-
-    //加载更多
-    private int getLoadCount()
-    {
-        if (onLoadListenerImp==null)
-            return 0;
-        return 1;
+        loadView.setState(statue);
+        if (flush)
+            notifyItemChanged(getItemCount()-1);
     }
 
     //请求失败
     public void requestFail(boolean network,boolean flush)
     {
         if (flush)
+        {
+            flushFail(network);
+        }
+        else
+        {
+            loadFail();
+        }
+    }
+
+    public void requestFail(boolean network,int page)
+    {
+        if (page==1)
         {
             flushFail(network);
         }
@@ -308,6 +205,34 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
         }
     }
 
+
+
+    /************  数据处理   ****************/
+    //添加数据
+    public void flushOrAddData(boolean flush,List<T> list)
+    {
+        if (flush)
+        {
+            flush(list);
+        }
+        else
+        {
+            addData(list);
+        }
+    }
+
+    //添加数据你
+    public void flushOrAddData(int page,List<T> list)
+    {
+        if (page==1)
+        {
+            flush(list);
+        }
+        else
+        {
+            addData(list);
+        }
+    }
     //刷新数据
     public void flush(List<T> list)
     {
@@ -373,37 +298,9 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
         }
     }
 
-    /**
-     * @param flush 是否刷新
-     * @param list
-     */
-    public void flushOrAddData(boolean flush,List<T> list)
-    {
-        if (flush)
-        {
-            flush(list);
-        }
-        else
-        {
-            addData(list);
-        }
-    }
 
 
-    /**
-     * 设置加载状态
-     * @param statue 状态
-     * @param flush  刷新
-     * 由于滑动过程中要是刷新数据就会导致崩盘
-     */
-    private void setState(int statue,boolean flush)
-    {
-        loadView.setState(statue);
-        if (flush)
-            notifyItemChanged(getItemCount()-1);
-    }
-
-
+    /************  添加头尾   ****************/
     //添加头尾
     public void addHeadView(View header)
     {
@@ -482,13 +379,180 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     }
 
 
-    private boolean noDataItem(int itemViewType)
+    /************  item类型   ****************/
+    //全部布局
+    private FullView fullView=new FullViewImp();
+    //头部
+    private LinearLayout mHeaderLayout;
+    private List<T> mData;
+    //尾部
+    private LinearLayout mFooterLayout;
+    //加载布局
+    private LoadView loadView=new LoadViewImp();
+    private final int HEAD_ITEM=10001;
+    private final int FOOT_ITEM=10002;
+    private final int LOAD_ITEM=10003;
+    private final int FULL_ITEM=10004;
+    public void setLoadView(LoadView loadView) {
+        if (loadView==null)
+            throw new UnsupportedOperationException("loadview can not null");
+        this.loadView = loadView;
+    }
+    public FullView getFullView() {
+        return fullView;
+    }
+    public void setFullView(FullView fullView) {
+        if (loadView==null)
+            throw new UnsupportedOperationException("fullview can not null");
+        this.fullView = fullView;
+    }
+    //full长度
+    private int getFullCount()
     {
-        return itemViewType==HEAD_ITEM||itemViewType==FOOT_ITEM
-                ||itemViewType==LOAD_ITEM||itemViewType==FULL_ITEM;
+        if (mData!=null&&mData.size()>0)
+            return 0;
+        return fullView.isShow()?1:0;
+    }
+    //head长度
+    public int getHeadCount()
+    {
+        if (mHeaderLayout!=null&&mHeaderLayout.getChildCount()>0)
+            return 1;
+        return 0;
+    }
+    //data长度
+    public int getDataCount()
+    {
+        return mData!=null?mData.size():0;
+    }
+    //foot长度
+    private int getFootCount()
+    {
+        if (mFooterLayout!=null&&mFooterLayout.getChildCount()>0)
+            return 1;
+        return 0;
+    }
+    //加载长度
+    private int getLoadCount()
+    {
+        if (onLoadListenerImp==null)
+            return 0;
+        return 1;
     }
 
-    //解决grid 添加头尾不占全部得问题
+    //判断是不是data数据类型
+    public boolean dataType(RecyclerView.ViewHolder viewhold)
+    {
+        return dataType(viewhold.getItemViewType());
+    }
+
+    public boolean dataType(int viewType)
+    {
+        return viewType!=HEAD_ITEM&&viewType!=FOOT_ITEM
+                &&viewType!=LOAD_ITEM&&viewType!=FULL_ITEM;
+    }
+
+
+    //请不要重写这个方法,多布局重写getDataType这个方法
+    @Override
+    public int getItemViewType(int position) {
+        if (getFullCount()>0)
+            return FULL_ITEM;
+        if (position==0&&getHeadCount()!=0)
+        {
+            return HEAD_ITEM;
+        }
+        else if (position<getHeadCount()+getDataCount())
+        {
+            return getDataType(position-getHeadCount());
+        }
+        else if(position<getHeadCount()+getDataCount()+getFootCount())
+        {
+            return FOOT_ITEM;
+        }
+        else
+        {
+            return LOAD_ITEM;
+        }
+    }
+
+    protected abstract int getDataType(int position);
+
+    @Override
+    public int getItemCount() {
+        return getFullCount()>0?getFullCount():getHeadCount()+getDataCount()+getFootCount()+getLoadCount();
+    }
+
+
+
+
+    /************  监听事件   ****************/
+    //数据点击过事件
+    private OnDataListener onDataListener;
+
+    public OnDataListener getOnDataListener() {
+        return onDataListener;
+    }
+
+    public void setOnDataListener(OnDataListener onDataListener) {
+        this.onDataListener = onDataListener;
+    }
+
+    //所有item的点击事件
+    private OnAllLongListener onAllLongListener;
+    public void setOnAllLongListener(OnAllLongListener onAllLongListener) {
+        this.onAllLongListener = onAllLongListener;
+    }
+
+    //滑动监听
+    private OnLoadListenerImp onLoadListenerImp;
+    public void setOnLoadListenerImp(OnLoadListenerImp onLoadListenerImp) {
+        this.onLoadListenerImp = onLoadListenerImp;
+    }
+
+    /************  绑定监听   ****************/
+    protected void bindDataListener(final V viewhold)
+    {
+        if (viewhold == null) {
+            return;
+        }
+        final View view = viewhold.itemView;
+        if (view == null) {
+            return;
+        }
+        if (getOnDataListener()!=null)
+        {
+            view.setOnClickListener(new OnSingleListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    int position=viewhold.getLayoutPosition() - getFootCount();
+                    getOnDataListener().OnItemCall(BaseAdapter.this,view, position);
+                }
+            });
+        }
+    }
+
+    private void bindAllListener(final V viewhold) {
+        if (viewhold == null) {
+            return;
+        }
+        final View view = viewhold.itemView;
+        if (view == null) {
+            return;
+        }
+        if (onAllLongListener!=null)
+            viewhold.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    onAllLongListener.OnItemCall(viewhold,BaseAdapter.this);
+                    return false;
+                }
+            });
+    }
+
+
+
+    /************  解决Layoutmanager影响full，head，foot的宽度bug  ****************/
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
@@ -499,7 +563,7 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
             gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    return noDataItem(getItemViewType(position))?  gridManager.getSpanCount():1 ;
+                    return dataType(getItemViewType(position))?1: gridManager.getSpanCount() ;
                 }
             });
         }
@@ -514,10 +578,9 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
             {
                 StaggeredGridLayoutManager.LayoutParams params =
                         (StaggeredGridLayoutManager.LayoutParams) layoutParams;
-                params.setFullSpan(noDataItem(holder.getItemViewType()));
+                params.setFullSpan(!dataType(holder));
             }
         }
     }
-
 
 }

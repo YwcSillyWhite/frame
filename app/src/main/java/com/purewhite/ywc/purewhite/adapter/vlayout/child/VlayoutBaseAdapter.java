@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnItemListener;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnDataListener;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BaseViewHolder;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
 
@@ -31,8 +31,8 @@ public abstract class VlayoutBaseAdapter<T,V extends BaseViewHolder> extends Del
      */
 
     private List<T> mData;
-    private OnItemListener onItemListener;
-    public void setOnItemListener(OnItemListener onItemListener) {
+    private OnDataListener onItemListener;
+    public void setOnItemListener(OnDataListener onItemListener) {
         this.onItemListener = onItemListener;
     }
 

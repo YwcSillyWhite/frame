@@ -3,7 +3,7 @@ package com.purewhite.ywc.purewhite.adapter.recyclerview.adapter;
 import android.util.SparseIntArray;
 
 import com.purewhite.ywc.purewhite.adapter.recyclerview.bean.BindBean;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnItemListener;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnDataListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,18 +19,11 @@ public abstract class BindTypeAdapter<T extends BindBean> extends BindAdapter<T>
 
     private SparseIntArray sparseIntArray;
 
+    public BindTypeAdapter() {
+        this(null);
+    }
     public BindTypeAdapter(List<T> list) {
         super(list);
-    }
-
-    public BindTypeAdapter(OnItemListener onItemListener)
-    {
-        this(new ArrayList<T>(),onItemListener);
-    }
-
-    public BindTypeAdapter(List<T> list, OnItemListener onItemListener) {
-        this(list);
-       setOnItemListener(onItemListener);
     }
 
 

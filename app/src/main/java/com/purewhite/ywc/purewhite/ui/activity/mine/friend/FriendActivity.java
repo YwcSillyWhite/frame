@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullView;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BaseViewHolder;
+import com.purewhite.ywc.purewhite.config.OnSingleListener;
 import com.purewhite.ywc.purewhite.databinding.ActivityFriendBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
 import com.purewhite.ywc.purewhite.ui.activity.mine.friend.adapter.FriendAdapter;
@@ -30,7 +31,7 @@ public class FriendActivity extends MvpActivity<ActivityFriendBinding,FriendPres
                 mPresenter.getData();
             //解决重复
             viewHolder.itemView.setRotation(0);
-            if (viewHolder instanceof BaseViewHolder)
+            if (friendAdapter.dataType(viewHolder) &&viewHolder instanceof BaseViewHolder)
             {
                 friend_tb= ((BaseViewHolder) viewHolder).findViewId(R.id.friend_tb);
                 friend_tb.setVisibility(View.GONE);
@@ -41,7 +42,7 @@ public class FriendActivity extends MvpActivity<ActivityFriendBinding,FriendPres
         public void scrollChange(RecyclerView.ViewHolder viewHolder, float scale) {
             //弯曲角度
             viewHolder.itemView.setRotation(scale*15);
-            if (viewHolder instanceof BaseViewHolder) {
+            if (friendAdapter.dataType(viewHolder) &&viewHolder instanceof BaseViewHolder) {
                 friend_tb = ((BaseViewHolder) viewHolder).findViewId(R.id.friend_tb);
                 friend_tb.setText(scale < 0 ? "我喜欢" : "我不喜欢");
                 if (scale < 0)
@@ -51,6 +52,20 @@ public class FriendActivity extends MvpActivity<ActivityFriendBinding,FriendPres
             }
         }
     };
+
+    private OnSingleListener onSingleListener=new OnSingleListener() {
+        @Override
+        public void onSingleClick(View v) {
+            switch (v.getId())
+            {
+                case R.id.action_left:
+                    finish();
+                    break;
+            }
+        }
+    };
+
+    private ItemTouchHelper itemTouchHelper;
 
     @Override
     protected FriendPresenter creartPresenter() {
@@ -69,6 +84,8 @@ public class FriendActivity extends MvpActivity<ActivityFriendBinding,FriendPres
 
     @Override
     protected void initView() {
+        ((TextView) mDataBinding.actionBar.findViewById(R.id.action_center)).setText("添加好友");
+        mDataBinding.actionBar.findViewById(R.id.action_left).setOnClickListener(onSingleListener);
         initRecycler();
         mPresenter.setPage(0);
         mPresenter.getData();
@@ -81,7 +98,7 @@ public class FriendActivity extends MvpActivity<ActivityFriendBinding,FriendPres
         //设置开始fullview加载状态
         friendAdapter.getFullView().setFullState(FullView.FULL_LOAD);
         mDataBinding.recyclerView.setAdapter(friendAdapter);
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(cardHelperCallBack);
+        itemTouchHelper = new ItemTouchHelper(cardHelperCallBack);
         itemTouchHelper.attachToRecyclerView(mDataBinding.recyclerView);
     }
 

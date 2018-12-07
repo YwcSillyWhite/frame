@@ -2,6 +2,7 @@ package com.purewhite.ywc.purewhite.view.recyclerview.card.help;
 
 import android.graphics.Canvas;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
@@ -15,7 +16,7 @@ import com.purewhite.ywc.purewhite.view.recyclerview.card.layoutmanager.CardLayo
  *
  * @author yuwenchao
  */
-public class CardHelperCallBack extends ItemTouchHelper.SimpleCallback {
+public class CardHelperCallBack extends ItemTouchHelper.Callback {
 
     private float scale;
     private CardLayoutManager cardLayoutManager;
@@ -31,12 +32,15 @@ public class CardHelperCallBack extends ItemTouchHelper.SimpleCallback {
     }
 
     public CardHelperCallBack(float scale,int size, CardScrollListener cradScrollListener) {
-        //只允许左右滑动
-        super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         this.scale = scale;
         this.size=SizeUtils.dip2px(size);
         this.cradScrollListener = cradScrollListener;
         cardLayoutManager=new CardLayoutManager(scale,this.size);
+    }
+
+    @Override
+    public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+        return makeMovementFlags(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT);
     }
 
     /**
@@ -61,8 +65,9 @@ public class CardHelperCallBack extends ItemTouchHelper.SimpleCallback {
      */
     @Override
     public float getSwipeThreshold(RecyclerView.ViewHolder viewHolder) {
-        return super.getSwipeThreshold(viewHolder);
+        return 0.3f;
     }
+
 
 
     /**
@@ -114,5 +119,30 @@ public class CardHelperCallBack extends ItemTouchHelper.SimpleCallback {
             view.setTranslationY((child_Count-i-1-justScale)*size);
         }
         cradScrollListener.scrollChange(viewHolder,moveScale);
+    }
+
+
+    //长按选中的viewholder
+    @Override
+    public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
+        super.onSelectedChanged(viewHolder, actionState);
+    }
+
+    //手指松开的viewholder
+    @Override
+    public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+        super.clearView(recyclerView, viewHolder);
+    }
+
+    //是否允许长按
+    @Override
+    public boolean isLongPressDragEnabled() {
+        return false;
+    }
+
+    //是否允许拽动
+    @Override
+    public boolean isItemViewSwipeEnabled() {
+        return true;
     }
 }

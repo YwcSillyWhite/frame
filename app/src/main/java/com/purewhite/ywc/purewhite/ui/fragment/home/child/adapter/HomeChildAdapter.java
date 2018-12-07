@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class  HomeChildAdapter extends BindTypeAdapter<MainBean.DataBean> {
 
     public HomeChildAdapter() {
-        super(new ArrayList<MainBean.DataBean>());
+        super();
         //1个使用
         addLayout(R.layout.adapter_mian);
     }
@@ -32,15 +32,5 @@ public class  HomeChildAdapter extends BindTypeAdapter<MainBean.DataBean> {
         AdapterMianBinding adapterMianBinding = (AdapterMianBinding) holder.getViewDataBinding();
         adapterMianBinding.shipTitle.setText(dataBean.getItem_title());
         ImageLoader.newInstance().init(adapterMianBinding.shipImg,dataBean.getItem_pic());
-
-        adapterMianBinding.shipTitle.setOnClickListener(new OnSingleListener() {
-            @Override
-            public void onSingleClick(View v) {
-                if (getOnItemListener()!=null)
-                {
-                    getOnItemListener().OnItemCall(HomeChildAdapter.this,v,position);
-                }
-            }
-        });
     }
 }

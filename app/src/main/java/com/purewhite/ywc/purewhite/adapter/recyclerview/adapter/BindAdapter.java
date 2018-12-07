@@ -5,7 +5,7 @@ import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnItemListener;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnDataListener;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BindHolder;
 
 import java.util.ArrayList;
@@ -25,15 +25,14 @@ public abstract class BindAdapter<T> extends BaseAdapter<T,BindHolder>{
         super(list);
     }
 
-    public BindAdapter(int layoutId,OnItemListener onItemListener)
+    public BindAdapter(int layoutId)
     {
-        this(new ArrayList<T>(),layoutId,onItemListener);
+        this(new ArrayList<T>(),layoutId);
     }
 
-    public BindAdapter(List<T> list,int layoutId, OnItemListener onItemListener) {
+    public BindAdapter(List<T> list,int layoutId) {
         this(new ArrayList<T>());
         this.layoutId=layoutId;
-        setOnItemListener(onItemListener);
     }
 
     @Override
