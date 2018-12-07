@@ -23,6 +23,6 @@ public class CouponContract {
 
         void getThreeData();
 
-        void getFoutData(int page);
+        void getFoutData();
     }
 }

@@ -10,13 +10,12 @@ import com.purewhite.ywc.purewhite.network.rxjava.HttpObserver;
 public class FriendPresenter extends PresenterImp<FriendContract.View> implements FriendContract.Presenter {
 
     private boolean isRun=false;
-    private int page=0;
     @Override
     public void getData() {
         if (!isRun)
         {
             isRun=true;
-            page++;
+            autoPage();
             HttpUtils.newInstance().getShop_friend("女装",page,new HttpObserver<BaseBean<MainBean>>() {
                 @Override
                 public void onSuccess(BaseBean<MainBean> mainBeanBaseBean) {

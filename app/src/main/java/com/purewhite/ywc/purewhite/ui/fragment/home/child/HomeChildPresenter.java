@@ -9,30 +9,31 @@ import com.purewhite.ywc.purewhite.network.rxjava.HttpObserver;
 public class HomeChildPresenter extends PresenterImp<HomeChildContract.View> implements HomeChildContract.Presenter {
 
     @Override
-    public void getShip(boolean dialog, final boolean flush, String content, int page) {
+    public void getShip(String content) {
+
         HttpUtils.newInstance().getShop(content,page,new HttpObserver<BaseBean<MainBean>>() {
             @Override
             public void onSuccess(BaseBean<MainBean> mainBeanBaseBean) {
-                mView.loadfinish(flush);
                 if (mainBeanBaseBean.getCode()==0&&mainBeanBaseBean.getT()!=null
                         &&mainBeanBaseBean.getT().getData()!=null
                         &&mainBeanBaseBean.getT().getData().size()>0)
                 {
 
-                    mView.getHomeChildAdapter().flushOrAddData(flush,mainBeanBaseBean.getT().getData());
+                    mView.getHomeChildAdapter().flushOrAddData(page==1,mainBeanBaseBean.getT().getData());
                 }
                 else
                 {
-                    mView.getHomeChildAdapter().requestFail(false,flush);
+                    mView.getHomeChildAdapter().requestFail(false,page==1);
                 }
+                mView.loadfinish(page==1);
             }
 
             @Override
             public void onFail(String content) {
                 super.onFail(content);
-                mView.loadfinish(flush);
                 //加载失败
-                mView.getHomeChildAdapter().requestFail(true,flush);
+                mView.getHomeChildAdapter().requestFail(true,page==1);
+                mView.loadfinish(page==1);
 
             }
         });

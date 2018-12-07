@@ -16,6 +16,6 @@ public class HomeChildContract {
 
     public interface Presenter extends BasePresenter<View>
     {
-        void getShip(boolean dialog,boolean flush,String content,int page);
+        void getShip(String content);
     }
 }

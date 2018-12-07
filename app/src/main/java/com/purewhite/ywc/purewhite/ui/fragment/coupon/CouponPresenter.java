@@ -47,19 +47,19 @@ public class CouponPresenter extends PresenterImp<CouponContract.View> implement
                     ((TwoAdapter) mView.getListAdapter().get(VlayoutType.coupon_two)).setShow(true);
                     ((ThreeAdapter) mView.getListAdapter().get(VlayoutType.coupon_three)).flush(mainBeanBaseBean.getT().getData());
                 }
-                getFoutData(1);
+                getFoutData();
             }
 
             @Override
             public void onFail(String content) {
                 super.onFail(content);
-                getFoutData(1);
+                getFoutData();
             }
         });
     }
 
     @Override
-    public void getFoutData(final int page) {
+    public void getFoutData() {
         HttpUtils.newInstance().getShopCoupon_Four("内衣",page,new HttpObserver<BaseBean<MainBean>>() {
             @Override
             public void onSuccess(BaseBean<MainBean> mainBeanBaseBean) {

@@ -29,24 +29,23 @@ public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPres
     private TwoAdapter twoAdapter;
     private ThreeAdapter threeAdapter;
     private FiveAdapter fiveAdapter;
-    private int page=1;
     private OnLoadListenerImp onLoadListenerImp=new OnLoadListenerImp() {
         @Override
         public void onPullUp() {
-            page++;
-            mPresenter.getFoutData(page);
+            mPresenter.autoPage();
+            mPresenter.getFoutData();
         }
 
         @Override
         public void loadAgain() {
-            mPresenter.getFoutData(page);
+            mPresenter.getFoutData();
         }
     };
 
     private PtrCallBack ptrCallBack=new PtrCallBack() {
         @Override
         public void onPullDown() {
-            page=1;
+            mPresenter.initPage();
             mPresenter.getOneData();
         }
     };

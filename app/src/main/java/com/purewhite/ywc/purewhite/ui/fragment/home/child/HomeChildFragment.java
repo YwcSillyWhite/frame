@@ -24,25 +24,24 @@ import com.purewhite.ywc.purewhite.view.recyclerview.top.ScrollTopListener;
 public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,HomeChildPresenter>
         implements HomeChildContract.View {
 
-    private int page=1;
     private PtrCallBack ptrCallBack=new PtrCallBack() {
         @Override
         public void onPullDown() {
-            page=1;
-            mPresenter.getShip(false,true,request_contet,page);
+            mPresenter.initPage();
+            mPresenter.getShip(request_contet);
         }
     };
     private OnLoadListenerImp onLoadListenerImp=new OnLoadListenerImp() {
         //上啦加载
         @Override
         public void onPullUp() {
-            page++;
-            mPresenter.getShip(false,false,request_contet,page);
+            mPresenter.autoPage();
+            mPresenter.getShip(request_contet);
         }
         //重新加载
         @Override
         public void loadAgain() {
-            mPresenter.getShip(false,false,request_contet,page);
+            mPresenter.getShip(request_contet);
         }
     };
 
@@ -83,7 +82,7 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
     @Override
     protected void fristLoad() {
         super.fristLoad();
-        mPresenter.getShip(true,true,request_contet,page);
+        mPresenter.getShip(request_contet);
     }
 
     private void initRecycler() {

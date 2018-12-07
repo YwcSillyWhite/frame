@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullView;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BaseViewHolder;
-import com.purewhite.ywc.purewhite.config.LogUtils;
 import com.purewhite.ywc.purewhite.databinding.ActivityFriendBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
 import com.purewhite.ywc.purewhite.ui.activity.mine.friend.adapter.FriendAdapter;
@@ -22,7 +21,6 @@ public class FriendActivity extends MvpActivity<ActivityFriendBinding,FriendPres
         implements FriendContract.View {
 
     private FriendAdapter friendAdapter;
-    private int page=1;
     private CardScrollListener cardScrollListener=new CardScrollListener() {
         private TextView friend_tb;
         @Override
@@ -72,6 +70,7 @@ public class FriendActivity extends MvpActivity<ActivityFriendBinding,FriendPres
     @Override
     protected void initView() {
         initRecycler();
+        mPresenter.setPage(0);
         mPresenter.getData();
     }
 
