@@ -14,7 +14,7 @@ public class CouponContract {
     {
         SparseArray<DelegateAdapter.Adapter> getListAdapter();
 
-        void requst(boolean flush,boolean network,int pagesize);
+        void requst(int page,boolean network,int pagesize);
     }
 
     public interface Presenter extends BasePresenter<View>

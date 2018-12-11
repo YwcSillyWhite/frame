@@ -3,6 +3,7 @@ package com.purewhite.ywc.purewhite.adapter.vlayout;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,8 +29,8 @@ import java.util.List;
 public class VlayoutAdapter extends DelegateAdapter
 {
     //加载更多load itemtype
-    private final int LOAD_VIEW=0x00010001;
-    private final int FULL_VIEW=0x00010002;
+    private final int LOAD_VIEW=Integer.MIN_VALUE;
+    private final int FULL_VIEW=Integer.MIN_VALUE+1;
     //加载更多监听
     private OnLoadListenerImp onLoadListenerImp;
     public void setOnLoadListenerImp(OnLoadListenerImp onLoadListenerImp) {
@@ -65,7 +66,6 @@ public class VlayoutAdapter extends DelegateAdapter
     private Handler handler=new Handler();
 
 
-
     public VlayoutAdapter(VirtualLayoutManager layoutManager) {
         super(layoutManager);
     }
@@ -77,15 +77,23 @@ public class VlayoutAdapter extends DelegateAdapter
 
     @Override
     public int getItemCount() {
-        return super.getItemCount()+getLoadCount();
+        if (getDataCount()==0)
+            return getFullCount();
+        return getDataCount()+getLoadCount();
     }
+
 
     //全局布局长度
     private int getFullCount()
     {
-        if (getItemCount()>1)
+        if (getDataCount()>1)
             return 0;
         return fullView.isShow()?1:0;
+    }
+
+    public int getDataCount()
+    {
+        return super.getItemCount();
     }
 
     //加载更多布局的item
@@ -128,7 +136,7 @@ public class VlayoutAdapter extends DelegateAdapter
             View view = LayoutInflater.from(parent.getContext()).inflate(fullView.getLayoutId(),
                     parent, false);
             ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-            layoutParams.height=SizeUtils.getScreenHeight();
+            layoutParams.height=parent.getHeight();
             viewHolder = new BaseViewHolder(view);
         }
         else
@@ -148,7 +156,7 @@ public class VlayoutAdapter extends DelegateAdapter
                 //加载失败，点击重新加载
                 if (loadView.getState()==LoadView.STATE_FAIL)
                 {
-                    setState(LoadView.STATE_LOAD,true);
+                    setLoadState(LoadView.STATE_LOAD,true);
                     onLoadListenerImp.loadAgain();
                 }
             }
@@ -156,9 +164,10 @@ public class VlayoutAdapter extends DelegateAdapter
         return viewHolder;
     }
 
+
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position, List<Object> payloads) {
-        super.onBindViewHolder(holder, position, payloads);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
         judgeLoadMore(position);
         int itemViewType = holder.getItemViewType();
         if (itemViewType == LOAD_VIEW) {
@@ -170,14 +179,15 @@ public class VlayoutAdapter extends DelegateAdapter
         }
     }
 
+
     //判断是否能加载更多
     private void judgeLoadMore(int position) {
         if (getLoadCount()==0||position<getItemCount()-1)
             return;
-        if (loadView.getState()==LoadView.STATE_FINISH_TRUE)
+        if (loadView.getState()==LoadView.STATE_FINISH)
         {
             //滑动刷新会报错
-            setState(LoadView.STATE_LOAD,false);
+            setLoadState(LoadView.STATE_LOAD,false);
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -188,49 +198,66 @@ public class VlayoutAdapter extends DelegateAdapter
     }
 
     /**
-     * @param network_fail  加载失败
-     * @param flush   是否上啦刷新
+     * @param network  有网络
+     * @param page   当前第几页
      * @param pagesize  数据长度
      */
-    public void refreshComplete(boolean network_fail,boolean flush,int pagesize)
+    public void refreshComplete(boolean network,int page,int pagesize)
     {
         //如果item的长度等于fullview的长度，并且返回的数据长度等于的0的时候
-        if (getItemCount()==getFullCount()||pagesize==0)
+        if (page==1)
         {
-            fullView.setFullState(network_fail?FullView.FULL_NETWORK:FullView.FULL_LOAD);
-            notifyDataSetChanged();
-        }
-        if (flush)
-        {
-            if (pagesize<mPagesize)
+            if (!network)
             {
-
-                setState(LoadView.STATE_FINISH_FALSE,true);
+                setLoadState(LoadView.STATE_REST,false);
+                if (getDataCount()==0)
+                {
+                    setFullSate(FullView.FULL_NETWORK);
+                }
             }
-            else
+            else if (pagesize==0)
             {
-                setState(LoadView.STATE_FINISH_TRUE,true);
-            }
-        }
-        else
-        {
-            if (pagesize==0)
-            {
-                setState(network_fail?LoadView.STATE_FAIL:LoadView.STATE_FINISH_NODATA,true);
+                setLoadState(LoadView.STATE_REST,false);
+                if (getDataCount()==0)
+                {
+                    setFullSate(FullView.FULL_DATA);
+                }
             }
             else if (pagesize<mPagesize)
             {
-                setState(LoadView.STATE_FINISH_NODATA,true);
+                setLoadState(LoadView.STATE_REST,true);
             }
             else
             {
-                setState(LoadView.STATE_FINISH_TRUE,true);
+                setLoadState(LoadView.STATE_FINISH,true);
+            }
+
+        }
+        else
+        {
+            if (!network)
+            {
+                setLoadState(LoadView.STATE_FAIL,true);
+            }
+            else if (pagesize<mPagesize)
+            {
+                setLoadState(LoadView.STATE_DATA,true);
+            }
+            else
+            {
+                setLoadState(LoadView.STATE_FINISH,true);
             }
         }
     }
 
 
-    private void setState(int statue,boolean flush)
+    public void setFullSate(int fullSate)
+    {
+        fullView.setFullState(fullSate);
+        notifyDataSetChanged();
+    }
+
+    private void setLoadState(int statue,boolean flush)
     {
         loadView.setState(statue);
         if (flush)

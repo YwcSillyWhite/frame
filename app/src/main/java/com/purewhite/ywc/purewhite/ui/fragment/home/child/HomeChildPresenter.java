@@ -18,12 +18,11 @@ public class HomeChildPresenter extends PresenterImp<HomeChildContract.View> imp
                         &&mainBeanBaseBean.getT().getData()!=null
                         &&mainBeanBaseBean.getT().getData().size()>0)
                 {
-
-                    mView.getHomeChildAdapter().flushOrAddData(page==1,mainBeanBaseBean.getT().getData());
+                    mView.getHomeChildAdapter().refreshComplete(true,page,mainBeanBaseBean.getT().getData());
                 }
                 else
                 {
-                    mView.getHomeChildAdapter().requestFail(false,page==1);
+                    mView.getHomeChildAdapter().refreshComplete(true,page,null);
                 }
                 mView.loadfinish(page==1);
             }
@@ -32,9 +31,8 @@ public class HomeChildPresenter extends PresenterImp<HomeChildContract.View> imp
             public void onFail(String content) {
                 super.onFail(content);
                 //加载失败
-                mView.getHomeChildAdapter().requestFail(true,page==1);
+                mView.getHomeChildAdapter().refreshComplete(false,page,null);
                 mView.loadfinish(page==1);
-
             }
         });
     }

@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".app.BaseApplication"
+        android:name=".app.BaseAppUtils"
         android:theme="@style/AppTheme">
         //启动页
         <activity android:name=".ui.activity.guide.GuideActivity"
@@ -32,6 +32,8 @@
         <activity android:name=".ui.activity.mine.web.WebActivity"/>
         //我的好友
         <activity android:name=".ui.activity.mine.friend.FriendActivity"/>
+        //选择
+        <activity android:name=".ui.activity.home.choose.ChooseActivity"/>
     </application>
 
 </manifest>

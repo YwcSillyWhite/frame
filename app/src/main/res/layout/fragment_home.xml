@@ -5,16 +5,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <android.support.design.widget.TabLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            app:tabMode="scrollable"
-            android:background="@color/write"
-            app:tabIndicatorColor="@color/red"
-            app:tabSelectedTextColor="@color/red"
-            app:tabTextColor="#333"
-            android:id="@+id/tab_layout">
-        </android.support.design.widget.TabLayout>
+            android:orientation="horizontal"
+            android:background="@color/write">
+            <android.support.design.widget.TabLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="45dp"
+                app:tabMode="scrollable"
+                app:tabIndicatorColor="@color/red"
+                app:tabSelectedTextColor="@color/red"
+                app:tabTextColor="#333"
+                android:id="@+id/tab_layout">
+            </android.support.design.widget.TabLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="三"
+                android:textColor="@color/text_deep"
+                android:textSize="20sp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:gravity="center"
+                android:id="@+id/choose"
+                
+                android:textStyle="bold"/>
+        </LinearLayout>
+
         <android.support.v4.view.ViewPager
             android:layout_width="match_parent"
             android:layout_height="match_parent"

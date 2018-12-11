@@ -22,7 +22,8 @@ public class CouponPresenter extends PresenterImp<CouponContract.View> implement
                         &&mainBeanBaseBean.getT().getData()!=null
                         &&mainBeanBaseBean.getT().getData().size()>0)
                 {
-                    ((OneAdapter) mView.getListAdapter().get(VlayoutType.coupon_one)).flush(mainBeanBaseBean.getT().getData());
+                    ((OneAdapter) mView.getListAdapter().get(VlayoutType.coupon_one)).
+                            flush(mainBeanBaseBean.getT().getData());
                 }
                 getThreeData();
             }
@@ -69,11 +70,11 @@ public class CouponPresenter extends PresenterImp<CouponContract.View> implement
                 {
                     ((FourAdapter) mView.getListAdapter().get(VlayoutType.coupon_four)).setShow(true);
                     ((FiveAdapter) mView.getListAdapter().get(VlayoutType.coupon_five)).flushOrAddData(page==1,mainBeanBaseBean.getT().getData());
-                    mView.requst(page==1,false,mainBeanBaseBean.getT().getData().size());
+                    mView.requst(page,true,mainBeanBaseBean.getT().getData().size());
                 }
                 else
                 {
-                    mView.requst(page==1,false,0);
+                    mView.requst(page,true,0);
                 }
 
             }
@@ -81,7 +82,7 @@ public class CouponPresenter extends PresenterImp<CouponContract.View> implement
             @Override
             public void onFail(String content) {
                 super.onFail(content);
-                mView.requst(page==1,true,0);
+                mView.requst(page,false,0);
             }
         });
     }

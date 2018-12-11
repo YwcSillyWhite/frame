@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +86,7 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
                         //加载失败，点击重新加载
                         if (loadView.getState()==LoadView.STATE_FAIL)
                         {
-                            setState(LoadView.STATE_LOAD,true);
+                            setLoadState(LoadView.STATE_LOAD,true);
                             onLoadListenerImp.loadAgain();
                         }
                     }
@@ -131,8 +132,8 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
         if (getLoadCount()==0||position<getItemCount()-1)
             return;
         //加载结束
-        if (loadView.getState()==LoadView.STATE_FINISH_TRUE) {
-            setState(LoadView.STATE_LOAD,false);
+        if (loadView.getState()==LoadView.STATE_FINISH) {
+            setLoadState(LoadView.STATE_LOAD,false);
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -154,95 +155,90 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
      * @param flush  刷新
      * 由于滑动过程中要是刷新数据就会导致崩盘
      */
-    private void setState(int statue,boolean flush)
+
+
+    private void setLoadState(int statue,boolean flush)
     {
         loadView.setState(statue);
         if (flush)
             notifyItemChanged(getItemCount()-1);
     }
 
-    //请求失败
-    public void requestFail(boolean network,boolean flush)
+    private void setFullState(int statue)
     {
-        if (flush)
-        {
-            flushFail(network);
-        }
-        else
-        {
-            loadFail();
-        }
+        fullView.setFullState(statue);
+        notifyDataSetChanged();
     }
 
-    public void requestFail(boolean network,int page)
-    {
-        if (page==1)
-        {
-            flushFail(network);
-        }
-        else
-        {
-            loadFail();
-        }
-    }
 
-    //加载失败
-    public void loadFail()
-    {
-        if (mData!=null&&mData.size()>=pageSize)
-        {
-            setState(LoadView.STATE_FAIL,true);
-        }
-    }
 
-    //刷新失败
-    public void flushFail(boolean network)
-    {
-        if (mData==null||mData.size()==0)
-        {
-            fullView.setFullState(network?FullView.FULL_NETWORK:FullView.FULL_DATA);
-            notifyDataSetChanged();
-        }
-    }
+
 
 
 
     /************  数据处理   ****************/
     //添加数据
-    public void flushOrAddData(boolean flush,List<T> list)
+
+
+    public void  refreshComplete(boolean network,int page,List<T> list)
     {
-        if (flush)
+        if (list!=null&&list.size()>0)
         {
-            flush(list);
+            if (page==1)
+            {
+                flush(list);
+            }
+            else
+            {
+                addData(list);
+            }
         }
         else
         {
-            addData(list);
+            if (!network)
+            {
+                if (page==1)
+                {
+                    setLoadState(LoadView.STATE_FAIL,false);
+                    if (getDataCount()==0)
+                    {
+                        setFullState(FullView.FULL_NETWORK);
+                    }
+                }
+                else
+                {
+                    setLoadState(LoadView.STATE_FAIL,true);
+                }
+            }
+            else
+            {
+                if (page==1)
+                {
+                    setLoadState(LoadView.STATE_REST,false);
+                    if (getDataCount()==0)
+                    {
+                        setFullState(FullView.FULL_DATA);
+                    }
+                }
+                else
+                {
+                    setLoadState(LoadView.STATE_DATA,true);
+                }
+            }
         }
     }
 
-    //添加数据你
-    public void flushOrAddData(int page,List<T> list)
-    {
-        if (page==1)
-        {
-            flush(list);
-        }
-        else
-        {
-            addData(list);
-        }
-    }
+
     //刷新数据
     public void flush(List<T> list)
     {
         if (list!=null&&list.size()>=pageSize)
         {
-            setState(LoadView.STATE_FINISH_TRUE,true);
+            setLoadState(LoadView.STATE_FINISH,true);
         }
         else
         {
-            setState(LoadView.STATE_FINISH_FALSE,true);
+            setLoadState(LoadView.STATE_REST,true);
         }
         mData=list!=null&&list.size()>0?list:new ArrayList<T>();
         notifyDataSetChanged();
@@ -261,19 +257,18 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
             {
                 if (list.size()>=pageSize)
                 {
-                    setState(LoadView.STATE_FINISH_TRUE,true);
+                    setLoadState(LoadView.STATE_FINISH,true);
                 }
                 else
                 {
-                    setState(LoadView.STATE_FINISH_NODATA,true);
-
+                    setLoadState(LoadView.STATE_DATA,true);
                 }
                 mData.addAll(list);
                 notifyItemRangeInserted(mData.size()-list.size() + getHeadCount(), list.size());
             }
             else
             {
-                setState(LoadView.STATE_FINISH_NODATA,true);
+                setLoadState(LoadView.STATE_DATA,true);
             }
         }
     }

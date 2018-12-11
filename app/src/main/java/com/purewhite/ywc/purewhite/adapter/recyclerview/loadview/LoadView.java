@@ -17,12 +17,11 @@ public abstract class LoadView {
     //加载失败
     public static final int STATE_FAIL=2;
     //加载结束，下次还可以进行加载
-    public static final int STATE_FINISH_TRUE=3;
-    //加载结束或者开始状态，下次不能进行加载
-    public static final int STATE_FINISH_FALSE=4;
+    public static final int STATE_FINISH=3;
     //加载结束，没有更多数据的时候
-    public static final int STATE_FINISH_NODATA=5;
-
+    public static final int STATE_DATA=4;
+    //加载结束或者开始状态，下次不能进行加载
+    public static final int STATE_REST=0;
 
 
     public abstract  int getLayoutId();
@@ -48,16 +47,10 @@ public abstract class LoadView {
                 visible(holder,getFailViewId(), View.VISIBLE);
                 visible(holder,getNoMoreViewId(), View.GONE);
                 break;
-            case STATE_FINISH_NODATA:
+            case STATE_DATA:
                 visible(holder,getLoadViewId(), View.GONE);
                 visible(holder,getFailViewId(), View.GONE);
                 visible(holder,getNoMoreViewId(), View.VISIBLE);
-                break;
-            case STATE_FINISH_TRUE:
-            case STATE_FINISH_FALSE:
-                visible(holder,getLoadViewId(), View.GONE);
-                visible(holder,getFailViewId(), View.GONE);
-                visible(holder,getNoMoreViewId(), View.GONE);
                 break;
                 default:
                     visible(holder,getLoadViewId(), View.GONE);

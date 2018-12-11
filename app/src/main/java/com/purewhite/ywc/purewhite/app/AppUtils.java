@@ -21,13 +21,10 @@ public final class  AppUtils {
         throw new UnsupportedOperationException("you can not create object");
     }
 
-    public static BaseApplication getApplication() {
-        if (application!=null)
-            return application;
-        throw new UnsupportedOperationException("you can not init app");
+    public static BaseAppUtils getApplication() {
+        return BaseAppUtils.getBaseAppUtils();
     }
 
-    private static BaseApplication application;
     private static Stack<BaseActivity> stack=new Stack<>();
     static Application.ActivityLifecycleCallbacks activityLifecycleCallbacks=new Application.ActivityLifecycleCallbacks() {
         @Override
@@ -69,9 +66,8 @@ public final class  AppUtils {
 
 
     //初始化
-    public static void init(final BaseApplication app) {
-        application=app;
-        app.registerActivityLifecycleCallbacks(activityLifecycleCallbacks);
+    public static void init() {
+        getApplication().registerActivityLifecycleCallbacks(activityLifecycleCallbacks);
     }
 
 

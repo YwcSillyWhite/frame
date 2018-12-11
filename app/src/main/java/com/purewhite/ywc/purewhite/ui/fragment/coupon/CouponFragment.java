@@ -84,6 +84,8 @@ public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPres
         vlayoutAdapter.setmPagesize(20);
         vlayoutAdapter.setOnLoadListenerImp(onLoadListenerImp);
         vlayoutAdapter.getFullView().setFullState(FullView.FULL_LOAD);
+        //把vlayout的适配器加入recycler
+        mDataBinding.recyclerView.setAdapter(vlayoutAdapter);
         //创建vlayout子适配器
         sparseArray=new SparseArray<>();
 
@@ -106,8 +108,7 @@ public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPres
 
         //把子适配的集合加入vlayout的适配器
         vlayoutAdapter.setAdapters(sparseArray);
-        //把vlayout的适配器加入recycler
-        mDataBinding.recyclerView.setAdapter(vlayoutAdapter);
+
 
 
     }
@@ -118,12 +119,12 @@ public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPres
     }
 
     @Override
-    public void requst(boolean flush, boolean network, int pagesize) {
-        if (flush)
+    public void requst(int page, boolean network, int pagesize) {
+        if (page==1)
         {
             mDataBinding.ptrLayout.setEnabled(true);
             mDataBinding.ptrLayout.refreshComplete();
         }
-        vlayoutAdapter.refreshComplete(network,flush,pagesize);
+        vlayoutAdapter.refreshComplete(network,page,pagesize);
     }
 }

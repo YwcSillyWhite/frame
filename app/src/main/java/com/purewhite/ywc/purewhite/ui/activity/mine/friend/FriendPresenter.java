@@ -24,13 +24,12 @@ public class FriendPresenter extends PresenterImp<FriendContract.View> implement
                             &&mainBeanBaseBean.getT().getData()!=null
                             &&mainBeanBaseBean.getT().getData().size()>0)
                     {
-                        if (page==1)
-                            mView.getAdapter().getFullView().setFullState(FullView.FULL_HIDE);
-                        mView.getAdapter().flushOrAddData(page==1,mainBeanBaseBean.getT().getData());
+
+                        mView.getAdapter().refreshComplete(true,page,mainBeanBaseBean.getT().getData());
                     }
                     else
                     {
-                        mView.getAdapter().requestFail(false,page==1);
+                        mView.getAdapter().refreshComplete(true,page,null);
                     }
                 }
 
@@ -38,7 +37,7 @@ public class FriendPresenter extends PresenterImp<FriendContract.View> implement
                 public void onFail(String content) {
                     super.onFail(content);
                     //加载失败
-                    mView.getAdapter().requestFail(true,page==1);
+                    mView.getAdapter().refreshComplete(false,page,null);
 
                 }
             });

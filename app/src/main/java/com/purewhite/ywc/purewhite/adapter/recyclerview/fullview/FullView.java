@@ -18,7 +18,7 @@ public abstract class FullView {
     //没有数据
     public static final int FULL_DATA=3;
     //不显示
-    public static final int FULL_HIDE=4;
+    public static final int FULL_REST=0;
 
     public abstract  int getLayoutId();
 

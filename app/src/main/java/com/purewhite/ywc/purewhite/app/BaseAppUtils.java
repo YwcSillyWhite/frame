@@ -9,12 +9,18 @@ import android.app.Application;
  * @date 2018/11/3
  */
 
-public class BaseApplication extends Application{
+public class BaseAppUtils extends Application{
+
+    private static BaseAppUtils baseAppUtils;
+
+    public static BaseAppUtils getBaseAppUtils() {
+        return baseAppUtils;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        AppUtils.init(this);
-
+        baseAppUtils=this;
+        AppUtils.init();
     }
 }
