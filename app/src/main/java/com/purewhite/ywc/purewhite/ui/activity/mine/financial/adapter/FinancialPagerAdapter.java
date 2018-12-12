@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import com.purewhite.ywc.purewhite.adapter.pagerview.BaseFragmentAdapter;
-import com.purewhite.ywc.purewhite.ui.fragment.mine.financial.FinancilFragment;
+import com.purewhite.ywc.purewhite.ui.fragment.mine.financial.FinancialFragment;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class FinancialPagerAdapter extends BaseFragmentAdapter<String> {
 
     @Override
     protected Fragment getFragment(int position) {
-        FinancilFragment fragment = new FinancilFragment();
+        FinancialFragment fragment = new FinancialFragment();
         Bundle bundle=new Bundle();
         bundle.putString("title",mDatas.get(position));
         fragment.setArguments(bundle);

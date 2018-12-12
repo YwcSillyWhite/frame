@@ -10,15 +10,15 @@ import com.purewhite.ywc.purewhite.ui.fragment.mine.financial.adapter.FinancilAd
 /**
  * @author yuwenchao
  */
-public class FinancilFragment extends MvpFragment<FragmentFinancilBinding,FinancilPresenter>
-        implements FinancilContract.View {
+public class FinancialFragment extends MvpFragment<FragmentFinancilBinding,FinancialPresenter>
+        implements FinancialContract.View {
 
     private FinancilAdapter financilAdapter;
     private String title;
 
     @Override
-    protected FinancilPresenter creartPresenter() {
-        return new FinancilPresenter();
+    protected FinancialPresenter creartPresenter() {
+        return new FinancialPresenter();
     }
 
     @Override

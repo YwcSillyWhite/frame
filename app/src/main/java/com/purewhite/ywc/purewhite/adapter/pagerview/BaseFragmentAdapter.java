@@ -1,9 +1,12 @@
 package com.purewhite.ywc.purewhite.adapter.pagerview;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.SparseArray;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,4 +54,5 @@ public abstract class BaseFragmentAdapter<T> extends FragmentPagerAdapter {
         sparseArray.clear();
         notifyDataSetChanged();
     }
+
 }

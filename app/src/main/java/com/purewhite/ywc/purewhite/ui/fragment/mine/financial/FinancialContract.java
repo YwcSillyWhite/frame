@@ -7,7 +7,7 @@ import com.purewhite.ywc.purewhite.ui.fragment.mine.financial.adapter.FinancilAd
 /**
  * @author yuwenchao
  */
-public class FinancilContract {
+public class FinancialContract {
 
     public interface View extends BaseView
     {

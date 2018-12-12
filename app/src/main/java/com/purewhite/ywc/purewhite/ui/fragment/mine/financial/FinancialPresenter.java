@@ -9,8 +9,8 @@ import com.purewhite.ywc.purewhite.network.rxjava.HttpObserver;
 /**
  * @author yuwenchao
  */
-public class FinancilPresenter extends PresenterImp<FinancilContract.View>
-        implements FinancilContract.Presenter {
+public class FinancialPresenter extends PresenterImp<FinancialContract.View>
+        implements FinancialContract.Presenter {
 
     @Override
     public void getData(String content) {
