@@ -42,4 +42,9 @@
     <declare-styleable name="RatioImageView">
         <attr name="scale" format="float"></attr>
     </declare-styleable>
+
+
+    <declare-styleable name="ScrollViewPager">
+        <attr name="scroll" format="boolean"></attr>
+    </declare-styleable>
 </resources>

@@ -34,6 +34,8 @@
         <activity android:name=".ui.activity.mine.friend.FriendActivity"/>
         //选择
         <activity android:name=".ui.activity.home.choose.ChooseActivity"/>
+        //仿京东
+        <activity android:name=".ui.activity.mine.financial.FinancialActivity"/>
     </application>
 
 </manifest>

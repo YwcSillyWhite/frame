@@ -19,4 +19,10 @@
     </string-array>
 
 
+    <string-array name="financial">
+        <item>美妆</item>
+        <item>女装</item>
+        <item>母婴</item>
+        <item>内衣</item>
+    </string-array>
 </resources>

@@ -3,9 +3,7 @@ package com.purewhite.ywc.purewhite.adapter.recyclerview.adapter;
 import android.util.SparseIntArray;
 
 import com.purewhite.ywc.purewhite.adapter.recyclerview.bean.BindBean;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnDataListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,6 +50,6 @@ public abstract class BindTypeAdapter<T extends BindBean> extends BindAdapter<T>
 
     @Override
     protected int getDataType(int position) {
-        return obtainT(position).getBeanType();
+        return obtainT(position)!=null?obtainT(position).getBeanType():0;
     }
 }

@@ -48,7 +48,6 @@ public class PresenterImp<V extends BaseView> implements BasePresenter<V> {
         {
             vWeakReference.clear();
             mView=null;
-
         }
     }
 }

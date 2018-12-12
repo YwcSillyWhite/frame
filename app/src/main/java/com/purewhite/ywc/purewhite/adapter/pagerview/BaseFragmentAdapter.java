@@ -3,6 +3,7 @@ package com.purewhite.ywc.purewhite.adapter.pagerview;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.SparseArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,19 +14,27 @@ import java.util.List;
 public abstract class BaseFragmentAdapter<T> extends FragmentPagerAdapter {
 
     protected List<T> mDatas;
+    private SparseArray<Fragment> sparseArray;
 
     public BaseFragmentAdapter(FragmentManager fm) {
-        super(fm);
+        this(fm,new ArrayList<T>());
     }
 
     public BaseFragmentAdapter(FragmentManager fm, List<T> data) {
-        this(fm);
+        super(fm);
         this.mDatas=data;
+        sparseArray=new SparseArray<>();
     }
 
     @Override
-    public Fragment getItem(int i) {
-        return getFragment(i);
+    public Fragment getItem(int position) {
+        Fragment fragment = sparseArray.get(position);
+        if (fragment==null)
+        {
+            fragment=getFragment(position);
+            sparseArray.put(position,fragment);
+        }
+        return fragment;
     }
 
     protected abstract Fragment getFragment(int position);
@@ -39,6 +48,7 @@ public abstract class BaseFragmentAdapter<T> extends FragmentPagerAdapter {
     public void flush(List<T> list)
     {
         mDatas=list!=null?list:new ArrayList<T>();
+        sparseArray.clear();
         notifyDataSetChanged();
     }
 }

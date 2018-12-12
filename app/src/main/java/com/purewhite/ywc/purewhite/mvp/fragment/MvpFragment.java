@@ -27,9 +27,16 @@ public abstract class MvpFragment<DB extends ViewDataBinding,P extends Presenter
             mPresenter.addView(this);
     }
 
+
+
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    protected void fristLoad() {
+        super.fristLoad();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         if (mPresenter!=null)
             mPresenter.deleteView();
     }

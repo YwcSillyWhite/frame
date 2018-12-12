@@ -4,7 +4,6 @@ import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,8 @@ import android.widget.LinearLayout;
 
 import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullView;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullViewImp;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnDataListener;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnAllLongListener;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnDataListener;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadView;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadViewImp;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
@@ -155,8 +154,6 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
      * @param flush  刷新
      * 由于滑动过程中要是刷新数据就会导致崩盘
      */
-
-
     private void setLoadState(int statue,boolean flush)
     {
         loadView.setState(statue);
@@ -178,8 +175,6 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
 
     /************  数据处理   ****************/
     //添加数据
-
-
     public void  refreshComplete(boolean network,int page,List<T> list)
     {
         if (list!=null&&list.size()>0)

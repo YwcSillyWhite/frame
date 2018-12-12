@@ -1,16 +1,11 @@
 package com.purewhite.ywc.purewhite.ui.fragment.home.child.adapter;
 
-import android.view.View;
-
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.adapter.BindTypeAdapter;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BindHolder;
 import com.purewhite.ywc.purewhite.bean.main.MainBean;
-import com.purewhite.ywc.purewhite.config.OnSingleListener;
 import com.purewhite.ywc.purewhite.databinding.AdapterMianBinding;
 import com.purewhite.ywc.purewhite.imageload.ImageLoader;
-
-import java.util.ArrayList;
 
 
 /**

@@ -1,6 +1,5 @@
 package com.purewhite.ywc.purewhite.ui.activity.mine.friend;
 
-import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullView;
 import com.purewhite.ywc.purewhite.bean.base.BaseBean;
 import com.purewhite.ywc.purewhite.bean.main.MainBean;
 import com.purewhite.ywc.purewhite.mvp.presenter.PresenterImp;

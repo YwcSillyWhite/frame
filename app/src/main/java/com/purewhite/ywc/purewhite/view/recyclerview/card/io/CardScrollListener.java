@@ -1,7 +1,6 @@
 package com.purewhite.ywc.purewhite.view.recyclerview.card.io;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 /**
  * @author yuwenchao

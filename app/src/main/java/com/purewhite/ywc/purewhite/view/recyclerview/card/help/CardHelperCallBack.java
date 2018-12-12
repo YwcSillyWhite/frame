@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
-import com.purewhite.ywc.purewhite.config.LogUtils;
 import com.purewhite.ywc.purewhite.config.SizeUtils;
 import com.purewhite.ywc.purewhite.view.recyclerview.card.io.CardScrollListener;
 import com.purewhite.ywc.purewhite.view.recyclerview.card.layoutmanager.CardLayoutManager;

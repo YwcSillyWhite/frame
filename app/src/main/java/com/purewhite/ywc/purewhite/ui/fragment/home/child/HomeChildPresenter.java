@@ -6,6 +6,10 @@ import com.purewhite.ywc.purewhite.mvp.presenter.PresenterImp;
 import com.purewhite.ywc.purewhite.network.retrofit.request.http.HttpUtils;
 import com.purewhite.ywc.purewhite.network.rxjava.HttpObserver;
 
+
+/**
+ * @author yuwenchao
+ */
 public class HomeChildPresenter extends PresenterImp<HomeChildContract.View> implements HomeChildContract.Presenter {
 
     @Override
