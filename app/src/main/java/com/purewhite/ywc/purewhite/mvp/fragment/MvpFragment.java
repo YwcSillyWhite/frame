@@ -28,12 +28,6 @@ public abstract class MvpFragment<DB extends ViewDataBinding,P extends Presenter
     }
 
 
-
-    @Override
-    protected void fristLoad() {
-        super.fristLoad();
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();

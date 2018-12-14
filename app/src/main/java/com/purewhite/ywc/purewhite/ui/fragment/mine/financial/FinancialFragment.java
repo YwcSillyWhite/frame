@@ -45,8 +45,9 @@ public class FinancialFragment extends MvpFragment<FragmentFinancilBinding,Finan
 
 
     @Override
-    protected void fristLoad() {
-        super.fristLoad();
+    protected void soleLoad() {
+        super.soleLoad();
         mPresenter.getData(title);
     }
+
 }

@@ -10,6 +10,9 @@
             android:layout_below="@+id/action_bar"
             android:id="@+id/shace"
             android:layout_centerHorizontal="true"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></RelativeLayout>
         <TextView
             android:layout_width="50dp"
             android:layout_height="50dp"

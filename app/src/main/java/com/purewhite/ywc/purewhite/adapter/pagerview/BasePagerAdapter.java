@@ -32,8 +32,7 @@ public class BasePagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        View view = list.get(position);
-        container.removeView(view);
+        container.removeView(((View) object));
     }
 
     @Override
@@ -41,5 +40,11 @@ public class BasePagerAdapter extends PagerAdapter {
         View view = list.get(position);
         container.addView(view);
         return view;
+    }
+
+    public void flush(List<View> list)
+    {
+        this.list=list;
+        notifyDataSetChanged();
     }
 }

@@ -20,9 +20,9 @@
 
 
     <string-array name="financial">
-        <item>美妆</item>
+        <item>女鞋</item>
         <item>女装</item>
-        <item>母婴</item>
-        <item>内衣</item>
+        <item>男装</item>
+        <item>洗护</item>
     </string-array>
 </resources>

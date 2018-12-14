@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.imageload.img;
+package com.purewhite.ywc.purewhite.config.img;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

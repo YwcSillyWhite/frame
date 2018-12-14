@@ -30,4 +30,10 @@ public interface HttpService {
     @POST("goods/querySpecialsale")
     Observable<BaseBean<MainBean>> getShopList(@Field("shoptype") String shoptype
             , @Field("pageSize")int pageSize, @Field("pageNo")int pageNo);
+
+    @FormUrlEncoded
+    @POST("goods/querySpecialsale")
+    Observable<BaseBean<MainBean>> getShopList(@Field("shoptype") String shoptype,@Field("typeTwo")String  typeTwo
+            , @Field("pageSize")int pageSize, @Field("pageNo")int pageNo);
+
 }

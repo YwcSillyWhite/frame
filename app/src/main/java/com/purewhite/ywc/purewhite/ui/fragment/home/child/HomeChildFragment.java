@@ -80,8 +80,8 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
     }
 
     @Override
-    protected void fristLoad() {
-        super.fristLoad();
+    protected void soleLoad() {
+        super.soleLoad();
         mPresenter.getShip(request_contet);
     }
 

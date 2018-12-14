@@ -3,6 +3,7 @@ package com.purewhite.ywc.purewhite.ui.activity.mine.financial;
 import android.animation.ValueAnimator;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.TextView;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
@@ -22,7 +23,7 @@ public class FinancialActivity extends MvpActivity<ActivityFinancialBinding,Fina
     private OnSingleListener onSingleListener=new OnSingleListener() {
         @Override
         public void onSingleClick(View v) {
-            int position=0;
+            int position=-1;
             switch (v.getId())
             {
                 case R.id.vip_one:
@@ -37,8 +38,11 @@ public class FinancialActivity extends MvpActivity<ActivityFinancialBinding,Fina
                 case R.id.vip_four:
                     position=3;
                     break;
+                case R.id.action_left:
+                    finish();
+                    break;
             }
-            if (position!=mDataBinding.viewPager.getCurrentItem())
+            if (position>=0&&position!=mDataBinding.viewPager.getCurrentItem())
             {
                 startAnimation(v);
                 mDataBinding.viewPager.setCurrentItem(position);
@@ -58,6 +62,8 @@ public class FinancialActivity extends MvpActivity<ActivityFinancialBinding,Fina
 
     @Override
     protected void initView() {
+        ((TextView) mDataBinding.actionBar.findViewById(R.id.action_center)).setText("等级");
+        mDataBinding.actionBar.findViewById(R.id.action_left).setOnClickListener(onSingleListener);
         mDataBinding.vipOne.setOnClickListener(onSingleListener);
         mDataBinding.vipTwo.setOnClickListener(onSingleListener);
         mDataBinding.vipThree.setOnClickListener(onSingleListener);

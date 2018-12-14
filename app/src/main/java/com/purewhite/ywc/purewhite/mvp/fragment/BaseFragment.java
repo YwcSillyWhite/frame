@@ -18,8 +18,10 @@ import android.view.ViewGroup;
 public abstract class BaseFragment<DB extends ViewDataBinding> extends Fragment{
 
     protected DB mDataBinding;
-    //是否第一次运行
-    private boolean fristLoad;
+    //是否已经唯一加载
+    private boolean soleLoad;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -40,31 +42,34 @@ public abstract class BaseFragment<DB extends ViewDataBinding> extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
-        fristLoad=true;
+        soleLoad=true;
         if (getUserVisibleHint())
         {
-            judgeLoad();
+            decideLoad();
         }
     }
+
 
     //布局
     protected abstract int getLayout();
     //初始化布局
     protected abstract void initView();
     //判断是否加载
-    private void judgeLoad()
-    {
-        if (fristLoad)
+
+    private void decideLoad() {
+        if (soleLoad)
         {
-            fristLoad=false;
-            fristLoad();
+            soleLoad=false;
+            soleLoad();
         }
     }
-    //首次加载
-    protected void fristLoad()
+
+    //唯一加载
+    protected void soleLoad()
     {
 
     }
+
 
 
     //当前fragment是否显示
@@ -73,7 +78,7 @@ public abstract class BaseFragment<DB extends ViewDataBinding> extends Fragment{
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser)
         {
-            judgeLoad();
+            decideLoad();
         }
     }
 }
