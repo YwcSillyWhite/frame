@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.purewhite.ywc.purewhite.config.LogUtils;
+
 /**
  *
  * @author yuwenchao
@@ -18,9 +20,8 @@ import android.view.ViewGroup;
 public abstract class BaseFragment<DB extends ViewDataBinding> extends Fragment{
 
     protected DB mDataBinding;
-    //是否已经唯一加载
+    //唯一加载
     private boolean soleLoad;
-
 
     @Nullable
     @Override
@@ -45,8 +46,9 @@ public abstract class BaseFragment<DB extends ViewDataBinding> extends Fragment{
         soleLoad=true;
         if (getUserVisibleHint())
         {
-            decideLoad();
+            decideSoleLoad();
         }
+        showLoad();
     }
 
 
@@ -56,7 +58,7 @@ public abstract class BaseFragment<DB extends ViewDataBinding> extends Fragment{
     protected abstract void initView();
     //判断是否加载
 
-    private void decideLoad() {
+    private void decideSoleLoad() {
         if (soleLoad)
         {
             soleLoad=false;
@@ -64,8 +66,14 @@ public abstract class BaseFragment<DB extends ViewDataBinding> extends Fragment{
         }
     }
 
+
     //唯一加载
     protected void soleLoad()
+    {
+
+    }
+
+    protected void showLoad()
     {
 
     }
@@ -78,7 +86,21 @@ public abstract class BaseFragment<DB extends ViewDataBinding> extends Fragment{
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser)
         {
-            decideLoad();
+            decideSoleLoad();
+        }
+    }
+
+
+    /**
+     * 第一次加入进去是不加载的，只有在隐藏和显示的时候才会调用这个方法
+     * @param hidden
+     */
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden)
+        {
+            showLoad();
         }
     }
 }

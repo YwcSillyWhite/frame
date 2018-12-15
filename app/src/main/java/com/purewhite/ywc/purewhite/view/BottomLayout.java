@@ -20,10 +20,12 @@ import com.purewhite.ywc.purewhite.config.ClickUtils;
 public class BottomLayout extends LinearLayout implements BottomMenu.OnBottomListener{
 
     private OnBottomLayoutChageListener onBottomLayoutChageListener;
-    private int BottomLayout_checkPosition;
+    private int bottomLayout_checkPosition;
     private SparseArray<BottomMenu> sparseArray;
     //是否运行
     private boolean isRunning=false;
+    private boolean bottomLayout_rest_view;
+
     public boolean isRunning() {
         return isRunning;
     }
@@ -37,16 +39,25 @@ public class BottomLayout extends LinearLayout implements BottomMenu.OnBottomLis
     //上次选中bottom
     private BottomMenu lastBottom;
 
+    public BottomLayout(Context context) {
+        super(context,null);
+    }
 
     public BottomLayout(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        init(context,attrs);
+        super(context, attrs,0);
+
+    }
+
+    public BottomLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initView(attrs);
     }
 
     //初始化
-    private void init(Context context, AttributeSet attrs) {
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.BottomLayout);
-        BottomLayout_checkPosition = typedArray.getInteger(R.styleable.BottomLayout_checkPosition, 0);
+    private void initView(AttributeSet attrs) {
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.BottomLayout);
+        bottomLayout_checkPosition = typedArray.getInteger(R.styleable.BottomLayout_checkPosition, 0);
+        bottomLayout_rest_view = typedArray.getBoolean(R.styleable.BottomLayout_rest_view, false);
     }
 
 
@@ -70,9 +81,9 @@ public class BottomLayout extends LinearLayout implements BottomMenu.OnBottomLis
                 sparseArray.put(position, ((BottomMenu) view));
             }
         }
-        if (position>=BottomLayout_checkPosition)
-            BottomLayout_checkPosition=0;
-        lastBottom=sparseArray.get(BottomLayout_checkPosition);
+        if (position>=bottomLayout_checkPosition)
+            bottomLayout_checkPosition=0;
+        lastBottom=sparseArray.get(bottomLayout_checkPosition);
         lastBottom.setInitCheck();
     }
 
