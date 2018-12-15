@@ -5,67 +5,54 @@
         android:layout_height="match_parent">
         <include layout="@layout/action_one" android:id="@+id/action_bar"/>
         <Space
-            android:layout_width="20dp"
+            android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_below="@+id/action_bar"
-            android:id="@+id/shace"
-            android:layout_centerHorizontal="true"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></RelativeLayout>
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:textSize="15sp"
-            android:text="vip2"
-            android:id="@+id/vip_two"
-            android:gravity="center"
-            android:layout_toLeftOf="@id/shace"
-            android:layout_alignTop="@id/shace"
-            android:background="@color/red"
-            android:textColor="@color/write"/>
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:textSize="15sp"
-            android:text="vip3"
-            android:id="@+id/vip_three"
-            android:gravity="center"
-            android:layout_toRightOf="@id/shace"
-            android:layout_alignTop="@id/shace"
-            android:background="@color/red"
-            android:textColor="@color/write"/>
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:textSize="15sp"
-            android:text="vip1"
+            android:id="@+id/financial_space_one"
+            android:layout_below="@id/action_bar"/>
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/vip_level_1"
             android:id="@+id/vip_one"
-            android:gravity="center"
-            android:layout_toLeftOf="@id/vip_two"
-            android:layout_alignTop="@id/shace"
-            android:layout_marginRight="20dp"
-            android:background="@color/red"
-            android:textColor="@color/write"/>
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:textSize="15sp"
-            android:text="vip4"
-            android:id="@+id/vip_four"
-            android:gravity="center"
+            android:adjustViewBounds="true"
+            android:layout_below="@id/financial_space_one"
+            android:layout_marginLeft="10dp"/>
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/vip_level_2"
+            android:adjustViewBounds="true"
+            android:layout_toRightOf="@id/vip_one"
+            android:layout_alignTop="@id/vip_one"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/vip_two"/>
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/vip_level_3"
+            android:adjustViewBounds="true"
+            android:layout_toRightOf="@id/vip_two"
+            android:layout_alignTop="@id/vip_one"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/vip_three"/>
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/vip_level_3"
+            android:adjustViewBounds="true"
             android:layout_toRightOf="@id/vip_three"
-            android:layout_alignTop="@id/shace"
-            android:layout_marginLeft="20dp"
-            android:background="@color/red"
-            android:textColor="@color/write"/>
+            android:layout_alignTop="@id/vip_one"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/vip_four"/>
+
         <com.purewhite.ywc.purewhite.view.viewpager.ScrollViewPager
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/view_pager"
-            android:layout_below="@id/shace"
+            android:layout_below="@id/vip_one"
             android:background="@color/write"
-            android:layout_marginTop="-10dp">
+            android:layout_marginTop="-10dp"
+            android:paddingTop="20dp">
         </com.purewhite.ywc.purewhite.view.viewpager.ScrollViewPager>
     </RelativeLayout>
 </layout>

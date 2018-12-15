@@ -1,5 +1,7 @@
 package com.purewhite.ywc.purewhite.ui.activity.mine.financial;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -20,6 +22,7 @@ import java.util.Arrays;
 public class FinancialActivity extends MvpActivity<ActivityFinancialBinding,FinancialPresenter>
         implements FinancialContract.View {
 
+    private View view[];
     private OnSingleListener onSingleListener=new OnSingleListener() {
         @Override
         public void onSingleClick(View v) {
@@ -62,12 +65,20 @@ public class FinancialActivity extends MvpActivity<ActivityFinancialBinding,Fina
 
     @Override
     protected void initView() {
+        int screenWidth = SizeUtils.getScreenWidth();
+        int viewWidth = (screenWidth - SizeUtils.dip2px(50)) / 4;
         ((TextView) mDataBinding.actionBar.findViewById(R.id.action_center)).setText("等级");
         mDataBinding.actionBar.findViewById(R.id.action_left).setOnClickListener(onSingleListener);
-        mDataBinding.vipOne.setOnClickListener(onSingleListener);
-        mDataBinding.vipTwo.setOnClickListener(onSingleListener);
-        mDataBinding.vipThree.setOnClickListener(onSingleListener);
-        mDataBinding.vipFour.setOnClickListener(onSingleListener);
+        view=new View[4];
+        view[0]= mDataBinding.vipOne;
+        view[1]= mDataBinding.vipTwo;
+        view[2]= mDataBinding.vipThree;
+        view[3]= mDataBinding.vipFour;
+
+        for (int i = 0; i < view.length; i++) {
+            view[i].setOnClickListener(onSingleListener);
+            view[i].getLayoutParams().width=viewWidth;
+        }
         mDataBinding.vipOne.bringToFront();
         initViewPager();
     }
@@ -96,6 +107,14 @@ public class FinancialActivity extends MvpActivity<ActivityFinancialBinding,Fina
                 {
                     view.bringToFront();
                 }
+            }
+        });
+        valueAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                mDataBinding.viewPager.bringToFront();
+                view.bringToFront();
             }
         });
         valueAnimator.start();

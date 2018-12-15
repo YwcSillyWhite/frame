@@ -1,6 +1,7 @@
 package com.purewhite.ywc.purewhite.ui.fragment.home.child;
 
 import android.support.v7.widget.GridLayoutManager;
+import android.util.Log;
 import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
@@ -83,6 +84,12 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
     protected void soleLoad() {
         super.soleLoad();
         mPresenter.getShip(request_contet);
+    }
+
+    @Override
+    protected void showLoad() {
+        super.showLoad();
+
     }
 
     private void initRecycler() {
