@@ -1,5 +1,6 @@
 package com.purewhite.ywc.purewhite.ui.fragment.mine.financial;
 
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 
 import com.purewhite.ywc.purewhite.R;
@@ -15,6 +16,7 @@ public class FinancialFragment extends MvpFragment<FragmentFinancilBinding,Finan
 
     private FinancilAdapter financilAdapter;
     private String title;
+    private int position;
 
     @Override
     protected FinancialPresenter creartPresenter() {
@@ -28,7 +30,9 @@ public class FinancialFragment extends MvpFragment<FragmentFinancilBinding,Finan
 
     @Override
     protected void initView() {
-        title = getArguments().getString("title");
+        Bundle bundle = getArguments();
+        title = bundle.getString("title");
+        position = bundle.getInt("position");
         initRecycler();
     }
 
@@ -47,7 +51,7 @@ public class FinancialFragment extends MvpFragment<FragmentFinancilBinding,Finan
     @Override
     protected void soleLoad() {
         super.soleLoad();
-        mPresenter.getData(title);
+        mPresenter.getData(title,position);
     }
 
 }

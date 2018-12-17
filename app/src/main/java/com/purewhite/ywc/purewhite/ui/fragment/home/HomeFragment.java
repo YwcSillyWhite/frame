@@ -1,7 +1,5 @@
 package com.purewhite.ywc.purewhite.ui.fragment.home;
 
-import android.util.Log;
-
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.databinding.FragmentHomeBinding;
 import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;

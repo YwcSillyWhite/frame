@@ -13,8 +13,16 @@ public class FinancialPresenter extends PresenterImp<FinancialContract.View>
         implements FinancialContract.Presenter {
 
     @Override
-    public void getData(String content) {
-        HttpUtils.newInstance().getFinancil(content, new HttpObserver<BaseBean<MainBean>>() {
+    public void getData(String content,int position) {
+        if (position==0)
+            position=12;
+        else if (position==1)
+            position=16;
+        else if (position==2)
+            position=12;
+        else if (position==3)
+            position=20;
+        HttpUtils.newInstance().getFinancil(content,position, new HttpObserver<BaseBean<MainBean>>() {
             @Override
             public void onSuccess(BaseBean<MainBean> mainBeanBaseBean) {
                 if (mainBeanBaseBean.getT()!=null&&mainBeanBaseBean.getT().getData()!=null

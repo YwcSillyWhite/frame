@@ -21,7 +21,7 @@
         //默认选中哪个
         <attr name="checkPosition" format="integer"></attr>
         //是否包括其他view
-        <attr name="rest_view" format="boolean"></attr>
+        <attr name="restView_fragment" format="boolean"></attr>
     </declare-styleable>
 
 
@@ -48,6 +48,14 @@
 
 
     <declare-styleable name="ScrollViewPager">
+        //不能滑动
         <attr name="scroll" format="boolean"></attr>
+    </declare-styleable>
+    
+    <declare-styleable name="WrapViewPager">
+        //是否使用缓存高度
+        <attr name="cache" format="boolean"></attr>
+        //子类缓存的最小高度
+        <attr name="child_height" format="dimension"></attr>
     </declare-styleable>
 </resources>

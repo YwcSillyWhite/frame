@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -20,7 +18,7 @@ import com.purewhite.ywc.purewhite.R;
  * @date 2018/11/2
  */
 
-public class BottomMenu extends RelativeLayout implements GestureDetector.OnDoubleTapListener{
+public class BottomMenu extends RelativeLayout{
     //是否选中
     private boolean isCheck;
     //图片
@@ -29,22 +27,13 @@ public class BottomMenu extends RelativeLayout implements GestureDetector.OnDoub
     private TextView bottomTv;
     //消息数
     private TextView bottomNum;
-    private int BottomMenu_checkTv_true;
-    private int BottomMenu_checkTv_flase;
-    private int BottomMenu_checkImg_flase;
-    private int BottomMenu_checkImg_true;
+    private int checkTv_true;
+    private int checkTv_flase;
+    private int checkImg_flase;
+    private int checkImg_true;
     private float dimensionPixelSize;
-    //手势监听
-    private GestureDetector gestureDetector;
-    private boolean BottomMenu_anmiable;
-    private String BottomMenu_text;
-
-    public void setOnBottomListener(OnBottomListener onBottomListener) {
-        this.onBottomListener = onBottomListener;
-    }
-
-    //监听
-    private OnBottomListener onBottomListener;
+    private boolean anmiable;
+    private String text;
 
     public BottomMenu(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -60,30 +49,21 @@ public class BottomMenu extends RelativeLayout implements GestureDetector.OnDoub
         bottomNum = ((TextView) view.findViewById(R.id.bottomNum));
         //获取xml属性
         TypedArray typedArray = context.obtainStyledAttributes(attrs,R.styleable.BottomMenu);
-        BottomMenu_checkTv_true = typedArray.getColor(R.styleable.BottomMenu_checkTv_true, 0Xfff);
-        BottomMenu_checkTv_flase = typedArray.getColor(R.styleable.BottomMenu_checkTv_flase, 0X333);
-        BottomMenu_checkImg_flase = typedArray.getResourceId(R.styleable.BottomMenu_checkImg_flase, -1);
-        BottomMenu_checkImg_true = typedArray.getResourceId(R.styleable.BottomMenu_checkImg_true, -1);
+        checkTv_true = typedArray.getColor(R.styleable.BottomMenu_checkTv_true, 0Xfff);
+        checkTv_flase = typedArray.getColor(R.styleable.BottomMenu_checkTv_flase, 0X333);
+        checkImg_flase = typedArray.getResourceId(R.styleable.BottomMenu_checkImg_flase, -1);
+        checkImg_true = typedArray.getResourceId(R.styleable.BottomMenu_checkImg_true, -1);
         dimensionPixelSize = typedArray.getDimension(R.styleable.BottomMenu_Tvsize, 15);
-        BottomMenu_anmiable = typedArray.getBoolean(R.styleable.BottomMenu_anmiable, true);
-        BottomMenu_text = typedArray.getString(R.styleable.BottomMenu_text);
+        anmiable = typedArray.getBoolean(R.styleable.BottomMenu_anmiable, true);
+        text = typedArray.getString(R.styleable.BottomMenu_text);
         //设置数值
         setMessageNum(0);
         bottomTv.setTextSize(TypedValue.COMPLEX_UNIT_PX,dimensionPixelSize);
-        bottomTv.setText(BottomMenu_text!=null&&!BottomMenu_text.isEmpty()?BottomMenu_text:"设置初始值");
+        bottomTv.setText(text!=null&&!text.isEmpty()?text:"设置初始值");
         setData();
-        //设置手势监听
-        gestureDetector=new GestureDetector(context,new GestureDetector.SimpleOnGestureListener());
-        gestureDetector.setOnDoubleTapListener(this);
-        //动画
 
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        gestureDetector.onTouchEvent(event);
-        return true;
-    }
 
     //动画
     private void anim()
@@ -117,12 +97,15 @@ public class BottomMenu extends RelativeLayout implements GestureDetector.OnDoub
         setData();
         if (isCheck)
         {
-            if (BottomMenu_anmiable)
+            if (anmiable)
                 anim();
             setMessageNum(0);
         }
     }
 
+    /**
+     * 初始化被选中
+     */
     public void setInitCheck() {
         isCheck=true;
         setData();
@@ -131,8 +114,8 @@ public class BottomMenu extends RelativeLayout implements GestureDetector.OnDoub
     //设置选中状态
     private void setData()
     {
-        bottomImg.setImageResource(isCheck?BottomMenu_checkImg_true:BottomMenu_checkImg_flase);
-        bottomTv.setTextColor(isCheck?BottomMenu_checkTv_true:BottomMenu_checkTv_flase);
+        bottomImg.setImageResource(isCheck?checkImg_true:checkImg_flase);
+        bottomTv.setTextColor(isCheck?checkTv_true:checkTv_flase);
     }
 
     //设置消息数
@@ -156,31 +139,4 @@ public class BottomMenu extends RelativeLayout implements GestureDetector.OnDoub
         }
     }
 
-    //单点
-    @Override
-    public boolean onSingleTapConfirmed(MotionEvent e) {
-        if (onBottomListener!=null)
-            onBottomListener.onSingleTap(this);
-        return false;
-    }
-
-    //双击
-    @Override
-    public boolean onDoubleTap(MotionEvent e) {
-        if (onBottomListener!=null)
-            onBottomListener.onDoubleTap(this);
-        return false;
-    }
-
-    @Override
-    public boolean onDoubleTapEvent(MotionEvent e) {
-        return false;
-    }
-
-
-    public interface OnBottomListener
-    {
-        void onSingleTap(BottomMenu view);
-        void onDoubleTap(BottomMenu view);
-    }
 }

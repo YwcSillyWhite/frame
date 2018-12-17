@@ -13,6 +13,7 @@ import com.purewhite.ywc.purewhite.config.SizeUtils;
 import com.purewhite.ywc.purewhite.databinding.ActivityFinancialBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
 import com.purewhite.ywc.purewhite.ui.activity.mine.financial.adapter.FinancialPagerAdapter;
+import com.purewhite.ywc.purewhite.view.viewpager.WrapViewPager;
 
 import java.util.Arrays;
 
@@ -118,5 +119,15 @@ public class FinancialActivity extends MvpActivity<ActivityFinancialBinding,Fina
             }
         });
         valueAnimator.start();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mDataBinding.viewPager instanceof WrapViewPager)
+        {
+            mDataBinding.viewPager.removeOnPageChangeImp();
+        }
     }
 }

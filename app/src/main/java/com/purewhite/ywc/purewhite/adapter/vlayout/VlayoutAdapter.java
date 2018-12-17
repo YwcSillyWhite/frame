@@ -16,6 +16,7 @@ import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadView;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadViewImp;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BaseViewHolder;
+import com.purewhite.ywc.purewhite.config.NetWorkUtils;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
 
 import java.util.ArrayList;
@@ -151,8 +152,8 @@ public class VlayoutAdapter extends DelegateAdapter
             @Override
             public void onSingleClick(View v) {
                 //点击加载失败的接口
-                //加载失败，点击重新加载
-                if (loadView.getState()==LoadView.STATE_FAIL)
+                //加载失败，点击重新加载  没有网络不允许加载
+                if (loadView.getState()==LoadView.STATE_FAIL&&!NetWorkUtils.isNetworkConnected())
                 {
                     setLoadState(LoadView.STATE_LOAD,true);
                     onLoadListenerImp.loadAgain();

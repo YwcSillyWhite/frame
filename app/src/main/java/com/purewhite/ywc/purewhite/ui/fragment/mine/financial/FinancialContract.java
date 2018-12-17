@@ -16,6 +16,6 @@ public class FinancialContract {
 
     public interface Presenter extends BasePresenter<View>
     {
-        void getData(String content);
+        void getData(String content,int position);
     }
 }

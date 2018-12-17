@@ -32,8 +32,9 @@ public class FinancilAdapter extends BindTypeAdapter<MainBean.DataBean> {
         }
     }
 
-    @Override
-    public int getDataCount() {
-        return 16;
-    }
+//    @Override
+//    public int getDataCount() {
+//        return super.getDataCount()==0?16:super.getDataCount();
+//    }
+
 }

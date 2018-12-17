@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -52,7 +53,8 @@
             android:layout_below="@id/vip_one"
             android:background="@color/write"
             android:layout_marginTop="-10dp"
-            android:paddingTop="20dp">
+            android:paddingTop="20dp"
+            app:cache="true">
         </com.purewhite.ywc.purewhite.view.viewpager.ScrollViewPager>
     </RelativeLayout>
 </layout>

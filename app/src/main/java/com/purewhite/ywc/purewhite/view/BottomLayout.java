@@ -10,34 +10,28 @@ import android.widget.LinearLayout;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.config.ClickUtils;
+import com.purewhite.ywc.purewhite.config.OnSingleListener;
 
 /**
- *
+ *这次优化准要是解决，如果底部view显示在当前fragment，那么子bottom该如何变化
  * @author yuwenchao
  * @date 2018/11/3
  */
 
-public class BottomLayout extends LinearLayout implements BottomMenu.OnBottomListener{
+public class BottomLayout extends LinearLayout{
 
     private OnBottomLayoutChageListener onBottomLayoutChageListener;
     private int bottomLayout_checkPosition;
     private SparseArray<BottomMenu> sparseArray;
-    //是否运行
-    private boolean isRunning=false;
-    private boolean bottomLayout_rest_view;
-
-    public boolean isRunning() {
-        return isRunning;
-    }
-    public void setRunning(boolean running) {
-        isRunning = running;
-    }
+    private SparseArray<View> viewArray;
+    //上次选中bottom
+    private View lastView;
+    //其他view是否切换fragment
+    private boolean restView_fragment;
 
     public void addOnBottomLayoutChageListener(OnBottomLayoutChageListener onBottomLayoutChageListener) {
         this.onBottomLayoutChageListener = onBottomLayoutChageListener;
     }
-    //上次选中bottom
-    private BottomMenu lastBottom;
 
     public BottomLayout(Context context) {
         super(context,null);
@@ -57,7 +51,7 @@ public class BottomLayout extends LinearLayout implements BottomMenu.OnBottomLis
     private void initView(AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.BottomLayout);
         bottomLayout_checkPosition = typedArray.getInteger(R.styleable.BottomLayout_checkPosition, 0);
-        bottomLayout_rest_view = typedArray.getBoolean(R.styleable.BottomLayout_rest_view, false);
+        restView_fragment = typedArray.getBoolean(R.styleable.BottomLayout_restView_fragment, false);
     }
 
 
@@ -70,82 +64,113 @@ public class BottomLayout extends LinearLayout implements BottomMenu.OnBottomLis
 
     private void init() {
         int childCount = getChildCount();
-        sparseArray=new SparseArray<>();
-        int position=-1;
+        if (childCount==0)
+            return;
+        viewArray=new SparseArray<>();
         for (int i = 0; i < childCount; i++) {
             View view = getChildAt(i);
-            if (view instanceof BottomMenu)
-            {
-                position++;
-                ((BottomMenu) view).setOnBottomListener(this);
-                sparseArray.put(position, ((BottomMenu) view));
-            }
+            viewArray.put(i,view);
+            view.setOnClickListener(onSingleListener);
         }
-        if (position>=bottomLayout_checkPosition)
-            bottomLayout_checkPosition=0;
-        lastBottom=sparseArray.get(bottomLayout_checkPosition);
-        lastBottom.setInitCheck();
+        lastView = viewArray.get(bottomLayout_checkPosition)==null
+                ?viewArray.get(0):viewArray.get(bottomLayout_checkPosition);
+        //如果这个view是子类那么就设置默认
+        if (lastView instanceof BottomMenu)
+        {
+            ((BottomMenu) lastView).setInitCheck();
+        }
     }
 
-    //设置选中id,初始设置了默认选中的
-    public void setCheckId(int id)
-    {
-        if (isRunning)
-            return;
-        for (int i = 0; i < sparseArray.size(); i++) {
-            if (sparseArray.get(i).getId()==id)
-            {
-                lastBottom.setCheck(false);
-                lastBottom=sparseArray.get(i);
-                lastBottom.setInitCheck();
-                onBottomLayoutChageListener.onCheckChage(lastBottom);
-            }
-        }
-    }
 
     //设置选中id,初始设置了默认选中的
     public void setCheckPosition(int position)
     {
-        if (isRunning)
+        if (onBottomLayoutChageListener==null||position>=sparseArray.size())
             return;
-        if (position>=sparseArray.size())
-            return;
-        lastBottom.setCheck(false);
-        lastBottom=sparseArray.get(position);
-        lastBottom.setInitCheck();
-        onBottomLayoutChageListener.onCheckChage(lastBottom);
+        View view=sparseArray.get(position);
+        //第一种条件不管restview_fragment的值
+        if (view instanceof BottomMenu&&lastView instanceof BottomMenu)
+        {
+            ((BottomMenu) lastView).setCheck(false);
+            lastView=view;
+            ((BottomMenu) lastView).setInitCheck();
+        }
+        else if (lastView instanceof BottomMenu)
+        {
+            //true 处理，false不做任何处理
+            if (restView_fragment)
+            {
+                ((BottomMenu) lastView).setCheck(false);
+                lastView=view;
+            }
+        }
+        else
+        {
+            //restView_fragment = true
+            lastView=view;
+            if (view instanceof BottomMenu)
+                ((BottomMenu) lastView).setInitCheck();
+        }
+        onBottomLayoutChageListener.onCheckChange(view);
     }
 
 
-    @Override
-    public void onSingleTap(BottomMenu view) {
-        childChage(view);
-    }
-
-    @Override
-    public void onDoubleTap(BottomMenu view) {
-        childChage(view);
-    }
 
 
-    public void childChage(BottomMenu view) {
-        if (isRunning||lastBottom==view)
+
+
+
+
+
+
+
+    /***** 事件监听 *****/
+
+    private OnClickListener onSingleListener=new OnSingleListener() {
+        @Override
+        public void onSingleClick(View view) {
+            if (view instanceof BottomMenu)
+                childChange(((BottomMenu) view));
+            else {
+                childChange(view);
+            }
+        }
+    };
+
+    private void childChange(BottomMenu view)
+    {
+        if (onBottomLayoutChageListener==null||lastView==view)
             return;
         if (ClickUtils.clickable(this))
         {
-            //清楚上次选中
-            lastBottom.setCheck(false);
+            if (lastView instanceof BottomMenu)
+                //清楚上次选中
+                ((BottomMenu) lastView).setCheck(false);
             //设置选择lastBottom
-            lastBottom=view;
-            lastBottom.setCheck(true);
-            if (onBottomLayoutChageListener!=null)
-                onBottomLayoutChageListener.onCheckChage(view);
+            lastView=view;
+            view.setCheck(true);
+            onBottomLayoutChageListener.onCheckChange(view);
+
         }
     }
 
 
+    private void childChange(View view)
+    {
+        if (onBottomLayoutChageListener==null||lastView==view)
+            return;
+        if (restView_fragment)
+        {
+            if (lastView instanceof BottomMenu)
+                ((BottomMenu) lastView).setCheck(false);
+            lastView=view;
+        }
+        onBottomLayoutChageListener.onCheckChange(view);
+    }
+
+    /***** io接口  *****/
     public interface OnBottomLayoutChageListener
     {
-        void onCheckChage(BottomMenu view);
+        void onCheckChange(View view);
     }
 }

@@ -1,6 +1,7 @@
 package com.purewhite.ywc.purewhite.ui.activity.main;
 
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.databinding.ActivityMainBinding;
@@ -11,7 +12,6 @@ import com.purewhite.ywc.purewhite.ui.fragment.coupon.CouponFragment;
 import com.purewhite.ywc.purewhite.ui.fragment.home.HomeFragment;
 import com.purewhite.ywc.purewhite.ui.fragment.mine.MineFragment;
 import com.purewhite.ywc.purewhite.view.BottomLayout;
-import com.purewhite.ywc.purewhite.view.BottomMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
 
     private BottomLayout.OnBottomLayoutChageListener onBottomLayoutChageListener=new BottomLayout.OnBottomLayoutChageListener() {
         @Override
-        public void onCheckChage(BottomMenu view) {
+        public void onCheckChange(View view) {
             switch (view.getId())
             {
                 case R.id.bottom_one:

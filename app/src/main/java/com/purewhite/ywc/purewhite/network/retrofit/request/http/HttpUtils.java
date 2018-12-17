@@ -77,9 +77,9 @@ public class HttpUtils {
                 compose(RxSchedulers.<BaseBean<MainBean>>compose()).subscribe(httpObserver);
     }
 
-    public void getFinancil(String content,HttpObserver<BaseBean<MainBean>> httpObserver)
+    public void getFinancil(String content,int pagesize,HttpObserver<BaseBean<MainBean>> httpObserver)
     {
-        httpService.getShopList(content,16,1).
+        httpService.getShopList(content,pagesize,1).
                 compose(RxSchedulers.<BaseBean<MainBean>>compose()).subscribe(httpObserver);
     }
 }

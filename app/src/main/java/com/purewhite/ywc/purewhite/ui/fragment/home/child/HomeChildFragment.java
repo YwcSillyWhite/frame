@@ -1,7 +1,6 @@
 package com.purewhite.ywc.purewhite.ui.fragment.home.child;
 
 import android.support.v7.widget.GridLayoutManager;
-import android.util.Log;
 import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
