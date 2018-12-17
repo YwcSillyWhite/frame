@@ -31,6 +31,13 @@ public class WrapViewPager extends ViewPager {
     private OnPageChangeImp onPageChangeImp;
     private SparseArray<Integer> sparseArray;
 
+    public void setCache(boolean cache) {
+        this.cache = cache;
+    }
+
+    public void setChild_height(float child_height) {
+        this.child_height = child_height;
+    }
 
     public WrapViewPager(@NonNull Context context) {
         this(context,null);

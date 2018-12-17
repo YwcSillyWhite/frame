@@ -39,15 +39,15 @@ public class ScrollViewPager extends WrapViewPager {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         if (scroll)
-            return scroll;
-        return super.onInterceptTouchEvent(ev);
+            return super.onInterceptTouchEvent(ev);
+        return true;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (scroll)
-            return true;
-        return super.onTouchEvent(ev);
+            return super.onTouchEvent(ev);
+        return true;
     }
 
 }

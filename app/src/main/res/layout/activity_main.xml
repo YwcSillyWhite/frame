@@ -21,18 +21,18 @@
 
         <com.purewhite.ywc.purewhite.view.BottomLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:orientation="horizontal"
-            android:paddingTop="3dp"
             android:background="@color/write"
-            android:paddingBottom="3dp"
-            android:layout_alignParentBottom="true"
+            android:clipChildren="true"
+            android:layout_gravity="center"
             android:id="@+id/bottom_layout">
             <com.purewhite.ywc.purewhite.view.BottomMenu
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 app:Tvsize="13sp"
+                android:gravity="center"
                 android:id="@+id/bottom_one"
                 app:text="首页"
                 app:checkTv_true="@color/red"
@@ -45,17 +45,31 @@
                 android:layout_height="match_parent"
                 app:Tvsize="13sp"
                 app:text="收藏"
+                android:gravity="center"
                 android:id="@+id/bottom_two"
                 app:checkTv_true="@color/red"
                 app:checkTv_flase="@color/text_deep"
                 app:checkImg_true="@mipmap/icon_tab_collection_selected"
                 app:checkImg_flase="@mipmap/icon_tab_collection_normal"/>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:clipChildren="true"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="70dp"
+
+                    android:layout_height="70dp"
+                    android:adjustViewBounds="true"
+                    android:src="@mipmap/icon_nav_vip"/>
+            </RelativeLayout>
             <com.purewhite.ywc.purewhite.view.BottomMenu
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 app:Tvsize="13sp"
                 app:text="优惠卷"
+                android:gravity="center"
                 android:id="@+id/bottom_three"
                 app:checkTv_true="@color/red"
                 app:checkTv_flase="@color/text_deep"
@@ -67,6 +81,7 @@
                 android:layout_height="match_parent"
                 app:Tvsize="13sp"
                 app:text="我的"
+                android:gravity="center"
                 android:id="@+id/bottom_four"
                 app:checkTv_true="@color/red"
                 app:checkTv_flase="@color/text_deep"
