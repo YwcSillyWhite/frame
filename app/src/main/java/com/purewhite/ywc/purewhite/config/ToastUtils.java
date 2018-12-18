@@ -14,11 +14,9 @@ public class ToastUtils {
     {
         if (toast==null)
         {
-            Log.d("ywc","bucuo");
-            toast=new Toast(AppUtils.getContext());
-            toast.setDuration(Toast.LENGTH_SHORT);
+            toast=Toast.makeText(AppUtils.getContext(),"",Toast.LENGTH_SHORT);
         }
-//        toast.setText(TAG+content);
-//        toast.show();
+        toast.setText(TAG+content);
+        toast.show();
     }
 }

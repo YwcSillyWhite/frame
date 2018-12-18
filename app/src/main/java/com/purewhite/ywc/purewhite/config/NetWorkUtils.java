@@ -11,6 +11,7 @@ import com.purewhite.ywc.purewhite.app.AppUtils;
  */
 public class NetWorkUtils {
 
+    //判断是否存在网络
     public static boolean isNetworkConnected() {
         ConnectivityManager mConnectivityManager = (ConnectivityManager)
                 AppUtils.getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
