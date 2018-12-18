@@ -26,8 +26,6 @@ public class BottomLayout extends LinearLayout{
     //上次选中bottom
     private BottomMenu lastView;
     private BottomMenu lastLastView;
-    //其他view是否切换fragment
-    private boolean restView_fragment;
 
     public void addOnBottomLayoutChageListener(OnBottomLayoutChageListener onBottomLayoutChageListener) {
         this.onBottomLayoutChageListener = onBottomLayoutChageListener;
@@ -51,7 +49,6 @@ public class BottomLayout extends LinearLayout{
     private void initView(AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.BottomLayout);
         bottomLayout_checkPosition = typedArray.getInteger(R.styleable.BottomLayout_checkPosition, 0);
-        restView_fragment = typedArray.getBoolean(R.styleable.BottomLayout_restView_fragment, false);
     }
 
 

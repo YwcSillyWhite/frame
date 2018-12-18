@@ -27,9 +27,6 @@ public class MineFragment extends MvpFragment<FragmentMineBinding,MinePresenter>
                 case R.id.add_friend:
                     ActivityUtils.newInstance().startActivity(FriendActivity.class);
                     break;
-                case R.id.financial:
-                    ActivityUtils.newInstance().startActivity(FinancialActivity.class);
-                    break;
             }
         }
     };
@@ -49,7 +46,6 @@ public class MineFragment extends MvpFragment<FragmentMineBinding,MinePresenter>
         ImageLoader.newInstance().initHead(mDataBinding.mineHead,R.mipmap.icon_load_error);
         mDataBinding.tiammaoH.setOnClickListener(onSingleListener);
         mDataBinding.addFriend.setOnClickListener(onSingleListener);
-        mDataBinding.financial.setOnClickListener(onSingleListener);
         mPresenter.getCache();
     }
 

@@ -20,8 +20,6 @@
     <declare-styleable name="BottomLayout">
         //默认选中哪个
         <attr name="checkPosition" format="integer"></attr>
-        //是否包括其他view
-        <attr name="restView_fragment" format="boolean"></attr>
     </declare-styleable>
 
 

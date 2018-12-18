@@ -1,12 +1,19 @@
 package com.purewhite.ywc.purewhite.ui.activity.main;
 
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
+import com.purewhite.ywc.purewhite.app.ActivityUtils;
+import com.purewhite.ywc.purewhite.config.OnSingleListener;
+import com.purewhite.ywc.purewhite.config.ToastUtils;
 import com.purewhite.ywc.purewhite.databinding.ActivityMainBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
 import com.purewhite.ywc.purewhite.mvp.fragment.BaseFragment;
+import com.purewhite.ywc.purewhite.ui.activity.mine.financial.FinancialActivity;
 import com.purewhite.ywc.purewhite.ui.fragment.collect.CollectFragment;
 import com.purewhite.ywc.purewhite.ui.fragment.coupon.CouponFragment;
 import com.purewhite.ywc.purewhite.ui.fragment.home.HomeFragment;
@@ -20,7 +27,8 @@ import java.util.List;
  * @author yuwenchao
  */
 public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter> implements MainContract.View {
-
+    private boolean finish;
+    private Handler handler=new Handler();
 
     private BottomLayout.OnBottomLayoutChageListener onBottomLayoutChageListener=new BottomLayout.OnBottomLayoutChageListener() {
         @Override
@@ -42,6 +50,18 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
             }
         }
     };
+    private View.OnClickListener onClickListener=new OnSingleListener() {
+        @Override
+        public void onSingleClick(View v) {
+            switch (v.getId())
+            {
+                case R.id.main_vip:
+                    ActivityUtils.newInstance().startActivity(FinancialActivity.class);
+                    break;
+            }
+        }
+    };
+
     private List<BaseFragment> list=new ArrayList<>();
     private int old_position=-1;
     @Override
@@ -56,6 +76,7 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
 
     @Override
     protected void initView() {
+        mDataBinding.mainVip.setOnClickListener(onClickListener);
         mDataBinding.bottomLayout.addOnBottomLayoutChageListener(onBottomLayoutChageListener);
         list.add(new HomeFragment());
         list.add(new CollectFragment());
@@ -83,6 +104,27 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
         old_position=position;
     }
 
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK&&event.getRepeatCount() == 0)
+        {
+            if (!finish)
+            {
+                finish=true;
+                ToastUtils.show("再按一次退出程序");
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish=false;
+                    }
+                },3000);
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 
 

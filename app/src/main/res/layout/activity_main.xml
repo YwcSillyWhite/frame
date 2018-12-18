@@ -6,10 +6,13 @@
             type="com.purewhite.ywc.purewhite.ui.activity.main.MainActivity">
         </variable>
     </data>
+
+    <!--  clipchildren 要设置在跟节点上  -->
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipChildren="false"
         android:id="@+id/relative">
 
         <FrameLayout
@@ -21,10 +24,9 @@
 
         <com.purewhite.ywc.purewhite.view.BottomLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:orientation="horizontal"
             android:background="@color/write"
-            android:clipChildren="true"
             android:layout_gravity="center"
             android:id="@+id/bottom_layout">
             <com.purewhite.ywc.purewhite.view.BottomMenu
@@ -54,13 +56,15 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:clipChildren="true"
-                android:layout_height="match_parent">
+                android:layout_height="60dp"
+                android:layout_gravity="bottom">
                 <ImageView
-                    android:layout_width="70dp"
-
-                    android:layout_height="70dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:adjustViewBounds="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="5dp"
+                    android:id="@+id/main_vip"
                     android:src="@mipmap/icon_nav_vip"/>
             </RelativeLayout>
             <com.purewhite.ywc.purewhite.view.BottomMenu
