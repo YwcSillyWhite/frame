@@ -1,6 +1,8 @@
 package com.purewhite.ywc.purewhite.app;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 /**
  *
@@ -23,14 +25,23 @@ public class ActivityUtils {
         return activityUtils;
     }
 
-    public void startActivity(Intent intent)
-    {
-        AppUtils.getContext().startActivity(intent);
-    }
+
 
     public void startActivity(Class<?> cls)
     {
-        Intent intent = new Intent(AppUtils.getContext(),cls);
+        startActivity(cls,null);
+    }
+
+
+    public void startActivity(Class<?> cls, Bundle bundle)
+    {
+        if (cls==null) {
+            return;
+        }
+        Intent intent=new Intent(AppUtils.getContext(),cls);
+        if (bundle!=null) {
+            intent.putExtras(bundle);
+        }
         AppUtils.getContext().startActivity(intent);
     }
 

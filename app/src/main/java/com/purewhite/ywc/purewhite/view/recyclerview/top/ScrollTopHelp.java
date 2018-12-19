@@ -3,7 +3,10 @@ package com.purewhite.ywc.purewhite.view.recyclerview.top;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.purewhite.ywc.purewhite.config.OnSingleListener;
 
 import java.lang.ref.WeakReference;
 
@@ -21,6 +24,25 @@ public class ScrollTopHelp {
     public ScrollTopHelp(View view) {
         view.setVisibility(View.GONE);
         weakReference=new WeakReference<>(view);
+    }
+
+
+    //点击view，滑动上移动
+    public void setRecycClick(final RecyclerView recyclerView)
+    {
+        if (weakReference!=null)
+        {
+            View view = weakReference.get();
+            if (view!=null)
+            {
+                view.setOnClickListener(new OnSingleListener() {
+                    @Override
+                    public void onSingleClick(View v) {
+                        recyclerView.scrollToPosition(0);
+                    }
+                });
+            }
+        }
     }
 
 

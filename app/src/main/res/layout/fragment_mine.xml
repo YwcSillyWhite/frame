@@ -64,6 +64,18 @@
             android:background="@color/write"
             android:text="天猫h5页面"
             android:id="@+id/tiammao_h"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="15sp"
+            android:textColor="#333"
+            android:background="@color/write"
+            android:text="互利h5页面"
+            android:id="@+id/huli_h"/>
 
 
         <Space

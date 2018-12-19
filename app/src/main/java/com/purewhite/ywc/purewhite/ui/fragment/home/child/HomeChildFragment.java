@@ -45,17 +45,6 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
         }
     };
 
-    private OnSingleListener onSingleListener=new OnSingleListener() {
-        @Override
-        public void onSingleClick(View v) {
-            switch (v.getId())
-            {
-                case R.id.img_top:
-                    mDataBinding.recyclerView.smoothScrollToPosition(0);
-                    break;
-            }
-        }
-    };
     private HomeChildAdapter homeChildAdapter;
     private String request_contet;
     private ScrollTopHelp scrollTopHelp;
@@ -73,7 +62,8 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
     @Override
     protected void initView() {
         scrollTopHelp = new ScrollTopHelp(mDataBinding.imgTop);
-        mDataBinding.imgTop.setOnClickListener(onSingleListener);
+        scrollTopHelp.setRecycClick(mDataBinding.recyclerView);
+
         request_contet = getArguments().getString(TagUtils.fragmentString);
         mDataBinding.ptrFrame.setPtrHandler(ptrCallBack);
         initRecycler();
