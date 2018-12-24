@@ -54,6 +54,7 @@
             android:background="@color/write"
             android:layout_marginTop="-10dp"
             android:paddingTop="20dp"
+            app:canScroll="true"
             app:cache="true">
         </com.purewhite.ywc.purewhite.view.viewpager.ScrollViewPager>
     </RelativeLayout>

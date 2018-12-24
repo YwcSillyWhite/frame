@@ -1,7 +1,6 @@
 package com.purewhite.ywc.purewhite.ui.activity.main;
 
 import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
@@ -13,7 +12,7 @@ import com.purewhite.ywc.purewhite.config.ToastUtils;
 import com.purewhite.ywc.purewhite.databinding.ActivityMainBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
 import com.purewhite.ywc.purewhite.mvp.fragment.BaseFragment;
-import com.purewhite.ywc.purewhite.ui.activity.mine.financial.FinancialActivity;
+import com.purewhite.ywc.purewhite.ui.activity.vip.financial.FinancialActivity;
 import com.purewhite.ywc.purewhite.ui.fragment.collect.CollectFragment;
 import com.purewhite.ywc.purewhite.ui.fragment.coupon.CouponFragment;
 import com.purewhite.ywc.purewhite.ui.fragment.home.HomeFragment;

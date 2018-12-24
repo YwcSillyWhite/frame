@@ -1,6 +1,6 @@
 package com.purewhite.ywc.purewhite.bean.main;
 
-import com.purewhite.ywc.purewhite.adapter.recyclerview.bean.BindBeanImp;
+import com.purewhite.ywc.purewhite.adapter.bean.BindBeanImp;
 
 import java.util.List;
 

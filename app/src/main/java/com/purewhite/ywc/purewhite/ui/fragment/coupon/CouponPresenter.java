@@ -69,7 +69,8 @@ public class CouponPresenter extends PresenterImp<CouponContract.View> implement
                         &&mainBeanBaseBean.getT().getData().size()>0)
                 {
                     ((FourAdapter) mView.getListAdapter().get(VlayoutType.coupon_four)).setShow(true);
-                    ((FiveAdapter) mView.getListAdapter().get(VlayoutType.coupon_five)).flushOrAddData(page==1,mainBeanBaseBean.getT().getData());
+                    ((FiveAdapter) mView.getListAdapter().get(VlayoutType.coupon_five))
+                            .addDataFlush(page,mainBeanBaseBean.getT().getData());
                     mView.requst(page,true,mainBeanBaseBean.getT().getData().size());
                 }
                 else

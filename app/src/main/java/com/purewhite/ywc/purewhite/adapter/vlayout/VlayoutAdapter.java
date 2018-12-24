@@ -10,12 +10,13 @@ import android.view.ViewGroup;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullView;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullViewImp;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadView;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadViewImp;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BaseViewHolder;
+import com.purewhite.ywc.purewhite.adapter.callback.OnLoadListener;
+import com.purewhite.ywc.purewhite.adapter.fullview.FullView;
+import com.purewhite.ywc.purewhite.adapter.fullview.FullViewImp;
+import com.purewhite.ywc.purewhite.adapter.loadview.LoadView;
+import com.purewhite.ywc.purewhite.adapter.loadview.LoadViewImp;
+import com.purewhite.ywc.purewhite.adapter.callback.OnLoadListenerImp;
+import com.purewhite.ywc.purewhite.adapter.viewholder.BaseViewHolder;
 import com.purewhite.ywc.purewhite.config.NetWorkUtils;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
 
@@ -31,9 +32,9 @@ public class VlayoutAdapter extends DelegateAdapter
     private final int LOAD_VIEW=Integer.MIN_VALUE;
     private final int FULL_VIEW=Integer.MIN_VALUE+1;
     //加载更多监听
-    private OnLoadListenerImp onLoadListenerImp;
-    public void setOnLoadListenerImp(OnLoadListenerImp onLoadListenerImp) {
-        this.onLoadListenerImp = onLoadListenerImp;
+    private OnLoadListener onLoadListener;
+    public void setOnLoadListener(OnLoadListener onLoadListener) {
+        this.onLoadListener = onLoadListener;
     }
 
     //数据长度
@@ -50,16 +51,18 @@ public class VlayoutAdapter extends DelegateAdapter
     }
 
     public void setFullView(FullView fullView) {
-        if (fullView==null)
+        if (fullView==null) {
             throw new UnsupportedOperationException("fullview can not null");
+        }
         this.fullView = fullView;
     }
 
     //加载布局
     private LoadView loadView=new LoadViewImp();
     public void setLoadView(LoadView loadView) {
-        if (loadView==null)
+        if (loadView==null) {
             throw new UnsupportedOperationException("loadview can not null");
+        }
         this.loadView = loadView;
     }
     private Handler handler=new Handler();
@@ -76,8 +79,9 @@ public class VlayoutAdapter extends DelegateAdapter
 
     @Override
     public int getItemCount() {
-        if (getDataCount()==0)
+        if (getDataCount()==0) {
             return getFullCount();
+        }
         return getDataCount()+getLoadCount();
     }
 
@@ -85,8 +89,9 @@ public class VlayoutAdapter extends DelegateAdapter
     //全局布局长度
     private int getFullCount()
     {
-        if (getDataCount()>1)
+        if (getDataCount()>1) {
             return 0;
+        }
         return fullView.isShow()?1:0;
     }
 
@@ -98,20 +103,23 @@ public class VlayoutAdapter extends DelegateAdapter
     //加载更多布局的item
     private int getLoadCount()
     {
-        if (onLoadListenerImp==null)
+        if (onLoadListener==null) {
             return 0;
+        }
         return 1;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (getFullCount()==1)
+        if (getFullCount()==1) {
             return FULL_VIEW;
+        }
         if (position<getItemCount()-getLoadCount())
         {
             return getDataViewType(position);
         }
-        else{
+        else
+        {
             return LOAD_VIEW;
         }
     }
@@ -151,12 +159,11 @@ public class VlayoutAdapter extends DelegateAdapter
         viewHolder.itemView.setOnClickListener(new OnSingleListener() {
             @Override
             public void onSingleClick(View v) {
-                //点击加载失败的接口
                 //加载失败，点击重新加载  没有网络不允许加载
-                if (loadView.getState()==LoadView.STATE_FAIL&&!NetWorkUtils.isNetworkConnected())
+                if (loadView.getState()==LoadView.NETWORK&&NetWorkUtils.isConnected())
                 {
-                    setLoadState(LoadView.STATE_LOAD,true);
-                    onLoadListenerImp.loadAgain();
+                    setLoadState(LoadView.LOAD,true);
+                    onLoadListener.loadAgain();
                 }
             }
         });
@@ -181,18 +188,27 @@ public class VlayoutAdapter extends DelegateAdapter
 
     //判断是否能加载更多
     private void judgeLoadMore(int position) {
-        if (getLoadCount()==0||position<getItemCount()-1)
+        if (getLoadCount()==0||position<getItemCount()-1) {
             return;
-        if (loadView.getState()==LoadView.STATE_FINISH)
+        }
+        if (loadView.getState()==LoadView.FINISH)
         {
-            //滑动刷新会报错
-            setLoadState(LoadView.STATE_LOAD,false);
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    onLoadListenerImp.onPullUp();
-                }
-            },200);
+            //如果网络不可用，就直接显示加载失败
+            if (NetWorkUtils.isConnected())
+            {
+                setLoadState(LoadView.LOAD,false);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        onLoadListener.loadMore();
+                    }
+                }, 200);
+            }
+            else
+            {
+                setLoadState(LoadView.NETWORK,false);
+            }
+
         }
     }
 
@@ -206,45 +222,28 @@ public class VlayoutAdapter extends DelegateAdapter
         //如果item的长度等于fullview的长度，并且返回的数据长度等于的0的时候
         if (page==1)
         {
-            if (!network)
+            if (pagesize<mPagesize)
             {
-                setLoadState(LoadView.STATE_REST,false);
+                setLoadState(LoadView.REST,false);
                 if (getDataCount()==0)
                 {
-                    setFullSate(FullView.FULL_NETWORK);
+                    setFullSate(network?FullView.DATA:FullView.NETWORK);
                 }
-            }
-            else if (pagesize==0)
-            {
-                setLoadState(LoadView.STATE_REST,false);
-                if (getDataCount()==0)
-                {
-                    setFullSate(FullView.FULL_DATA);
-                }
-            }
-            else if (pagesize<mPagesize)
-            {
-                setLoadState(LoadView.STATE_REST,true);
             }
             else
             {
-                setLoadState(LoadView.STATE_FINISH,true);
+                setLoadState(LoadView.FINISH,true);
             }
-
         }
         else
         {
-            if (!network)
+            if (pagesize<mPagesize)
             {
-                setLoadState(LoadView.STATE_FAIL,true);
-            }
-            else if (pagesize<mPagesize)
-            {
-                setLoadState(LoadView.STATE_DATA,true);
+                setLoadState(network||pagesize>0?LoadView.DATA:LoadView.NETWORK,true);
             }
             else
             {
-                setLoadState(LoadView.STATE_FINISH,true);
+                setLoadState(LoadView.FINISH,true);
             }
         }
     }
@@ -253,14 +252,14 @@ public class VlayoutAdapter extends DelegateAdapter
     public void setFullSate(int fullSate)
     {
         fullView.setFullState(fullSate);
-        notifyDataSetChanged();
     }
 
     private void setLoadState(int statue,boolean flush)
     {
         loadView.setState(statue);
-        if (flush)
+        if (flush) {
             notifyItemChanged(getItemCount()-1);
+        }
     }
 
     //使用类型避免因为过多导致适配器混乱

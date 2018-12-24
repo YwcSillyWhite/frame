@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.ui.activity.mine.financial;
+package com.purewhite.ywc.purewhite.ui.activity.vip.financial;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -12,7 +12,7 @@ import com.purewhite.ywc.purewhite.config.OnSingleListener;
 import com.purewhite.ywc.purewhite.config.SizeUtils;
 import com.purewhite.ywc.purewhite.databinding.ActivityFinancialBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
-import com.purewhite.ywc.purewhite.ui.activity.mine.financial.adapter.FinancialPagerAdapter;
+import com.purewhite.ywc.purewhite.ui.activity.vip.financial.adapter.FinancialPagerAdapter;
 import com.purewhite.ywc.purewhite.view.viewpager.WrapViewPager;
 
 import java.util.Arrays;

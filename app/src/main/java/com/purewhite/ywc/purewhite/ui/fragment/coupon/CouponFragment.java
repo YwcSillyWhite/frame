@@ -6,8 +6,9 @@ import android.util.SparseArray;
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullView;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
+import com.purewhite.ywc.purewhite.adapter.callback.OnLoadListener;
+import com.purewhite.ywc.purewhite.adapter.fullview.FullView;
+import com.purewhite.ywc.purewhite.adapter.callback.OnLoadListenerImp;
 import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutAdapter;
 import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutType;
 import com.purewhite.ywc.purewhite.databinding.FragmentCouponBinding;
@@ -29,9 +30,9 @@ public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPres
     private TwoAdapter twoAdapter;
     private ThreeAdapter threeAdapter;
     private FiveAdapter fiveAdapter;
-    private OnLoadListenerImp onLoadListenerImp=new OnLoadListenerImp() {
+    private OnLoadListener onLoadListener=new OnLoadListenerImp() {
         @Override
-        public void onPullUp() {
+        public void pullUp() {
             mPresenter.autoPage();
             mPresenter.getFoutData();
         }
@@ -82,8 +83,8 @@ public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPres
         //创建vlayout的适配器
         vlayoutAdapter = new VlayoutAdapter(virtualLayoutManager);
         vlayoutAdapter.setmPagesize(20);
-        vlayoutAdapter.setOnLoadListenerImp(onLoadListenerImp);
-        vlayoutAdapter.getFullView().setFullState(FullView.FULL_LOAD);
+        vlayoutAdapter.setOnLoadListener(onLoadListener);
+        vlayoutAdapter.getFullView().setFullState(FullView.LODA,false);
         //把vlayout的适配器加入recycler
         mDataBinding.recyclerView.setAdapter(vlayoutAdapter);
         //创建vlayout子适配器

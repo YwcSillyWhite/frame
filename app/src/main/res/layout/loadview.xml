@@ -25,11 +25,11 @@
         android:layout_height="50dp"
         android:gravity="center"
         android:text="加载失败"
-        android:id="@+id/fail"/>
+        android:id="@+id/network"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
         android:text="没有更多"
-        android:id="@+id/noMore"/>
+        android:id="@+id/data"/>
 </FrameLayout>

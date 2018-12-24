@@ -5,17 +5,17 @@ import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.purewhite.ywc.purewhite.R;
 
 public class ScrollViewPager extends WrapViewPager {
 
-    private boolean scroll=false;
+    private boolean canScroll=false;
 
-
-    public void setScroll(boolean scroll) {
-        this.scroll = scroll;
+    public void setCanScroll(boolean canScroll) {
+        this.canScroll = canScroll;
     }
 
     public ScrollViewPager(@NonNull Context context) {
@@ -32,22 +32,34 @@ public class ScrollViewPager extends WrapViewPager {
         if (attrs!=null)
         {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ScrollViewPager);
-            scroll=typedArray.getBoolean(R.styleable.ScrollViewPager_scroll,scroll);
+            canScroll=typedArray.getBoolean(R.styleable.ScrollViewPager_canScroll,false);
+            Log.d("ywc","canScroll"+canScroll);
         }
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (scroll)
-            return super.onInterceptTouchEvent(ev);
-        return true;
+        return canScroll?super.onInterceptTouchEvent(ev):true;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        if (scroll)
-            return super.onTouchEvent(ev);
-        return true;
+        Log.d("ywc",canScroll+"canScroll");
+        return canScroll?super.onTouchEvent(ev):true;
     }
+
+    //    @Override
+//    public boolean onInterceptTouchEvent(MotionEvent ev) {
+//        if (canScroll)
+//            return super.onInterceptTouchEvent(ev);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onTouchEvent(MotionEvent ev) {
+//        if (canScroll)
+//            return super.onTouchEvent(ev);
+//        return true;
+//    }
 
 }

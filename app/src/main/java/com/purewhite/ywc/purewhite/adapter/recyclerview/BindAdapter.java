@@ -1,11 +1,11 @@
-package com.purewhite.ywc.purewhite.adapter.recyclerview.adapter;
+package com.purewhite.ywc.purewhite.adapter.recyclerview;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BindHolder;
+import com.purewhite.ywc.purewhite.adapter.viewholder.BindHolder;
 
 import java.util.ArrayList;
 import java.util.List;

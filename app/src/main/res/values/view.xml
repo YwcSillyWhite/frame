@@ -47,7 +47,7 @@
 
     <declare-styleable name="ScrollViewPager">
         //不能滑动
-        <attr name="scroll" format="boolean"></attr>
+        <attr name="canScroll" format="boolean"></attr>
     </declare-styleable>
     
     <declare-styleable name="WrapViewPager">

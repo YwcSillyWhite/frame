@@ -11,15 +11,17 @@ import com.purewhite.ywc.purewhite.app.AppUtils;
  */
 public class NetWorkUtils {
 
+    //获取网络信息对象
+    private static NetworkInfo getActiveNetworkInfo() {
+        return ((ConnectivityManager) AppUtils.getApplication()
+                .getSystemService(Context.CONNECTIVITY_SERVICE))
+                .getActiveNetworkInfo();
+    }
+
     //判断是否存在网络
-    public static boolean isNetworkConnected() {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager)
-                AppUtils.getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
-        if (mNetworkInfo != null) {
-            return mNetworkInfo.isAvailable();
-        }
-        return false;
+    public static boolean isConnected() {
+        NetworkInfo info = getActiveNetworkInfo();
+        return info != null && info.isConnected();
     }
 
 }

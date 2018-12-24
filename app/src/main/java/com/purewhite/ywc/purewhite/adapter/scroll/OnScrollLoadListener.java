@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.view.recyclerview.onscroll;
+package com.purewhite.ywc.purewhite.adapter.scroll;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,8 +10,7 @@ import com.purewhite.ywc.purewhite.imageload.ImageLoader;
  * @author yuwenchao
  *
  */
-public class LoadOnScrollListener extends RecyclerView.OnScrollListener {
-
+public class OnScrollLoadListener extends RecyclerView.OnScrollListener {
 
     /**
      *

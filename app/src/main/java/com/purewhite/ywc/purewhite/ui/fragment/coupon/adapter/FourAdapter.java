@@ -3,7 +3,7 @@ package com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.StickyLayoutHelper;
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BaseViewHolder;
+import com.purewhite.ywc.purewhite.adapter.viewholder.BaseViewHolder;
 import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutType;
 import com.purewhite.ywc.purewhite.adapter.vlayout.child.VlayoutBindTypeAdapter;
 

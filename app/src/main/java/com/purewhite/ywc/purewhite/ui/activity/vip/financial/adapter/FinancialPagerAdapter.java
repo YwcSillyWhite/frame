@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.ui.activity.mine.financial.adapter;
+package com.purewhite.ywc.purewhite.ui.activity.vip.financial.adapter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

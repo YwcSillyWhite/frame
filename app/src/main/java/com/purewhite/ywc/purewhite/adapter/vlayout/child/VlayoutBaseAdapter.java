@@ -5,8 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnDataListener;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BaseViewHolder;
+import com.purewhite.ywc.purewhite.adapter.callback.OnItemListener;
+import com.purewhite.ywc.purewhite.adapter.viewholder.BaseViewHolder;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
 
 import java.util.ArrayList;
@@ -31,8 +31,9 @@ public abstract class VlayoutBaseAdapter<T,V extends BaseViewHolder> extends Del
      */
 
     private List<T> mData;
-    private OnDataListener onItemListener;
-    public void setOnItemListener(OnDataListener onItemListener) {
+
+    private OnItemListener onItemListener;
+    public void setOnItemListener(OnItemListener onItemListener) {
         this.onItemListener = onItemListener;
     }
 
@@ -84,7 +85,7 @@ public abstract class VlayoutBaseAdapter<T,V extends BaseViewHolder> extends Del
                 int position=holder.getLayoutPosition();
                 if (onItemListener!=null)
                 {
-                    onItemListener.OnItemCall(VlayoutBaseAdapter.this,v,position);
+                    onItemListener.OnClick(VlayoutBaseAdapter.this,v,position);
                 }
             }
         });
@@ -123,12 +124,12 @@ public abstract class VlayoutBaseAdapter<T,V extends BaseViewHolder> extends Del
     }
 
     /**
-     * @param flush 是否刷新
+     * @param
      * @param list
      */
-    public void flushOrAddData(boolean flush,List<T> list)
+    public void addDataFlush(int page,List<T> list)
     {
-        if (flush)
+        if (page==1)
         {
             flush(list);
         }

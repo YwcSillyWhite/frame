@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.adapter.recyclerview.loadview;
+package com.purewhite.ywc.purewhite.adapter.loadview;
 
 import com.purewhite.ywc.purewhite.R;
 
@@ -16,19 +16,18 @@ public class LoadViewImp extends LoadView{
     }
 
     @Override
-    int getLoadViewId() {
+    int getLoadId() {
         return R.id.load;
     }
 
     @Override
-    int getFailViewId() {
-        return R.id.fail;
+    int getNetworkId() {
+        return R.id.network;
     }
 
     @Override
-    int getNoMoreViewId() {
-        return R.id.noMore;
+    int getDataId() {
+        return R.id.data;
     }
-
 
 }

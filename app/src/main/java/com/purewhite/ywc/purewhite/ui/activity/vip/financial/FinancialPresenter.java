@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.ui.activity.mine.financial;
+package com.purewhite.ywc.purewhite.ui.activity.vip.financial;
 
 import com.purewhite.ywc.purewhite.mvp.presenter.PresenterImp;
 

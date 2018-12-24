@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.purewhite.ywc.purewhite.adapter.recyclerview.adapter.BaseAdapter;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.BaseAdapter;
 
 /**
  * item的间距

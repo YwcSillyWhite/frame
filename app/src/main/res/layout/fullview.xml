@@ -7,17 +7,55 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:id="@+id/fullview_load"/>
-    <TextView
+        android:id="@+id/load"/>
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="没有数据"
-        android:layout_gravity="center"
-        android:id="@+id/fullview_data"/>
-    <TextView
+        android:id="@+id/data"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@color/write"
+        android:layout_gravity="center">
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/full_data"
+            android:adjustViewBounds="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="没有数据" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="没有网络"
+        android:gravity="center"
+        android:orientation="vertical"
         android:layout_gravity="center"
-        android:id="@+id/fullview_network"/>
+        android:background="@color/write"
+        android:id="@+id/network">
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/full_network"
+            android:adjustViewBounds="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="没有数据" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:background="@drawable/shape_red"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/write"
+            android:textSize="15sp"
+            android:id="@+id/network_again"
+            android:layout_marginTop="5dp"
+            android:text="重新加载"/>
+    </LinearLayout>
 </FrameLayout>

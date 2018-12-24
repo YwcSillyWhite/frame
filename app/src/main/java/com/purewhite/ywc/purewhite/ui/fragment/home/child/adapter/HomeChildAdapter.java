@@ -1,8 +1,10 @@
 package com.purewhite.ywc.purewhite.ui.fragment.home.child.adapter;
 
+import android.support.v7.widget.GridLayoutManager;
+
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.adapter.BindTypeAdapter;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BindHolder;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.BindTypeAdapter;
+import com.purewhite.ywc.purewhite.adapter.viewholder.BindHolder;
 import com.purewhite.ywc.purewhite.bean.main.MainBean;
 import com.purewhite.ywc.purewhite.databinding.AdapterMianBinding;
 import com.purewhite.ywc.purewhite.imageload.ImageLoader;
@@ -19,6 +21,7 @@ public class  HomeChildAdapter extends BindTypeAdapter<MainBean.DataBean> {
         super();
         //1个使用
         addLayout(R.layout.adapter_mian);
+//        addLayout(1,R.layout.adapter_);
     }
 
 
@@ -27,5 +30,11 @@ public class  HomeChildAdapter extends BindTypeAdapter<MainBean.DataBean> {
         AdapterMianBinding adapterMianBinding = (AdapterMianBinding) holder.getViewDataBinding();
         adapterMianBinding.shipTitle.setText(dataBean.getItem_title());
         ImageLoader.newInstance().init(adapterMianBinding.shipImg,dataBean.getItem_pic());
+    }
+
+    @Override
+    protected int obtainDataSpanSize(int position, GridLayoutManager gridManager) {
+        int surplus = position % 5;
+        return surplus==0||surplus==1?3:2;
     }
 }

@@ -138,7 +138,7 @@ public class WebActivity extends MvpActivity<ActivityWebBinding,WebPresenter> im
          * 参数 2  是5代码里面的一个"对象"类型
          * 我这采用的是互利联盟里面一个链接
          */
-        mDataBinding.webView.addJavascriptInterface(new WebHelp(),"layer");
+        mDataBinding.webView.addJavascriptInterface(new WebHelp(),"clipboard");
         //webview加载uri
         mDataBinding.webView.loadUrl(baseUri);
         WebSettings webSettings = mDataBinding.webView.getSettings();
@@ -211,6 +211,14 @@ public class WebActivity extends MvpActivity<ActivityWebBinding,WebPresenter> im
         @JavascriptInterface
         public void msg(String content)
         {
+            Log.d("ywc","123");
+            ToastUtils.show(content);
+        }
+
+        @JavascriptInterface
+        public void on(String content)
+        {
+            Log.d("ywc","123");
             ToastUtils.show(content);
         }
     }

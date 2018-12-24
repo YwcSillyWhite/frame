@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder;
+package com.purewhite.ywc.purewhite.adapter.viewholder;
 
 import android.databinding.ViewDataBinding;
 

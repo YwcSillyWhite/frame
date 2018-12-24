@@ -2,8 +2,8 @@ package com.purewhite.ywc.purewhite.adapter.vlayout.child;
 
 import android.util.SparseIntArray;
 
-import com.purewhite.ywc.purewhite.adapter.recyclerview.bean.BindBean;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnDataListener;
+import com.purewhite.ywc.purewhite.adapter.bean.BindBean;
+import com.purewhite.ywc.purewhite.adapter.callback.OnItemListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,11 +41,11 @@ public abstract class VlayoutBindTypeAdapter<T extends BindBean> extends Vlayout
         super(list);
     }
 
-    public VlayoutBindTypeAdapter(OnDataListener listener) {
+    public VlayoutBindTypeAdapter(OnItemListener listener) {
         this(new ArrayList<T>(),listener);
     }
 
-    public VlayoutBindTypeAdapter(List<T> list, OnDataListener listener) {
+    public VlayoutBindTypeAdapter(List<T> list, OnItemListener listener) {
         this(list);
         setOnItemListener(listener);
     }

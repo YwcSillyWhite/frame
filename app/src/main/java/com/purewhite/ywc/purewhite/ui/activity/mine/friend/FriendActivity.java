@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullView;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BaseViewHolder;
+import com.purewhite.ywc.purewhite.adapter.fullview.FullView;
+import com.purewhite.ywc.purewhite.adapter.viewholder.BaseViewHolder;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
 import com.purewhite.ywc.purewhite.databinding.ActivityFriendBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
@@ -96,7 +96,7 @@ public class FriendActivity extends MvpActivity<ActivityFriendBinding,FriendPres
         mDataBinding.recyclerView.setLayoutManager(cardHelperCallBack.getCardLayoutManager());
         friendAdapter = new FriendAdapter();
         //设置开始fullview加载状态
-        friendAdapter.getFullView().setFullState(FullView.FULL_LOAD);
+        friendAdapter.getFullView().setFullState(FullView.LODA,false);
         mDataBinding.recyclerView.setAdapter(friendAdapter);
         itemTouchHelper = new ItemTouchHelper(cardHelperCallBack);
         itemTouchHelper.attachToRecyclerView(mDataBinding.recyclerView);

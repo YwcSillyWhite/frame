@@ -1,19 +1,18 @@
 package com.purewhite.ywc.purewhite.ui.fragment.home.child;
 
 import android.support.v7.widget.GridLayoutManager;
-import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullView;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
-import com.purewhite.ywc.purewhite.config.OnSingleListener;
-import com.purewhite.ywc.purewhite.config.SizeUtils;
+import com.purewhite.ywc.purewhite.adapter.callback.OnFullListener;
+import com.purewhite.ywc.purewhite.adapter.callback.OnLoadListener;
+import com.purewhite.ywc.purewhite.adapter.fullview.FullView;
+import com.purewhite.ywc.purewhite.adapter.callback.OnLoadListenerImp;
+import com.purewhite.ywc.purewhite.adapter.fullview.FullViewImp;
 import com.purewhite.ywc.purewhite.config.TagUtils;
 import com.purewhite.ywc.purewhite.databinding.FragmentHomeChildBinding;
 import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;
 import com.purewhite.ywc.purewhite.ptr.io.PtrCallBack;
 import com.purewhite.ywc.purewhite.ui.fragment.home.child.adapter.HomeChildAdapter;
-import com.purewhite.ywc.purewhite.view.recyclerview.OneDecoration;
 import com.purewhite.ywc.purewhite.view.recyclerview.top.ScrollTopHelp;
 import com.purewhite.ywc.purewhite.view.recyclerview.top.ScrollTopListener;
 
@@ -31,16 +30,23 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
             mPresenter.getShip(request_contet);
         }
     };
-    private OnLoadListenerImp onLoadListenerImp=new OnLoadListenerImp() {
-        //上啦加载
+
+    private OnLoadListener onLoadListener=new OnLoadListenerImp() {
         @Override
-        public void onPullUp() {
+        public void pullUp() {
             mPresenter.autoPage();
             mPresenter.getShip(request_contet);
         }
-        //重新加载
+
         @Override
         public void loadAgain() {
+            mPresenter.getShip(request_contet);
+        }
+    };
+
+    private OnFullListener onFullListener=new OnFullListener() {
+        @Override
+        public void again() {
             mPresenter.getShip(request_contet);
         }
     };
@@ -84,16 +90,18 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
     private void initRecycler() {
         homeChildAdapter = new HomeChildAdapter();
         //设置开始fullview加载状态
-        homeChildAdapter.getFullView().setFullState(FullView.FULL_LOAD);
+        FullViewImp fullView = (FullViewImp) homeChildAdapter.getFullView();
+        fullView.setFullState(FullView.LODA,false);
+        fullView.setOnFullListener(onFullListener);
         //加入加载监听
-        homeChildAdapter.setOnLoadListenerImp(onLoadListenerImp);
+        homeChildAdapter.setOnLoadListener(onLoadListener);
         //加载的最大条数
         homeChildAdapter.setPageSize(20);
 
-        mDataBinding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+        mDataBinding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(),6));
         //加入加载更多回掉，如果没有就不能家宅更多
         mDataBinding.recyclerView.addOnScrollListener(new ScrollTopListener(scrollTopHelp));
-        mDataBinding.recyclerView.addItemDecoration(new OneDecoration(SizeUtils.dip2px(10f),2));
+//        mDataBinding.recyclerView.addItemDecoration(new OneDecoration(SizeUtils.dip2px(10f),2));
         mDataBinding.recyclerView.setAdapter(homeChildAdapter);
     }
 

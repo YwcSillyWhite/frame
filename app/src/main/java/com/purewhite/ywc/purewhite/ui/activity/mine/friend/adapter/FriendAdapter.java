@@ -1,8 +1,8 @@
 package com.purewhite.ywc.purewhite.ui.activity.mine.friend.adapter;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.adapter.BindTypeAdapter;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BindHolder;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.BindTypeAdapter;
+import com.purewhite.ywc.purewhite.adapter.viewholder.BindHolder;
 import com.purewhite.ywc.purewhite.bean.main.MainBean;
 import com.purewhite.ywc.purewhite.databinding.AdapterActivityFriendBinding;
 import com.purewhite.ywc.purewhite.imageload.ImageLoader;

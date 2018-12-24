@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder;
+package com.purewhite.ywc.purewhite.adapter.viewholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
@@ -32,6 +32,11 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     {
         View view = findViewId(id);
         view.setVisibility(visibility);
+    }
+
+    public void setVisibility(int id,boolean show)
+    {
+        setVisibility(id,show?View.VISIBLE:View.GONE);
     }
 
 }

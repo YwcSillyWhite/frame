@@ -4,13 +4,13 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.purewhite.ywc.purewhite.view.recyclerview.onscroll.LoadOnScrollListener;
+import com.purewhite.ywc.purewhite.adapter.scroll.OnScrollLoadListener;
 
 /**
  * 置顶滑动监听
  * @author yuwenchao
  */
-public class ScrollTopListener extends LoadOnScrollListener {
+public class ScrollTopListener extends OnScrollLoadListener {
 
     private ScrollTopHelp scrollTopHelp;
     //item在什么时候显示,默认值是20

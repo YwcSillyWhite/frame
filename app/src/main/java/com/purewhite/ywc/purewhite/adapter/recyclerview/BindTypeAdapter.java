@@ -1,8 +1,8 @@
-package com.purewhite.ywc.purewhite.adapter.recyclerview.adapter;
+package com.purewhite.ywc.purewhite.adapter.recyclerview;
 
 import android.util.SparseIntArray;
 
-import com.purewhite.ywc.purewhite.adapter.recyclerview.bean.BindBean;
+import com.purewhite.ywc.purewhite.adapter.bean.BindBean;
 
 import java.util.List;
 

@@ -31,7 +31,7 @@ public abstract class HttpObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        if (!NetWorkUtils.isNetworkConnected())
+        if (!NetWorkUtils.isConnected())
         {
             onFail("网络异常");
         }

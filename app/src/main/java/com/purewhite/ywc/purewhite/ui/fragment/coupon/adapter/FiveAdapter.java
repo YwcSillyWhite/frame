@@ -6,7 +6,7 @@ import android.view.View;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BindHolder;
+import com.purewhite.ywc.purewhite.adapter.viewholder.BindHolder;
 import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutType;
 import com.purewhite.ywc.purewhite.adapter.vlayout.child.VlayoutBindTypeAdapter;
 import com.purewhite.ywc.purewhite.bean.main.MainBean;

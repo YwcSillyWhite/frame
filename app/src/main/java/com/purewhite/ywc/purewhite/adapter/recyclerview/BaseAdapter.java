@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.adapter.recyclerview.adapter;
+package com.purewhite.ywc.purewhite.adapter.recyclerview;
 
 import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,14 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullView;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.fullview.FullViewImp;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnAllLongListener;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.io.OnDataListener;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadView;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.LoadViewImp;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.loadview.io.OnLoadListenerImp;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.viewholder.BaseViewHolder;
+import com.purewhite.ywc.purewhite.adapter.callback.OnLoadListener;
+import com.purewhite.ywc.purewhite.adapter.fullview.FullView;
+import com.purewhite.ywc.purewhite.adapter.fullview.FullViewImp;
+import com.purewhite.ywc.purewhite.adapter.callback.OnItemListener;
+import com.purewhite.ywc.purewhite.adapter.loadview.LoadView;
+import com.purewhite.ywc.purewhite.adapter.loadview.LoadViewImp;
+import com.purewhite.ywc.purewhite.adapter.viewholder.BaseViewHolder;
 import com.purewhite.ywc.purewhite.config.NetWorkUtils;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
 
@@ -32,19 +31,39 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerView.Adapter<V>{
 
+
+    //全部布局
+    private FullView fullView=new FullViewImp();
+    //头部
+    private LinearLayout mHeaderLayout;
+    private List<T> mData;
+    //尾部
+    private LinearLayout mFooterLayout;
+    //加载布局
+    private LoadView loadView=new LoadViewImp();
+    private final int HEAD_ITEM=Integer.MIN_VALUE;
+    private final int FOOT_ITEM=Integer.MIN_VALUE+1;
+    private final int LOAD_ITEM=Integer.MIN_VALUE+2;
+    private final int FULL_ITEM=Integer.MIN_VALUE+3;
     //用于延迟
     private Handler handler=new Handler();
     //加载最多项
     private int pageSize=10;
+    //数据点击过事件
+    protected OnItemListener onItemListener;
+    //滑动监听
+    protected OnLoadListener onLoadListener;
+
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
 
-
     public BaseAdapter(List<T> list) {
         this.mData = list!=null?list:new ArrayList<T>();
+        fullView.setAdapter(this);
     }
 
+    //创建viewhold
     private V createV(View view)
     {
         return ((V) new BaseViewHolder(view));
@@ -63,41 +82,44 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     @Override
     public V onCreateViewHolder(ViewGroup parent, int viewType) {
         V viewhold;
-        switch (viewType)
+        if (viewType==FULL_ITEM)
         {
-            case FULL_ITEM:
-                View fullview = LayoutInflater.from(parent.getContext())
-                        .inflate(fullView.getLayoutId(), parent, false);
-                viewhold=createV(fullview);
-                break;
-            case HEAD_ITEM:
-                viewhold=createV(mHeaderLayout);
-                break;
-            case FOOT_ITEM:
-                viewhold=createV(mFooterLayout);
-                break;
-            case LOAD_ITEM:
-                View loadview = LayoutInflater.from(parent.getContext())
-                        .inflate(loadView.getLayoutId(), parent, false);
-                viewhold=createV(loadview);
-                loadview.setOnClickListener(new OnSingleListener() {
-                    @Override
-                    public void onSingleClick(View v) {
-                        //加载失败，点击重新加载  没有网络不允许加载
-                        if (loadView.getState()==LoadView.STATE_FAIL&&!NetWorkUtils.isNetworkConnected())
-                        {
-                            setLoadState(LoadView.STATE_LOAD,true);
-                            onLoadListenerImp.loadAgain();
-                        }
-                    }
-                });
-                break;
-                default:
-                    viewhold = onCreateData(parent,viewType);
-                    //设置监听
-                    bindDataListener(viewhold);
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(fullView.getLayoutId(), parent, false);
+            fullView.setItemView(view);
+            viewhold=createV(view);
         }
-        bindAllListener(viewhold);
+        else if (viewType==HEAD_ITEM)
+        {
+            viewhold=createV(mHeaderLayout);
+        }
+        else if (viewType==FOOT_ITEM)
+        {
+            viewhold=createV(mFooterLayout);
+        }
+        else if (viewType==LOAD_ITEM)
+        {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(loadView.getLayoutId(), parent, false);
+            viewhold=createV(view);
+            view.setOnClickListener(new OnSingleListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    //加载失败，点击重新加载  没有网络不允许加载
+                    if (loadView.getState()==LoadView.NETWORK&&NetWorkUtils.isConnected())
+                    {
+                        setLoadState(LoadView.LOAD,true);
+                        onLoadListener.loadAgain();
+                    }
+                }
+            });
+        }
+        else
+        {
+            viewhold = onCreateData(parent,viewType);
+            //设置监听
+            bindDataListener(viewhold);
+        }
         return viewhold;
     }
 
@@ -129,17 +151,26 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     //判断是不是加载更多
     protected  void loadMore(int position)
     {
-        if (getLoadCount()==0||position<getItemCount()-1)
+        if (getLoadCount()==0||position<getItemCount()-1) {
             return;
+        }
         //加载结束
-        if (loadView.getState()==LoadView.STATE_FINISH) {
-            setLoadState(LoadView.STATE_LOAD,false);
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    onLoadListenerImp.onPullUp();
-                }
-            }, 200);
+        if (loadView.getState()==LoadView.FINISH) {
+            if (NetWorkUtils.isConnected())
+            {
+                setLoadState(LoadView.LOAD,false);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        onLoadListener.loadMore();
+                    }
+                }, 200);
+            }
+            else
+            {
+                setLoadState(LoadView.NETWORK,false);
+            }
+
         }
     }
 
@@ -158,19 +189,15 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     private void setLoadState(int statue,boolean flush)
     {
         loadView.setState(statue);
-        if (flush)
+        if (flush) {
             notifyItemChanged(getItemCount()-1);
+        }
     }
 
     private void setFullState(int statue)
     {
         fullView.setFullState(statue);
-        notifyDataSetChanged();
     }
-
-
-
-
 
 
 
@@ -180,47 +207,35 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     {
         if (list!=null&&list.size()>0)
         {
-            if (page==1)
-            {
-                flush(list);
-            }
-            else
-            {
-                addData(list);
-            }
+            addDataFlush(page,list);
         }
         else
         {
-            if (!network)
+            if (page==1)
             {
-                if (page==1)
+                setLoadState(LoadView.REST,false);
+                if (getDataCount()==0)
                 {
-                    setLoadState(LoadView.STATE_FAIL,false);
-                    if (getDataCount()==0)
-                    {
-                        setFullState(FullView.FULL_NETWORK);
-                    }
-                }
-                else
-                {
-                    setLoadState(LoadView.STATE_FAIL,true);
+                    setFullState(network?FullView.DATA:FullView.NETWORK);
                 }
             }
             else
             {
-                if (page==1)
-                {
-                    setLoadState(LoadView.STATE_REST,false);
-                    if (getDataCount()==0)
-                    {
-                        setFullState(FullView.FULL_DATA);
-                    }
-                }
-                else
-                {
-                    setLoadState(LoadView.STATE_DATA,true);
-                }
+                setLoadState(network?LoadView.DATA:LoadView.NETWORK,false);
             }
+        }
+
+    }
+
+    public void addDataFlush(int page,List<T> list)
+    {
+        if (page==1)
+        {
+            flush(list);
+        }
+        else
+        {
+            addData(list);
         }
     }
 
@@ -230,11 +245,11 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     {
         if (list!=null&&list.size()>=pageSize)
         {
-            setLoadState(LoadView.STATE_FINISH,true);
+            setLoadState(LoadView.FINISH,true);
         }
         else
         {
-            setLoadState(LoadView.STATE_REST,true);
+            setLoadState(LoadView.REST,true);
         }
         mData=list!=null&&list.size()>0?list:new ArrayList<T>();
         notifyDataSetChanged();
@@ -253,18 +268,18 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
             {
                 if (list.size()>=pageSize)
                 {
-                    setLoadState(LoadView.STATE_FINISH,true);
+                    setLoadState(LoadView.FINISH,true);
                 }
                 else
                 {
-                    setLoadState(LoadView.STATE_DATA,true);
+                    setLoadState(LoadView.DATA,true);
                 }
                 mData.addAll(list);
                 notifyItemRangeInserted(mData.size()-list.size() + getHeadCount(), list.size());
             }
             else
             {
-                setLoadState(LoadView.STATE_DATA,true);
+                setLoadState(LoadView.DATA,true);
             }
         }
     }
@@ -371,44 +386,36 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
 
 
     /************  item类型   ****************/
-    //全部布局
-    private FullView fullView=new FullViewImp();
-    //头部
-    private LinearLayout mHeaderLayout;
-    private List<T> mData;
-    //尾部
-    private LinearLayout mFooterLayout;
-    //加载布局
-    private LoadView loadView=new LoadViewImp();
-    private final int HEAD_ITEM=10001;
-    private final int FOOT_ITEM=10002;
-    private final int LOAD_ITEM=10003;
-    private final int FULL_ITEM=10004;
+
     public void setLoadView(LoadView loadView) {
-        if (loadView==null)
+        if (loadView==null) {
             throw new UnsupportedOperationException("loadview can not null");
+        }
         this.loadView = loadView;
     }
     public FullView getFullView() {
         return fullView;
     }
     public void setFullView(FullView fullView) {
-        if (loadView==null)
+        if (loadView==null) {
             throw new UnsupportedOperationException("fullview can not null");
+        }
         this.fullView = fullView;
     }
     //full长度
     private int getFullCount()
     {
-        if (mData!=null&&mData.size()>0)
+        if (mData!=null&&mData.size()>0) {
             return 0;
+        }
         return fullView.isShow()?1:0;
     }
     //head长度
     public int getHeadCount()
     {
-        if (mHeaderLayout!=null&&mHeaderLayout.getChildCount()>0)
+        if (mHeaderLayout!=null&&mHeaderLayout.getChildCount()>0) {
             return 1;
+        }
         return 0;
     }
     //data长度
@@ -419,15 +426,17 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     //foot长度
     private int getFootCount()
     {
-        if (mFooterLayout!=null&&mFooterLayout.getChildCount()>0)
+        if (mFooterLayout!=null&&mFooterLayout.getChildCount()>0) {
             return 1;
+        }
         return 0;
     }
     //加载长度
     private int getLoadCount()
     {
-        if (onLoadListenerImp==null)
+        if (onLoadListener==null) {
             return 0;
+        }
         return 1;
     }
 
@@ -447,8 +456,9 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     //请不要重写这个方法,多布局重写getDataType这个方法
     @Override
     public int getItemViewType(int position) {
-        if (getFullCount()>0)
+        if (getFullCount()>0) {
             return FULL_ITEM;
+        }
         if (position==0&&getHeadCount()!=0)
         {
             return HEAD_ITEM;
@@ -467,38 +477,27 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
         }
     }
 
-    protected abstract int getDataType(int position);
+    //list的数据item类型
+    protected int getDataType(int position)
+    {
+        return super.getItemViewType(position+getHeadCount());
+    }
 
+
+    //adapter的item数量
     @Override
     public int getItemCount() {
         return getFullCount()>0?getFullCount():getHeadCount()+getDataCount()+getFootCount()+getLoadCount();
     }
 
-
-
-
     /************  监听事件   ****************/
-    //数据点击过事件
-    private OnDataListener onDataListener;
-
-    public OnDataListener getOnDataListener() {
-        return onDataListener;
+    public void setOnItemListener(OnItemListener onItemListener) {
+        this.onItemListener = onItemListener;
     }
 
-    public void setOnDataListener(OnDataListener onDataListener) {
-        this.onDataListener = onDataListener;
-    }
 
-    //所有item的点击事件
-    private OnAllLongListener onAllLongListener;
-    public void setOnAllLongListener(OnAllLongListener onAllLongListener) {
-        this.onAllLongListener = onAllLongListener;
-    }
-
-    //滑动监听
-    private OnLoadListenerImp onLoadListenerImp;
-    public void setOnLoadListenerImp(OnLoadListenerImp onLoadListenerImp) {
-        this.onLoadListenerImp = onLoadListenerImp;
+    public void setOnLoadListener(OnLoadListener onLoadListener) {
+        this.onLoadListener = onLoadListener;
     }
 
     /************  绑定监听   ****************/
@@ -511,36 +510,17 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
         if (view == null) {
             return;
         }
-        if (getOnDataListener()!=null)
+        if (onItemListener!=null)
         {
             view.setOnClickListener(new OnSingleListener() {
                 @Override
                 public void onSingleClick(View v) {
                     int position=viewhold.getLayoutPosition() - getFootCount();
-                    getOnDataListener().OnItemCall(BaseAdapter.this,view, position);
+                    onItemListener.OnClick(BaseAdapter.this,view, position);
                 }
             });
         }
     }
-
-    private void bindAllListener(final V viewhold) {
-        if (viewhold == null) {
-            return;
-        }
-        final View view = viewhold.itemView;
-        if (view == null) {
-            return;
-        }
-        if (onAllLongListener!=null)
-            viewhold.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    onAllLongListener.OnItemCall(viewhold,BaseAdapter.this);
-                    return false;
-                }
-            });
-    }
-
 
 
     /************  解决Layoutmanager影响full，head，foot的宽度bug  ****************/
@@ -554,10 +534,17 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
             gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    return dataType(getItemViewType(position))?1: gridManager.getSpanCount() ;
+                    return dataType(getItemViewType(position))
+                            ? obtainDataSpanSize(position-getHeadCount(),gridManager)
+                            :gridManager.getSpanCount();
                 }
             });
         }
+    }
+
+    protected int obtainDataSpanSize(int position,GridLayoutManager gridManager)
+    {
+        return 1;
     }
 
     @Override
@@ -573,5 +560,7 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
             }
         }
     }
+
+
 
 }
