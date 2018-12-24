@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.purewhite.ywc.purewhite.network.rxjava.RxDisposableManager;
+
 /**
  *
  * @author yuwenchao
@@ -57,4 +59,10 @@ public abstract class BaseActivity<DB extends ViewDataBinding> extends AppCompat
     //初始化布局
     protected abstract void initView();
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxDisposableManager.getInstance().removeDis(this);
+    }
 }

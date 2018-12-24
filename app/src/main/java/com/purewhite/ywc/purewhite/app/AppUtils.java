@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.purewhite.ywc.purewhite.mvp.activity.BaseActivity;
+import com.purewhite.ywc.purewhite.network.rxjava.RxDisposableManager;
 
 import java.util.Stack;
 
@@ -29,8 +30,9 @@ public final class  AppUtils {
     static Application.ActivityLifecycleCallbacks activityLifecycleCallbacks=new Application.ActivityLifecycleCallbacks() {
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-            if (activity instanceof BaseActivity)
+            if (activity instanceof BaseActivity) {
                 stack.add(((BaseActivity) activity));
+            }
         }
 
         @Override
@@ -61,6 +63,11 @@ public final class  AppUtils {
         @Override
         public void onActivityDestroyed(Activity activity) {
             stack.remove(activity);
+            if (stack.isEmpty())
+            {
+                RxDisposableManager.getInstance().clear();
+            }
+
         }
     };
 
@@ -99,8 +106,9 @@ public final class  AppUtils {
 
     public static Context getContext()
     {
-        if (AppUtils.obtainTopActivity()!=null)
+        if (AppUtils.obtainTopActivity()!=null) {
             return AppUtils.obtainTopActivity();
+        }
         return getApplication();
     }
 

@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.purewhite.ywc.purewhite.network.rxjava.RxDisposableManager;
+
 /**
  *
  * @author yuwenchao
@@ -101,4 +103,5 @@ public abstract class BaseFragment<DB extends ViewDataBinding> extends Fragment{
             showLoad();
         }
     }
+
 }

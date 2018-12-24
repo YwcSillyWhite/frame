@@ -1,5 +1,8 @@
 package com.purewhite.ywc.purewhite.network.rxjava;
 
+import android.util.Log;
+
+import com.purewhite.ywc.purewhite.app.AppUtils;
 import com.purewhite.ywc.purewhite.config.NetWorkUtils;
 
 import java.net.ConnectException;
@@ -14,7 +17,8 @@ public abstract class HttpObserver<T> implements Observer<T> {
 
     @Override
     public void onSubscribe(Disposable d) {
-
+        Log.d("ywc",AppUtils.getContext().toString()+"");
+        RxDisposableManager.getInstance().addDis(AppUtils.getContext(),d);
     }
 
     @Override
@@ -53,7 +57,6 @@ public abstract class HttpObserver<T> implements Observer<T> {
     public void onComplete() {
 
     }
-
 
     public abstract void onSuccess(T t);
     public void onFail(String content)

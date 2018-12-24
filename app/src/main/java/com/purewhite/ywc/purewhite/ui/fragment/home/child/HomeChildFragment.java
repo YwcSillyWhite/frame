@@ -1,6 +1,7 @@
 package com.purewhite.ywc.purewhite.ui.fragment.home.child;
 
 import android.support.v7.widget.GridLayoutManager;
+import android.util.Log;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.callback.OnFullListener;
@@ -78,14 +79,10 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
     @Override
     protected void soleLoad() {
         super.soleLoad();
+
         mPresenter.getShip(request_contet);
     }
 
-    @Override
-    protected void showLoad() {
-        super.showLoad();
-
-    }
 
     private void initRecycler() {
         homeChildAdapter = new HomeChildAdapter();
@@ -114,6 +111,7 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
     public void loadfinish(boolean flush) {
         if (flush)
         {
+
             if(!mDataBinding.ptrFrame.isEnabled())
             {
                 mDataBinding.ptrFrame.setEnabled(true);

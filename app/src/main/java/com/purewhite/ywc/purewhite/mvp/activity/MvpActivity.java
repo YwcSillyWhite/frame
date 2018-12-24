@@ -27,14 +27,16 @@ public abstract class MvpActivity<DB extends ViewDataBinding,P extends Presenter
     protected void beforeView() {
         super.beforeView();
         mPresenter= creartPresenter();
-        if (mPresenter!=null)
+        if (mPresenter!=null) {
             mPresenter.addView(this);
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mPresenter!=null)
+        if (mPresenter!=null) {
             mPresenter.deleteView();
+        }
     }
 }
