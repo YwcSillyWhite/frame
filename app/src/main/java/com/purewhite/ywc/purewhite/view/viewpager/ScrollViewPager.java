@@ -33,33 +33,21 @@ public class ScrollViewPager extends WrapViewPager {
         {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ScrollViewPager);
             canScroll=typedArray.getBoolean(R.styleable.ScrollViewPager_canScroll,false);
-            Log.d("ywc","canScroll"+canScroll);
+            Log.d("ywc","canScroll"+canScroll+"   "+toString());
         }
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        Log.d("ywc","canScroll"+canScroll);
         return canScroll?super.onInterceptTouchEvent(ev):true;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        Log.d("ywc",canScroll+"canScroll");
+        Log.d("ywc",canScroll+"canScroll"+"  "+toString());
         return canScroll?super.onTouchEvent(ev):true;
     }
 
-    //    @Override
-//    public boolean onInterceptTouchEvent(MotionEvent ev) {
-//        if (canScroll)
-//            return super.onInterceptTouchEvent(ev);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onTouchEvent(MotionEvent ev) {
-//        if (canScroll)
-//            return super.onTouchEvent(ev);
-//        return true;
-//    }
 
 }

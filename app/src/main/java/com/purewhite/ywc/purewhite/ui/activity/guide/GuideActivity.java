@@ -11,9 +11,11 @@ import com.purewhite.ywc.purewhite.config.OnSingleListener;
 import com.purewhite.ywc.purewhite.databinding.ActivityGuideBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
 import com.purewhite.ywc.purewhite.ui.activity.main.MainActivity;
+import com.purewhite.ywc.purewhite.ui.adapter.GuidePagerAdapter;
 import com.purewhite.ywc.purewhite.view.pagerview.AimaTransforme;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,7 +26,7 @@ import java.util.List;
 
 public class GuideActivity extends MvpActivity<ActivityGuideBinding,GuidePresenter>
         implements GuideContract.View{
-    private int img[]={R.mipmap.img_welcome_1,R.mipmap.img_welcome_2,
+    private Integer img[]={R.mipmap.img_welcome_1,R.mipmap.img_welcome_2,
             R.mipmap.img_welcome_3,R.mipmap.img_welcome_4};
 
 
@@ -59,7 +61,8 @@ public class GuideActivity extends MvpActivity<ActivityGuideBinding,GuidePresent
             if (i==img.length-1)
                 imageView.setOnClickListener(onSingleListener);
         }
-        mDataBinding.guideViewpager.setAdapter(new BasePagerAdapter(list));
+        GuidePagerAdapter guidePagerAdapter = new GuidePagerAdapter(Arrays.asList(img),this);
+        mDataBinding.guideViewpager.setAdapter(guidePagerAdapter);
         mDataBinding.guideViewpager.setPageTransformer(false, new AimaTransforme());
     }
 
