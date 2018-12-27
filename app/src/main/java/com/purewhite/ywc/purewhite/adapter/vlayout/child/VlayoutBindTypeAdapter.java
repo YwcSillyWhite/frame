@@ -13,53 +13,15 @@ import java.util.List;
  */
 public abstract class VlayoutBindTypeAdapter<T extends BindBean> extends VlayoutBindAdapter<T>{
 
-    private SparseIntArray sparseIntArray;
-
-    public void addLayout(int layoutId)
-    {
-        addLayout(0,layoutId);
-    }
-
-    public void addLayout(int viewType,int layoutId)
-    {
-        if (sparseIntArray==null)
-        {
-            sparseIntArray=new SparseIntArray();
-        }
-        sparseIntArray.put(viewType,layoutId);
-    }
-
-    @Override
-    protected int getLayout(int viewType)
-    {
-        if (sparseIntArray!=null)
-            return sparseIntArray.get(viewType);
-        return 0;
+    public VlayoutBindTypeAdapter() {
     }
 
     public VlayoutBindTypeAdapter(List<T> list) {
         super(list);
     }
 
-    public VlayoutBindTypeAdapter(OnItemListener listener) {
-        this(new ArrayList<T>(),listener);
-    }
-
-    public VlayoutBindTypeAdapter(List<T> list, OnItemListener listener) {
-        this(list);
-        setOnItemListener(listener);
-    }
-
-
     @Override
-    public int getItemViewType(int position) {
-        return getDataType(position);
+    protected int getDataType(int position) {
+        return obtain(position)!=null?obtain(position).getBeanType():0;
     }
-
-    private int getDataType(int position) {
-        return obtain(position).getBeanType();
-    }
-
-
-
 }

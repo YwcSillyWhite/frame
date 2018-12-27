@@ -2,6 +2,7 @@ package com.purewhite.ywc.purewhite.adapter.vlayout.child;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -16,37 +17,50 @@ import java.util.List;
  */
 public abstract class VlayoutBindAdapter<T> extends VlayoutBaseAdapter<T,BindHolder>{
 
-    private int layoutId;
-
-    protected int getLayout(int viewType)
+    private SparseIntArray sparseIntArray;
+    public VlayoutBindAdapter()
     {
-        return layoutId;
+        super(null);
     }
 
     public VlayoutBindAdapter(List<T> list) {
         super(list);
     }
 
-    public VlayoutBindAdapter(List<T> list,int layoutId)
+    protected void addLayout(int layoutId)
     {
-        this(list);
-        this.layoutId=layoutId;
+        addLayout(0,layoutId);
     }
 
-    public VlayoutBindAdapter(int layoutId,OnItemListener listener) {
-        this(new ArrayList<T>(),layoutId,listener);
+    protected void addLayout(int viewType,int layoutId)
+    {
+        if (sparseIntArray==null)
+        {
+            sparseIntArray=new SparseIntArray();
+        }
+        sparseIntArray.put(viewType,layoutId);
     }
 
-    public VlayoutBindAdapter(List<T> list,int layoutId, OnItemListener listener) {
-        this(list);
-        this.layoutId=layoutId;
-        setOnItemListener(listener);
-    }
 
     @Override
     protected BindHolder onCreateData(ViewGroup parent, int viewType) {
-        ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                getLayout(viewType), parent, false);
-        return new BindHolder(binding);
+        if (getLayout(viewType)!=-1)
+        {
+            ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                    getLayout(viewType), parent, false);
+            return new BindHolder(binding);
+        }
+        return null;
     }
+
+
+
+    private int getLayout(int viewType)
+    {
+        if (sparseIntArray!=null) {
+            return sparseIntArray.get(viewType);
+        }
+        return -1;
+    }
+
 }

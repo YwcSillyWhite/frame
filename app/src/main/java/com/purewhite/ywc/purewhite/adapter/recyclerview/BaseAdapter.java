@@ -507,6 +507,8 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
             return;
         }
         final View view = viewhold.itemView;
+        //这里给view设置一个id ,这样可以和子类点击一起使用
+        view.setId(Integer.MAX_VALUE);
         if (view == null) {
             return;
         }

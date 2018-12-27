@@ -37,6 +37,15 @@ public abstract class VlayoutBaseAdapter<T,V extends BaseViewHolder> extends Del
         this.onItemListener = onItemListener;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return getDataType(position);
+    }
+
+    protected int getDataType(int position) {
+        return super.getItemViewType(position);
+    }
+
     public T obtain(int position)
     {
         if (position<mData.size())
@@ -79,7 +88,13 @@ public abstract class VlayoutBaseAdapter<T,V extends BaseViewHolder> extends Del
         if (holder==null) {
             return;
         }
-        holder.itemView.setOnClickListener(new OnSingleListener() {
+        View view = holder.itemView;
+        if (view==null)
+        {
+            return;
+        }
+        view.setId(Integer.MAX_VALUE);
+        view.setOnClickListener(new OnSingleListener() {
             @Override
             public void onSingleClick(View v) {
                 int position=holder.getLayoutPosition();
@@ -138,4 +153,5 @@ public abstract class VlayoutBaseAdapter<T,V extends BaseViewHolder> extends Del
             addData(list);
         }
     }
+
 }
