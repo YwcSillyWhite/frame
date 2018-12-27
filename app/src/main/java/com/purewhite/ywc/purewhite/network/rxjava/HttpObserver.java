@@ -17,7 +17,6 @@ public abstract class HttpObserver<T> implements Observer<T> {
 
     @Override
     public void onSubscribe(Disposable d) {
-        Log.d("ywc",AppUtils.getContext().toString()+"");
         RxDisposableManager.getInstance().addDis(AppUtils.getContext(),d);
     }
 

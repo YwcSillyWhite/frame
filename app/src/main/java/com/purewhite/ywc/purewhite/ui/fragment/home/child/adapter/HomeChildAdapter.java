@@ -21,7 +21,6 @@ public class  HomeChildAdapter extends BindTypeAdapter<MainBean.DataBean> {
         super();
         //1个使用
         addLayout(R.layout.adapter_mian);
-//        addLayout(1,R.layout.adapter_);
     }
 
 
