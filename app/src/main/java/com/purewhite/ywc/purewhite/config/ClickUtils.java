@@ -13,12 +13,12 @@ public final class ClickUtils {
 
     public static boolean  clickable(View view)
     {
-        Object tag = view.getTag(-1);
+        Object tag = view.getTag(view.getId());
         long oldTime=tag!=null? ((long) tag):0;
         long newTime = System.currentTimeMillis();
         if (newTime-oldTime>=600)
         {
-            view.setTag(-1,newTime);
+            view.setTag(view.getId(),newTime);
             return true;
         }
         return false;

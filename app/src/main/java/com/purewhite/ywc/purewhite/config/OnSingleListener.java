@@ -3,7 +3,7 @@ package com.purewhite.ywc.purewhite.config;
 import android.view.View;
 
 /**
- *
+ *点击事件优化，防止多次点击
  * @author yuwenchao
  * @date 2018/11/6
  */
