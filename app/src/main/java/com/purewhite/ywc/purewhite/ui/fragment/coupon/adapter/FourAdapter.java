@@ -1,9 +1,14 @@
 package com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter;
 
+import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.StickyLayoutHelper;
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.viewholder.BaseViewHolder;
+import com.purewhite.ywc.purewhite.adapter.viewholder.BindHolder;
 import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutType;
 import com.purewhite.ywc.purewhite.adapter.vlayout.child.VlayoutBindTypeAdapter;
 
@@ -11,7 +16,7 @@ import java.util.ArrayList;
 
 public class FourAdapter extends VlayoutBindTypeAdapter {
 
-    private boolean isShow;
+    private boolean isShow=true;
 
     public FourAdapter() {
         super(new ArrayList());
@@ -25,7 +30,6 @@ public class FourAdapter extends VlayoutBindTypeAdapter {
             notifyDataSetChanged();
         }
     }
-
 
 
     @Override
@@ -47,6 +51,4 @@ public class FourAdapter extends VlayoutBindTypeAdapter {
     protected void onData(BaseViewHolder holder, int position, Object o) {
 
     }
-
-
 }

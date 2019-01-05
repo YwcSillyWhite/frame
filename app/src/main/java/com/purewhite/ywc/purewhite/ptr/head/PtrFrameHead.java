@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+
 
 import com.purewhite.ywc.purewhite.R;
 
@@ -20,14 +22,14 @@ import in.srain.cube.views.ptr.indicator.PtrIndicator;
  */
 public class PtrFrameHead extends FrameLayout implements PtrUIHandler {
 
-    private AnimationDrawable background;
+    private AnimationDrawable refreshAnim;
 
     public PtrFrameHead(@NonNull Context context) {
         super(context);
         init();
     }
 
-    public PtrFrameHead(@NonNull Context context,@Nullable AttributeSet attrs) {
+    public PtrFrameHead(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
@@ -40,7 +42,9 @@ public class PtrFrameHead extends FrameLayout implements PtrUIHandler {
     //初始化
     private void init() {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.ptr_head, this, true);
-        background = ((AnimationDrawable) view.findViewById(R.id.ptr_Img).getBackground());
+        ImageView ivRefreshView = view.findViewById(R.id.ptr_Img);
+        refreshAnim = (AnimationDrawable) ivRefreshView.getBackground();
+
     }
 
     //初始化
@@ -58,8 +62,8 @@ public class PtrFrameHead extends FrameLayout implements PtrUIHandler {
     //开始
     @Override
     public void onUIRefreshBegin(PtrFrameLayout frame) {
-        if(background!=null && !background.isRunning()){
-            background.start();
+        if(refreshAnim!=null && !refreshAnim.isRunning()){
+            refreshAnim.start();
         }
     }
 
@@ -77,8 +81,8 @@ public class PtrFrameHead extends FrameLayout implements PtrUIHandler {
 
     private void stopAnim()
     {
-        if(background!=null && background.isRunning()){
-            background.stop();
+        if(refreshAnim!=null && refreshAnim.isRunning()){
+            refreshAnim.stop();
         }
     }
 }

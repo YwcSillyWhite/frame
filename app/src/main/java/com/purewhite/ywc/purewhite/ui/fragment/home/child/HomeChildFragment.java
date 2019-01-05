@@ -1,7 +1,6 @@
 package com.purewhite.ywc.purewhite.ui.fragment.home.child;
 
 import android.support.v7.widget.GridLayoutManager;
-import android.util.Log;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.callback.OnFullListener;
@@ -12,7 +11,7 @@ import com.purewhite.ywc.purewhite.adapter.fullview.FullViewImp;
 import com.purewhite.ywc.purewhite.config.TagUtils;
 import com.purewhite.ywc.purewhite.databinding.FragmentHomeChildBinding;
 import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;
-import com.purewhite.ywc.purewhite.ptr.io.PtrCallBack;
+import com.purewhite.ywc.purewhite.ptr.io.OnPtrListener;
 import com.purewhite.ywc.purewhite.ui.fragment.home.child.adapter.HomeChildAdapter;
 import com.purewhite.ywc.purewhite.view.recyclerview.top.ScrollTopHelp;
 import com.purewhite.ywc.purewhite.view.recyclerview.top.ScrollTopListener;
@@ -24,9 +23,10 @@ import com.purewhite.ywc.purewhite.view.recyclerview.top.ScrollTopListener;
 public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,HomeChildPresenter>
         implements HomeChildContract.View {
 
-    private PtrCallBack ptrCallBack=new PtrCallBack() {
+    private OnPtrListener ptrCallBack=new OnPtrListener() {
+
         @Override
-        public void onPullDown() {
+        public void pullDown() {
             mPresenter.initPage();
             mPresenter.getShip(request_contet);
         }

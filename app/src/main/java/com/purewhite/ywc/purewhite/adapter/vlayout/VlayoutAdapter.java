@@ -89,7 +89,7 @@ public class VlayoutAdapter extends DelegateAdapter
     //全局布局长度
     private int getFullCount()
     {
-        if (getDataCount()>1) {
+        if (getDataCount()>0) {
             return 0;
         }
         return fullView.isShow()?1:0;

@@ -2,6 +2,7 @@ package com.purewhite.ywc.purewhite.adapter.vlayout.child;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -13,7 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *采用这个类使用多布局一定要重写getDataType()这个方法
  * @author yuwenchao
+ * @date 2018/11/17
+ * 使用数据里面的
  */
 public abstract class VlayoutBindAdapter<T> extends VlayoutBaseAdapter<T,BindHolder>{
 
@@ -44,8 +48,10 @@ public abstract class VlayoutBindAdapter<T> extends VlayoutBaseAdapter<T,BindHol
 
     @Override
     protected BindHolder onCreateData(ViewGroup parent, int viewType) {
+        Log.d("ywc","进入");
         if (getLayout(viewType)!=-1)
         {
+            Log.d("ywc","进入1");
             ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                     getLayout(viewType), parent, false);
             return new BindHolder(binding);

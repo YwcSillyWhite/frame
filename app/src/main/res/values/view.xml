@@ -56,4 +56,10 @@
         //子类缓存的最小高度
         <attr name="child_height" format="dimension"></attr>
     </declare-styleable>
+    
+    
+    <declare-styleable name="TrapezoidView">
+        <attr name="trap_padding" format="dimension"></attr>
+        <attr name="trap_color" format="color"></attr>
+    </declare-styleable>
 </resources>

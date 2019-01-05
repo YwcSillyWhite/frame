@@ -13,7 +13,8 @@ import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutAdapter;
 import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutType;
 import com.purewhite.ywc.purewhite.databinding.FragmentCouponBinding;
 import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;
-import com.purewhite.ywc.purewhite.ptr.io.PtrCallBack;
+
+import com.purewhite.ywc.purewhite.ptr.io.OnPtrListener;
 import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.FiveAdapter;
 import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.FourAdapter;
 import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.OneAdapter;
@@ -43,9 +44,10 @@ public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPres
         }
     };
 
-    private PtrCallBack ptrCallBack=new PtrCallBack() {
+    private OnPtrListener onPtrListener=new OnPtrListener() {
+
         @Override
-        public void onPullDown() {
+        public void pullDown() {
             mPresenter.initPage();
             mPresenter.getOneData();
         }
@@ -65,9 +67,9 @@ public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPres
 
     @Override
     protected void initView() {
-        mDataBinding.ptrLayout.setPtrHandler(ptrCallBack);
+        mDataBinding.ptrLayout.setPtrHandler(onPtrListener);
         initRecycler();
-        mPresenter.getOneData();
+//        mPresenter.getOneData();
     }
 
     private void initRecycler() {

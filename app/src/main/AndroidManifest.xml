@@ -36,6 +36,8 @@
         <activity android:name=".ui.activity.home.choose.ChooseActivity"/>
         //仿京东
         <activity android:name=".ui.activity.vip.financial.FinancialActivity"/>
+        //今日秒杀
+        <activity android:name=".ui.activity.mine.seckill.SeckillActivity"/>
     </application>
 
 </manifest>

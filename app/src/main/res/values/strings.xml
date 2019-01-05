@@ -25,4 +25,12 @@
         <item>男装</item>
         <item>洗护</item>
     </string-array>
+
+
+    <string-array name="oneadapter">
+        <item>one1</item>
+        <item>one2</item>
+        <item>one3</item>
+        <item>one4</item>
+    </string-array>
 </resources>

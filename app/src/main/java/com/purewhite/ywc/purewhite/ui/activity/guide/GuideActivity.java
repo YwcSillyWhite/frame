@@ -12,6 +12,7 @@ import com.purewhite.ywc.purewhite.databinding.ActivityGuideBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
 import com.purewhite.ywc.purewhite.ui.activity.main.MainActivity;
 import com.purewhite.ywc.purewhite.ui.adapter.GuidePagerAdapter;
+import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.OneAdapter;
 import com.purewhite.ywc.purewhite.view.pagerview.AimaTransforme;
 
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public class GuideActivity extends MvpActivity<ActivityGuideBinding,GuidePresent
         GuidePagerAdapter guidePagerAdapter = new GuidePagerAdapter(Arrays.asList(img),this);
         mDataBinding.guideViewpager.setAdapter(guidePagerAdapter);
         mDataBinding.guideViewpager.setPageTransformer(false, new AimaTransforme());
+
     }
 
 

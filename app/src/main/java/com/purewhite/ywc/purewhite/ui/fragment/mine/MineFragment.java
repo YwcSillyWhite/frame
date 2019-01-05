@@ -13,6 +13,7 @@ import com.purewhite.ywc.purewhite.databinding.FragmentMineBinding;
 import com.purewhite.ywc.purewhite.imageload.ImageLoader;
 import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;
 import com.purewhite.ywc.purewhite.ui.activity.mine.friend.FriendActivity;
+import com.purewhite.ywc.purewhite.ui.activity.mine.seckill.SeckillActivity;
 import com.purewhite.ywc.purewhite.ui.activity.web.WebActivity;
 
 public class MineFragment extends MvpFragment<FragmentMineBinding,MinePresenter> implements MineContract.View {
@@ -35,6 +36,9 @@ public class MineFragment extends MvpFragment<FragmentMineBinding,MinePresenter>
                 case R.id.add_friend:
                     ActivityUtils.newInstance().startActivity(FriendActivity.class);
                     break;
+                case R.id.seckill:
+                    ActivityUtils.newInstance().startActivity(SeckillActivity.class);
+                    break;
             }
         }
     };
@@ -55,6 +59,7 @@ public class MineFragment extends MvpFragment<FragmentMineBinding,MinePresenter>
         mDataBinding.tiammaoH.setOnClickListener(onSingleListener);
         mDataBinding.huliH.setOnClickListener(onSingleListener);
         mDataBinding.addFriend.setOnClickListener(onSingleListener);
+        mDataBinding.seckill.setOnClickListener(onSingleListener);
         mPresenter.getCache();
     }
 

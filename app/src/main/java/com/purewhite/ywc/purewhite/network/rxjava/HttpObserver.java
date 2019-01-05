@@ -3,6 +3,7 @@ package com.purewhite.ywc.purewhite.network.rxjava;
 import android.util.Log;
 
 import com.purewhite.ywc.purewhite.app.AppUtils;
+import com.purewhite.ywc.purewhite.config.LogUtils;
 import com.purewhite.ywc.purewhite.config.NetWorkUtils;
 
 import java.net.ConnectException;
@@ -34,6 +35,7 @@ public abstract class HttpObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
+        LogUtils.error(e.toString());
         if (!NetWorkUtils.isConnected())
         {
             onFail("网络异常");

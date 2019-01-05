@@ -8,23 +8,23 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 /**
  * @author yuwenchao
  */
-public abstract class PtrCallBack extends PtrDefaultHandler {
+public abstract class OnPtrListener extends PtrDefaultHandler {
     @Override
     public void onRefreshBegin(PtrFrameLayout frame) {
-        onPullDown();
+        pullDown();
     }
 
     //下啦刷新
-    public abstract void onPullDown();
+    public abstract void pullDown();
 
 
     @Override
     public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-        return checkCanPullDown()&&super.checkCanDoRefresh(frame, content, header);
+        return judge()&&super.checkCanDoRefresh(frame, content, header);
     }
 
     //判断能否下啦刷新
-    public boolean checkCanPullDown()
+    public boolean judge()
     {
         return true;
     }

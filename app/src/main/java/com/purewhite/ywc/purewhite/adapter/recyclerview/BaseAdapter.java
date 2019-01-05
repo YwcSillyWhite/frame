@@ -49,6 +49,12 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     private Handler handler=new Handler();
     //加载最多项
     private int pageSize=10;
+
+    //父类是否可以点击
+    private boolean parentClick=true;
+    public void setParentClick(boolean parentClick) {
+        this.parentClick = parentClick;
+    }
     //数据点击过事件
     protected OnItemListener onItemListener;
     //滑动监听
@@ -503,7 +509,7 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     /************  绑定监听   ****************/
     protected void bindDataListener(final V viewhold)
     {
-        if (viewhold == null) {
+        if (viewhold == null&&!parentClick&&onItemListener==null) {
             return;
         }
         final View view = viewhold.itemView;
@@ -512,16 +518,16 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
         if (view == null) {
             return;
         }
-        if (onItemListener!=null)
-        {
-            view.setOnClickListener(new OnSingleListener() {
-                @Override
-                public void onSingleClick(View v) {
+        view.setOnClickListener(new OnSingleListener() {
+            @Override
+            public void onSingleClick(View v) {
+                if (onItemListener!=null&&parentClick)
+                {
                     int position=viewhold.getLayoutPosition() - getFootCount();
                     onItemListener.OnClick(BaseAdapter.this,view, position);
                 }
-            });
-        }
+            }
+        });
     }
 
 

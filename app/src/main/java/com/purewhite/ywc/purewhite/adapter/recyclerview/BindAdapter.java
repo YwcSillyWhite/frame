@@ -68,6 +68,4 @@ public abstract class BindAdapter<T> extends BaseAdapter<T,BindHolder>{
         return -1;
     }
 
-
-
 }

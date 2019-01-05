@@ -66,6 +66,9 @@ public class FinancialActivity extends MvpActivity<ActivityFinancialBinding,Fina
 
     @Override
     protected void initView() {
+
+        mDataBinding.progressBar.startAnim(0,50,0,200);
+
         int screenWidth = SizeUtils.getScreenWidth();
         int viewWidth = (screenWidth - SizeUtils.dip2px(50)) / 4;
         ((TextView) mDataBinding.actionBar.findViewById(R.id.action_center)).setText("等级");

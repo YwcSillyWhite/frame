@@ -1,6 +1,7 @@
 package com.purewhite.ywc.purewhite.adapter.vlayout.child;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -36,6 +37,11 @@ public abstract class VlayoutBaseAdapter<T,V extends BaseViewHolder> extends Del
     public void setOnItemListener(OnItemListener onItemListener) {
         this.onItemListener = onItemListener;
     }
+    //本身是否可以点击
+    private Boolean parentClick=true;
+    public void setParentClick(Boolean parentClick) {
+        this.parentClick = parentClick;
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -64,7 +70,6 @@ public abstract class VlayoutBaseAdapter<T,V extends BaseViewHolder> extends Del
     @Override
     public V onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         V viewHolder = onCreateData(viewGroup, viewType);
-        bindClick(viewHolder);
         return viewHolder;
     }
 
@@ -82,10 +87,11 @@ public abstract class VlayoutBaseAdapter<T,V extends BaseViewHolder> extends Del
     protected void onBindViewHolderWithOffset(V holder, int position, int offsetTotal) {
         super.onBindViewHolderWithOffset(holder, position, offsetTotal);
         onData(holder,position,obtain(position));
+        bindClick(holder,position);
     }
 
-    private void bindClick(final V holder) {
-        if (holder==null) {
+    private void bindClick(final V holder, final int position) {
+        if (holder==null&&!parentClick&&onItemListener==null) {
             return;
         }
         View view = holder.itemView;
@@ -97,8 +103,7 @@ public abstract class VlayoutBaseAdapter<T,V extends BaseViewHolder> extends Del
         view.setOnClickListener(new OnSingleListener() {
             @Override
             public void onSingleClick(View v) {
-                int position=holder.getLayoutPosition();
-                if (onItemListener!=null)
+                if (onItemListener!=null&&parentClick)
                 {
                     onItemListener.OnClick(VlayoutBaseAdapter.this,v,position);
                 }
@@ -136,6 +141,20 @@ public abstract class VlayoutBaseAdapter<T,V extends BaseViewHolder> extends Del
                 notifyItemRangeInserted(mData.size()-list.size() , list.size());
             }
         }
+    }
+
+    public void flushT(T t)
+    {
+        if (t==null)
+        {
+            return;
+        }
+        if (mData.size()>0)
+        {
+            mData.clear();
+        }
+        mData.add(t);
+        notifyDataSetChanged();
     }
 
     /**
