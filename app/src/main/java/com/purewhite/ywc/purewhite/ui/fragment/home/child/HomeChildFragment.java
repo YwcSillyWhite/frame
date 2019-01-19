@@ -1,20 +1,21 @@
 package com.purewhite.ywc.purewhite.ui.fragment.home.child;
 
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.callback.OnFullListener;
+import com.purewhite.ywc.purewhite.adapter.callback.OnItemListener;
 import com.purewhite.ywc.purewhite.adapter.callback.OnLoadListener;
-import com.purewhite.ywc.purewhite.adapter.fullview.FullView;
 import com.purewhite.ywc.purewhite.adapter.callback.OnLoadListenerImp;
-import com.purewhite.ywc.purewhite.adapter.fullview.FullViewImp;
+import com.purewhite.ywc.purewhite.adapter.fullview.FullView;
+import com.purewhite.ywc.purewhite.adapter.ptr.io.OnPtrListener;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.top.ScrollTopListener;
 import com.purewhite.ywc.purewhite.config.TagUtils;
 import com.purewhite.ywc.purewhite.databinding.FragmentHomeChildBinding;
 import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;
-import com.purewhite.ywc.purewhite.ptr.io.OnPtrListener;
-import com.purewhite.ywc.purewhite.ui.fragment.home.child.adapter.HomeChildAdapter;
-import com.purewhite.ywc.purewhite.view.recyclerview.top.ScrollTopHelp;
-import com.purewhite.ywc.purewhite.view.recyclerview.top.ScrollTopListener;
+import com.purewhite.ywc.purewhite.ui.adapter.GoodsListAdapter;
 
 
 /**
@@ -23,12 +24,11 @@ import com.purewhite.ywc.purewhite.view.recyclerview.top.ScrollTopListener;
 public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,HomeChildPresenter>
         implements HomeChildContract.View {
 
-    private OnPtrListener ptrCallBack=new OnPtrListener() {
-
+    private OnPtrListener onPtrListener=new OnPtrListener() {
         @Override
         public void pullDown() {
             mPresenter.initPage();
-            mPresenter.getShip(request_contet);
+            mPresenter.requestData();
         }
     };
 
@@ -36,25 +36,32 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
         @Override
         public void pullUp() {
             mPresenter.autoPage();
-            mPresenter.getShip(request_contet);
+            mPresenter.requestData();
         }
 
         @Override
         public void loadAgain() {
-            mPresenter.getShip(request_contet);
+            mPresenter.requestData();
         }
     };
 
     private OnFullListener onFullListener=new OnFullListener() {
         @Override
         public void again() {
-            mPresenter.getShip(request_contet);
+            mPresenter.requestData();
         }
     };
 
-    private HomeChildAdapter homeChildAdapter;
-    private String request_contet;
-    private ScrollTopHelp scrollTopHelp;
+    private OnItemListener onItemListener=new OnItemListener() {
+        @Override
+        public void OnClick(RecyclerView.Adapter adapter, View view, int position, boolean itemView) {
+
+        }
+    };
+
+
+    private GoodsListAdapter goodsListAdapter;
+    private ScrollTopListener scrollTopListener;
 
     @Override
     protected HomeChildPresenter creartPresenter() {
@@ -68,61 +75,49 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
 
     @Override
     protected void initView() {
-        scrollTopHelp = new ScrollTopHelp(mDataBinding.imgTop);
-        scrollTopHelp.setRecycClick(mDataBinding.recyclerView);
-
-        request_contet = getArguments().getString(TagUtils.fragmentString);
-        mDataBinding.ptrFrame.setPtrHandler(ptrCallBack);
+        int position = getArguments().getInt(TagUtils.fragmentPosition,0);
+        mPresenter.setPosition(position);
+        mDataBinding.ptrFrame.setOnPtrListener(onPtrListener);
         initRecycler();
     }
 
     @Override
     protected void soleLoad() {
         super.soleLoad();
-
-        mPresenter.getShip(request_contet);
+        mPresenter.requestData();
     }
 
 
     private void initRecycler() {
-        homeChildAdapter = new HomeChildAdapter();
-        //设置开始fullview加载状态
-        FullViewImp fullView = (FullViewImp) homeChildAdapter.getFullView();
-        fullView.setFullState(FullView.LODA,false);
-        fullView.setOnFullListener(onFullListener);
-        //加入加载监听
-        homeChildAdapter.setOnLoadListener(onLoadListener);
-        //加载的最大条数
-        homeChildAdapter.setPageSize(20);
+        goodsListAdapter = new GoodsListAdapter();
+        goodsListAdapter.setOnFullListener(onFullListener);
+        goodsListAdapter.setFullState(FullView.LODA,false);
+        goodsListAdapter.setOnLoadListener(onLoadListener);
+        goodsListAdapter.setOnItemListener(onItemListener);
+        goodsListAdapter.setPageSize(10);
 
-        mDataBinding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(),6));
-        //加入加载更多回掉，如果没有就不能家宅更多
-        mDataBinding.recyclerView.addOnScrollListener(new ScrollTopListener(scrollTopHelp));
-//        mDataBinding.recyclerView.addItemDecoration(new OneDecoration(SizeUtils.dip2px(10f),2));
-        mDataBinding.recyclerView.setAdapter(homeChildAdapter);
+        mDataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        scrollTopListener = new ScrollTopListener(mDataBinding.imgTop);
+        scrollTopListener.setSlideLoad(true);
+        mDataBinding.recyclerView.addOnScrollListener(scrollTopListener);
+        mDataBinding.recyclerView.setAdapter(goodsListAdapter);
+    }
+
+
+    @Override
+    public GoodsListAdapter getAdapter() {
+        return goodsListAdapter;
     }
 
     @Override
-    public HomeChildAdapter getHomeChildAdapter() {
-        return homeChildAdapter;
+    public void responseData(int pageSize) {
+        mDataBinding.ptrFrame.refreshComplete(pageSize);
     }
 
-    @Override
-    public void loadfinish(boolean flush) {
-        if (flush)
-        {
-
-            if(!mDataBinding.ptrFrame.isEnabled())
-            {
-                mDataBinding.ptrFrame.setEnabled(true);
-            }
-            mDataBinding.ptrFrame.refreshComplete();
-        }
-    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        scrollTopHelp.release();
+        scrollTopListener.release();
     }
 }

@@ -1,7 +1,5 @@
 package com.purewhite.ywc.purewhite.network.rxjava;
 
-import android.util.Log;
-
 import com.purewhite.ywc.purewhite.app.AppUtils;
 import com.purewhite.ywc.purewhite.config.LogUtils;
 import com.purewhite.ywc.purewhite.config.NetWorkUtils;

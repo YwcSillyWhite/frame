@@ -15,7 +15,6 @@ import com.purewhite.ywc.purewhite.adapter.fullview.FullView;
 import com.purewhite.ywc.purewhite.adapter.fullview.FullViewImp;
 import com.purewhite.ywc.purewhite.adapter.loadview.LoadView;
 import com.purewhite.ywc.purewhite.adapter.loadview.LoadViewImp;
-import com.purewhite.ywc.purewhite.adapter.callback.OnLoadListenerImp;
 import com.purewhite.ywc.purewhite.adapter.viewholder.BaseViewHolder;
 import com.purewhite.ywc.purewhite.config.NetWorkUtils;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
@@ -227,7 +226,7 @@ public class VlayoutAdapter extends DelegateAdapter
                 setLoadState(LoadView.REST,false);
                 if (getDataCount()==0)
                 {
-                    setFullSate(network?FullView.DATA:FullView.NETWORK);
+                    setFullSate(network?FullView.DATA:FullView.NETWORK,true);
                 }
             }
             else
@@ -249,9 +248,9 @@ public class VlayoutAdapter extends DelegateAdapter
     }
 
 
-    public void setFullSate(int fullSate)
+    public void setFullSate(int fullSate,boolean flush)
     {
-        fullView.setFullState(fullSate);
+        fullView.setFullState(fullSate,flush);
     }
 
     private void setLoadState(int statue,boolean flush)

@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.config.ClickUtils;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
 
 /**

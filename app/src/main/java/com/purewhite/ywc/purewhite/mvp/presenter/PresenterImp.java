@@ -15,8 +15,30 @@ public class PresenterImp<V extends BaseView> implements BasePresenter<V> {
 
     protected V mView;
     private WeakReference<V> vWeakReference;
+
+    @Override
+    public void addView(V view) {
+        vWeakReference = new WeakReference<>(view);
+        mView=vWeakReference.get();
+        initPage();
+    }
+
+    @Override
+    public void deleteView() {
+        if (vWeakReference!=null)
+        {
+            vWeakReference.clear();
+            mView=null;
+        }
+    }
+
+
     //当前页数
-    protected int page;
+    private int page;
+    public int getPage() {
+        return page;
+    }
+
     //初始化页数
     public void initPage()
     {
@@ -33,21 +55,5 @@ public class PresenterImp<V extends BaseView> implements BasePresenter<V> {
     public void  autoPage()
     {
         page++;
-    }
-
-    @Override
-    public void addView(V view) {
-        vWeakReference = new WeakReference<>(view);
-        mView=vWeakReference.get();
-        initPage();
-    }
-
-    @Override
-    public void deleteView() {
-        if (vWeakReference!=null)
-        {
-            vWeakReference.clear();
-            mView=null;
-        }
     }
 }

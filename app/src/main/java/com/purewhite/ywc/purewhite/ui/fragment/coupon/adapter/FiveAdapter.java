@@ -12,11 +12,12 @@ import com.purewhite.ywc.purewhite.adapter.vlayout.child.VlayoutBindTypeAdapter;
 import com.purewhite.ywc.purewhite.bean.main.MainBean;
 import com.purewhite.ywc.purewhite.config.SizeUtils;
 import com.purewhite.ywc.purewhite.databinding.AdapterMianBinding;
-import com.purewhite.ywc.purewhite.imageload.ImageLoader;
+import com.purewhite.ywc.purewhite.network.imageload.ImageLoader;
 
 import java.util.ArrayList;
 
 public class FiveAdapter extends VlayoutBindTypeAdapter<MainBean.DataBean> {
+
 
 
     public FiveAdapter() {

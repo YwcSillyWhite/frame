@@ -5,7 +5,7 @@ import com.purewhite.ywc.purewhite.adapter.recyclerview.BindTypeAdapter;
 import com.purewhite.ywc.purewhite.adapter.viewholder.BindHolder;
 import com.purewhite.ywc.purewhite.bean.main.MainBean;
 import com.purewhite.ywc.purewhite.databinding.AdapterActivityFriendBinding;
-import com.purewhite.ywc.purewhite.imageload.ImageLoader;
+import com.purewhite.ywc.purewhite.network.imageload.ImageLoader;
 
 import java.util.ArrayList;
 

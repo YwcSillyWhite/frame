@@ -6,7 +6,7 @@
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:layout_marginBottom="20dp">
-        <com.purewhite.ywc.purewhite.view.imageview.RatioImageView
+        <com.purewhite.ywc.purewhite.view.imageview.ScaleImageView
             android:layout_width="50dp"
             android:id="@+id/img"
             android:layout_height="wrap_content" />

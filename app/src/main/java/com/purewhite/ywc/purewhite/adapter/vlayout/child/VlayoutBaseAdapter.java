@@ -1,7 +1,6 @@
 package com.purewhite.ywc.purewhite.adapter.vlayout.child;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -105,7 +104,7 @@ public abstract class VlayoutBaseAdapter<T,V extends BaseViewHolder> extends Del
             public void onSingleClick(View v) {
                 if (onItemListener!=null&&parentClick)
                 {
-                    onItemListener.OnClick(VlayoutBaseAdapter.this,v,position);
+                    onItemListener.OnClick(VlayoutBaseAdapter.this,v,position,true);
                 }
             }
         });

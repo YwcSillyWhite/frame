@@ -25,7 +25,7 @@ public class HomePagerAdapter extends BaseFragmentAdapter<String> {
     protected Fragment getFragment(int position) {
         HomeChildFragment homeChildFragment=new HomeChildFragment();
         Bundle bundle=new Bundle();
-        bundle.putString(TagUtils.fragmentString,mDatas.get(position));
+        bundle.putInt(TagUtils.fragmentPosition,position);
         homeChildFragment.setArguments(bundle);
         return homeChildFragment;
     }

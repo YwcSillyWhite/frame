@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.purewhite.ywc.purewhite.network.rxjava.RxDisposableManager;
-
 /**
  *
  * @author yuwenchao

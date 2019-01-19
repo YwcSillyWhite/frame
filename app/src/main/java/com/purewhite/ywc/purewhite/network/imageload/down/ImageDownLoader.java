@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.imageload.down;
+package com.purewhite.ywc.purewhite.network.imageload.down;
 
 import android.content.Context;
 import android.graphics.Bitmap;

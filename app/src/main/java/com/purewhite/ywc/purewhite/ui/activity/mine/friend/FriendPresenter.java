@@ -15,7 +15,7 @@ public class FriendPresenter extends PresenterImp<FriendContract.View> implement
         {
             isRun=true;
             autoPage();
-            HttpUtils.newInstance().getShop_friend("女装",page,new HttpObserver<BaseBean<MainBean>>() {
+            HttpUtils.newInstance().getShop_friend("女装",getPage(),new HttpObserver<BaseBean<MainBean>>() {
                 @Override
                 public void onSuccess(BaseBean<MainBean> mainBeanBaseBean) {
                     isRun=false;
@@ -24,11 +24,11 @@ public class FriendPresenter extends PresenterImp<FriendContract.View> implement
                             &&mainBeanBaseBean.getT().getData().size()>0)
                     {
 
-                        mView.getAdapter().refreshComplete(true,page,mainBeanBaseBean.getT().getData());
+                        mView.getAdapter().refreshComplete(true,getPage(),mainBeanBaseBean.getT().getData());
                     }
                     else
                     {
-                        mView.getAdapter().refreshComplete(true,page,null);
+                        mView.getAdapter().refreshComplete(true,getPage(),null);
                     }
                 }
 
@@ -36,7 +36,7 @@ public class FriendPresenter extends PresenterImp<FriendContract.View> implement
                 public void onFail(String content) {
                     super.onFail(content);
                     //加载失败
-                    mView.getAdapter().refreshComplete(false,page,null);
+                    mView.getAdapter().refreshComplete(false,getPage(),null);
 
                 }
             });

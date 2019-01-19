@@ -1,8 +1,6 @@
 package com.purewhite.ywc.purewhite.adapter.recyclerview;
 
-import android.util.SparseIntArray;
-
-import com.purewhite.ywc.purewhite.adapter.bean.BindBean;
+import com.purewhite.ywc.purewhite.adapter.bean.BaseTypeBean;
 
 import java.util.List;
 
@@ -13,7 +11,7 @@ import java.util.List;
  * 使用数据里面的
  */
 
-public abstract class BindTypeAdapter<T extends BindBean> extends BindAdapter<T>{
+public abstract class BindTypeAdapter<T extends BaseTypeBean> extends BindAdapter<T>{
 
 
     public BindTypeAdapter() {
@@ -26,6 +24,6 @@ public abstract class BindTypeAdapter<T extends BindBean> extends BindAdapter<T>
 
     @Override
     protected int getDataType(int position) {
-        return obtainT(position)!=null?obtainT(position).getBeanType():0;
+        return obtainT(position)!=null?obtainT(position).getTypeBean():0;
     }
 }

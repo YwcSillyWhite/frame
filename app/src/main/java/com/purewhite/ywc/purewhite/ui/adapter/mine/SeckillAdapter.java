@@ -1,13 +1,9 @@
 package com.purewhite.ywc.purewhite.ui.adapter.mine;
 
-import android.databinding.ViewDataBinding;
-import android.view.View;
-
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.BindAdapter;
 import com.purewhite.ywc.purewhite.adapter.viewholder.BindHolder;
 import com.purewhite.ywc.purewhite.bean.SeckillBean;
-import com.purewhite.ywc.purewhite.config.SizeUtils;
 import com.purewhite.ywc.purewhite.databinding.AdapterActivitySeckillBinding;
 
 import java.util.List;

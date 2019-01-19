@@ -1,10 +1,14 @@
 package com.purewhite.ywc.purewhite.ui.fragment.home.child;
 
+import com.purewhite.ywc.purewhite.bean.GoodsListBean;
 import com.purewhite.ywc.purewhite.bean.base.BaseBean;
-import com.purewhite.ywc.purewhite.bean.main.MainBean;
 import com.purewhite.ywc.purewhite.mvp.presenter.PresenterImp;
-import com.purewhite.ywc.purewhite.network.retrofit.request.http.HttpUtils;
+import com.purewhite.ywc.purewhite.network.retrofit.base.BaseRetrofit;
+import com.purewhite.ywc.purewhite.network.retrofit.request.http.HttpService;
 import com.purewhite.ywc.purewhite.network.rxjava.HttpObserver;
+import com.purewhite.ywc.purewhite.network.rxjava.RxSchedulers;
+
+import java.util.List;
 
 
 /**
@@ -12,34 +16,33 @@ import com.purewhite.ywc.purewhite.network.rxjava.HttpObserver;
  */
 public class HomeChildPresenter extends PresenterImp<HomeChildContract.View> implements HomeChildContract.Presenter {
 
-    @Override
-    public void getShip(String content) {
-
-        HttpUtils.newInstance().getShop(content,page,new HttpObserver<BaseBean<MainBean>>() {
-            @Override
-            public void onSuccess(BaseBean<MainBean> mainBeanBaseBean) {
-                if (mainBeanBaseBean.getCode()==0&&mainBeanBaseBean.getT()!=null
-                        &&mainBeanBaseBean.getT().getData()!=null
-                        &&mainBeanBaseBean.getT().getData().size()>0)
-                {
-                    mView.getHomeChildAdapter().refreshComplete(true,page,mainBeanBaseBean.getT().getData());
-                }
-                else
-                {
-                    mView.getHomeChildAdapter().refreshComplete(true,page,null);
-                }
-                mView.loadfinish(page==1);
-            }
-
-            @Override
-            public void onFail(String content) {
-                super.onFail(content);
-                //加载失败
-                mView.getHomeChildAdapter().refreshComplete(false,page,null);
-                mView.loadfinish(page==1);
-            }
-        });
+    private int position;
+    public void setPosition(int position) {
+        this.position = position;
     }
 
-
+    private long min_id;
+    @Override
+    public void requestData() {
+        final int page = getPage();
+        if (page==1)
+        {
+            min_id=1;
+        }
+        BaseRetrofit.newInstance().create(HttpService.class)
+                .obtainGoods(position,10,min_id)
+                .compose(RxSchedulers.<BaseBean<List<GoodsListBean>>>compose())
+                .subscribe(new HttpObserver<BaseBean<List<GoodsListBean>>>() {
+                    @Override
+                    public void onSuccess(BaseBean<List<GoodsListBean>> baseBean) {
+                        if (baseBean.getCode()==1&&baseBean.getT()!=null
+                                &&baseBean.getT().size()>0)
+                        {
+                            min_id=baseBean.getMin_id();
+                            mView.getAdapter().refreshComplete(false,page,baseBean.getT());
+                        }
+                        mView.responseData(page);
+                    }
+                });
+    }
 }

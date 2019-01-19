@@ -8,15 +8,19 @@ import android.databinding.ViewDataBinding;
 
 public class BindHolder extends BaseViewHolder{
 
-    private ViewDataBinding viewDataBinding;
+    private ViewDataBinding binding;
+
+    public ViewDataBinding getBinding() {
+        return binding;
+    }
 
     public ViewDataBinding getViewDataBinding() {
-        return viewDataBinding;
+        return binding;
     }
 
     public BindHolder(ViewDataBinding binding) {
         super(binding.getRoot());
-        viewDataBinding=binding;
+        this.binding=binding;
     }
 
 

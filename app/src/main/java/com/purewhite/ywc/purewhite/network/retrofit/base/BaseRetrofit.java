@@ -1,6 +1,11 @@
 package com.purewhite.ywc.purewhite.network.retrofit.base;
 
 import com.purewhite.ywc.purewhite.config.LogUtils;
+import com.purewhite.ywc.purewhite.network.retrofit.base.interceptor.ParamsInterceptor;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -15,10 +20,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class BaseRetrofit {
-
-    private final String baseUri="https://hzcangyu.com/";
+    //好单库api接口
+    private final String baseUri="http://v2.api.haodanku.com";
     private Retrofit retrofit;
     private static BaseRetrofit basRetrofit;
+    private Map<String,Retrofit> map=new HashMap<>();
     public static BaseRetrofit newInstance() {
         if (basRetrofit==null)
         {
@@ -35,7 +41,7 @@ public class BaseRetrofit {
 
 
     //初始化
-    public BaseRetrofit init()
+    private Retrofit init()
     {
         if (retrofit==null)
         {
@@ -46,18 +52,24 @@ public class BaseRetrofit {
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
         }
-        return this;
+        return retrofit;
     }
 
+
     //初始化
-    public Retrofit init(String baseUri)
+    private Retrofit init(String baseUri)
     {
-        return new Retrofit.Builder()
-                .baseUrl(baseUri)
-                .client(getOkHttp())
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
+        Retrofit retrofit = map.get(baseUri);
+        if (retrofit==null)
+        {
+            retrofit=new Retrofit.Builder()
+                    .baseUrl(baseUri)
+                    .client(getOkHttp())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .build();
+        }
+        return retrofit;
     }
 
 
@@ -68,6 +80,22 @@ public class BaseRetrofit {
     private OkHttpClient getOkHttp()
     {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        //log拦截
+        builder.addInterceptor(obtainLog());
+        //参数拦截
+        builder.addInterceptor(new ParamsInterceptor());
+
+        //时间设置  请求，读取，写入
+        builder.readTimeout(10000,TimeUnit.MILLISECONDS);
+        builder.writeTimeout(10000,TimeUnit.MILLISECONDS);
+        builder.readTimeout(10000,TimeUnit.MILLISECONDS);
+
+
+        return builder.build();
+    }
+
+    private HttpLoggingInterceptor obtainLog()
+    {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
@@ -80,15 +108,27 @@ public class BaseRetrofit {
          * HEADER:  请求/响应行 + 头
          * BODY  :  请求/响应航 + 头 + 体
          */
+
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        builder.addInterceptor(httpLoggingInterceptor);
-        return builder.build();
+        return httpLoggingInterceptor;
     }
 
 
+
+
+
+
+    public <T> T create(String baseUri,Class<T> service)
+    {
+        return  init(baseUri).create(service);
+    }
 
     public <T> T create(Class<T> service) {
-        return retrofit.create(service);
+        return init().create(service);
     }
+
+
+
+
 
 }

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.purewhite.ywc.purewhite.adapter.viewholder.BindHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

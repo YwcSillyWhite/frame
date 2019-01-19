@@ -2,20 +2,20 @@ package com.purewhite.ywc.purewhite.ui.fragment.home.child;
 
 import com.purewhite.ywc.purewhite.mvp.presenter.BasePresenter;
 import com.purewhite.ywc.purewhite.mvp.view.BaseView;
-import com.purewhite.ywc.purewhite.ui.fragment.home.child.adapter.HomeChildAdapter;
+import com.purewhite.ywc.purewhite.ui.adapter.GoodsListAdapter;
 
 public class HomeChildContract {
 
     public interface View extends BaseView
     {
 
-        HomeChildAdapter getHomeChildAdapter();
+        GoodsListAdapter getAdapter();
 
-        void loadfinish(boolean flush);
+        void responseData(int pageSize);
     }
 
     public interface Presenter extends BasePresenter<View>
     {
-        void getShip(String content);
+        void requestData();
     }
 }

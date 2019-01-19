@@ -1,8 +1,5 @@
 package com.purewhite.ywc.purewhite.config;
 
-import android.content.Context;
-import android.nfc.Tag;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.purewhite.ywc.purewhite.app.AppUtils;

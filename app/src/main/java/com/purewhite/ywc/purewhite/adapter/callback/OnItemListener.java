@@ -10,5 +10,12 @@ import android.view.View;
  */
 
 public interface OnItemListener {
-    void OnClick(RecyclerView.Adapter adapter, View view, int position);
+    /**
+     *
+     * @param adapter  适配器
+     * @param view     点击的view
+     * @param position 点击数据的position
+     * @param itemView 是否为itemview
+     */
+    void OnClick(RecyclerView.Adapter adapter, View view, int position,boolean itemView);
 }

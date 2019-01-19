@@ -8,7 +8,7 @@ import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutType;
 import com.purewhite.ywc.purewhite.adapter.vlayout.child.VlayoutBindTypeAdapter;
 import com.purewhite.ywc.purewhite.bean.main.MainBean;
 import com.purewhite.ywc.purewhite.databinding.AdapterFragmentCouponOneBinding;
-import com.purewhite.ywc.purewhite.imageload.ImageLoader;
+import com.purewhite.ywc.purewhite.network.imageload.ImageLoader;
 
 import java.util.ArrayList;
 

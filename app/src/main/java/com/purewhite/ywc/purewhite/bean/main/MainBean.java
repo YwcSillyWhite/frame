@@ -1,6 +1,6 @@
 package com.purewhite.ywc.purewhite.bean.main;
 
-import com.purewhite.ywc.purewhite.adapter.bean.BindBeanImp;
+import com.purewhite.ywc.purewhite.adapter.bean.BaseTypeBean;
 
 import java.util.List;
 
@@ -16,7 +16,8 @@ public class MainBean{
         this.data = data;
     }
 
-    public static class DataBean extends BindBeanImp {
+    public static class DataBean extends BaseTypeBean {
+
         /**
          * item_id : 576024480955
          * item_title : MintBear7支装化妆刷套装 GreyBear系列 柔软非常触感 抓粉力适中
@@ -38,6 +39,8 @@ public class MainBean{
          * source : 1
          * guide_article : null
          */
+
+
 
         private String item_id;
         private String item_title;

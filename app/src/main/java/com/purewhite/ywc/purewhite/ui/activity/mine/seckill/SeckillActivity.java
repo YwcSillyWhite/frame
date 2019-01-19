@@ -2,7 +2,6 @@ package com.purewhite.ywc.purewhite.ui.activity.mine.seckill;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
@@ -24,7 +23,7 @@ public class SeckillActivity extends MvpActivity<ActivitySckillBinding,SeckillPr
     private int screenWidth = SizeUtils.getScreenWidth();
     private OnItemListener onItemListener=new OnItemListener() {
         @Override
-        public void OnClick(RecyclerView.Adapter adapter, View view, int position) {
+        public void OnClick(RecyclerView.Adapter adapter, View view, int position, boolean itemView) {
             if (adapter instanceof SeckillAdapter)
             {
                 ((SeckillAdapter) adapter).seletorFlush(position);

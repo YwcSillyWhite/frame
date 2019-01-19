@@ -3,6 +3,7 @@ package com.purewhite.ywc.purewhite.adapter.fullview;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.purewhite.ywc.purewhite.adapter.callback.OnFullListener;
 import com.purewhite.ywc.purewhite.adapter.viewholder.BaseViewHolder;
 
 /**
@@ -10,6 +11,11 @@ import com.purewhite.ywc.purewhite.adapter.viewholder.BaseViewHolder;
  * @author yuwenchao
  */
 public abstract class FullView {
+
+    protected OnFullListener onFullListener;
+    public void setOnFullListener(OnFullListener onFullListener) {
+        this.onFullListener = onFullListener;
+    }
 
     private int fullState;
     //加载
@@ -75,13 +81,14 @@ public abstract class FullView {
         return false;
     }
 
-    public void setFullState(int fullState) {
-       setFullState(fullState,true);
-    }
-
-    public void setFullState(int fullState,boolean notifiy) {
+    /**
+     *
+     * @param fullState  状态
+     * @param flush    是否刷新
+     */
+    public void setFullState(int fullState,boolean flush) {
         this.fullState = fullState;
-        if (notifiy&&adapter!=null)
+        if (flush&&adapter!=null)
         {
             adapter.notifyDataSetChanged();
         }

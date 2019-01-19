@@ -9,7 +9,18 @@ public class BaseBean<T> {
 
     private int code;
     private String msg;
-    @SerializedName("returnModel")
+
+    private long min_id;
+
+    public long getMin_id() {
+        return min_id;
+    }
+
+    public void setMin_id(long min_id) {
+        this.min_id = min_id;
+    }
+
+    @SerializedName("data")
     private T t;
 
     public int getCode() {

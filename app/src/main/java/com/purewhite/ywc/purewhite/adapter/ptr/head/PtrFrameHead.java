@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.ptr.head;
+package com.purewhite.ywc.purewhite.adapter.ptr.head;
 
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-
 
 import com.purewhite.ywc.purewhite.R;
 

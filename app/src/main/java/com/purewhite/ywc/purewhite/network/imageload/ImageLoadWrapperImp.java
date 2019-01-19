@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.imageload;
+package com.purewhite.ywc.purewhite.network.imageload;
 
 import android.content.Context;
 import android.widget.ImageView;

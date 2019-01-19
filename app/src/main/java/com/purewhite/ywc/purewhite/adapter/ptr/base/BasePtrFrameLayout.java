@@ -1,13 +1,12 @@
-package com.purewhite.ywc.purewhite.ptr.base;
+package com.purewhite.ywc.purewhite.adapter.ptr.base;
 
 import android.content.Context;
 import android.util.AttributeSet;
 
-
-import com.purewhite.ywc.purewhite.ptr.head.PtrFrameHead;
+import com.purewhite.ywc.purewhite.adapter.ptr.head.PtrFrameHead;
+import com.purewhite.ywc.purewhite.adapter.ptr.io.OnPtrListener;
 
 import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrHandler;
 
 /**
  * @author yuwenchao
@@ -57,9 +56,10 @@ public abstract class BasePtrFrameLayout extends PtrFrameLayout {
     }
 
 
-    @Override
-    public void setPtrHandler(PtrHandler ptrHandler) {
-        super.setPtrHandler(ptrHandler);
+    //设置下拉刷新监听
+    public void setOnPtrListener(OnPtrListener onPtrListener)
+    {
+        setPtrHandler(onPtrListener);
     }
 
     //添加头部
@@ -68,6 +68,20 @@ public abstract class BasePtrFrameLayout extends PtrFrameLayout {
         setHeaderView(ptrFrameHead);
         addPtrUIHandler(ptrFrameHead);
     }
+
+
+    public void refreshComplete(int pasgezie)
+    {
+        if (pasgezie==1)
+        {
+            if (!isEnabled())
+            {
+                setEnabled(true);
+            }
+            refreshComplete();
+        }
+    }
+
 
 
 }

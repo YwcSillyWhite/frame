@@ -21,7 +21,7 @@ public class HttpUtils2 {
     }
 
     private HttpUtils2(String baseUri) {
-        httpService = BaseRetrofit.newInstance().init(baseUri).create(HttpService.class);
+        httpService = BaseRetrofit.newInstance().create(baseUri,HttpService.class);
     }
 
 

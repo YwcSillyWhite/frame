@@ -12,18 +12,19 @@ import com.purewhite.ywc.purewhite.config.SizeUtils;
  * 比例图片
  * @author yuwenchao
  */
-public class RatioImageView extends AppCompatImageView {
+public class ScaleImageView extends AppCompatImageView {
 
     private float scale=1f;
-    public RatioImageView(Context context) {
+    private int scale_wight=1,scale_height=1;
+    public ScaleImageView(Context context) {
         this(context,null);
     }
 
-    public RatioImageView(Context context, AttributeSet attrs) {
+    public ScaleImageView(Context context, AttributeSet attrs) {
         this(context, attrs,0);
     }
 
-    public RatioImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ScaleImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context,attrs);
     }
@@ -31,8 +32,10 @@ public class RatioImageView extends AppCompatImageView {
     private void init(Context context,AttributeSet attrs) {
         if (attrs!=null)
         {
-            TypedArray typedArray = context.obtainStyledAttributes(attrs,R.styleable.RatioImageView);
-            scale = typedArray.getFloat(R.styleable.RatioImageView_scale, scale);
+            TypedArray typedArray = context.obtainStyledAttributes(attrs,R.styleable.ScaleImageView);
+            scale = typedArray.getFloat(R.styleable.ScaleImageView_scale, scale);
+            scale_wight=typedArray.getInt(R.styleable.ScaleImageView_scale_wight,1);
+            scale_height=typedArray.getInt(R.styleable.ScaleImageView_scale_height,1);
         }
     }
 
@@ -46,22 +49,22 @@ public class RatioImageView extends AppCompatImageView {
         if (MeasureSpec.EXACTLY==widthMode)
         {
             width=widthSize;
-            height= ((int) (widthSize * scale));
+            height= (int)(width*1.0f*scale_height/scale_wight);
         }
         else if (MeasureSpec.EXACTLY==heightMode)
         {
             height=heightSize;
-            width= ((int) (heightSize / scale));
+            width= (int)(height*1.0f*scale_wight/scale_height);
         }
         else if (MeasureSpec.AT_MOST==widthMode)
         {
             width=widthSize;
-            height= ((int) (widthSize * scale));
+            height= (int)(width*1.0f*scale_height/scale_wight);
         }
         else
         {
             width=SizeUtils.dip2px(50);
-            height= ((int) (width * scale));
+            height= (int)(width*1.0f*scale_height/scale_wight);
         }
         setMeasuredDimension(width, height);
     }

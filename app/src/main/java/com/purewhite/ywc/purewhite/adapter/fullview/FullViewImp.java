@@ -3,16 +3,10 @@ package com.purewhite.ywc.purewhite.adapter.fullview;
 import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.adapter.callback.OnFullListener;
-import com.purewhite.ywc.purewhite.adapter.loadview.LoadView;
 import com.purewhite.ywc.purewhite.config.NetWorkUtils;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
 
 public class FullViewImp extends FullView{
-    private OnFullListener onFullListener;
-    public void setOnFullListener(OnFullListener onFullListener) {
-        this.onFullListener = onFullListener;
-    }
 
     @Override
     public int getLayoutId() {
@@ -38,15 +32,19 @@ public class FullViewImp extends FullView{
     @Override
     public void setItemView(View itemView) {
         super.setItemView(itemView);
-        itemView.findViewById(R.id.network_again).setOnClickListener(new OnSingleListener() {
-            @Override
-            public void onSingleClick(View v) {
-                if (onFullListener!=null&&NetWorkUtils.isConnected())
-                {
-                    setFullState(LODA);
-                    onFullListener.again();
+        if (onFullListener!=null)
+        {
+            itemView.findViewById(R.id.network_again).setOnClickListener(new OnSingleListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    if (onFullListener!=null&&NetWorkUtils.isConnected())
+                    {
+                        setFullState(LODA,true);
+                        onFullListener.again();
+                    }
                 }
-            }
-        });
+            });
+        }
+
     }
 }

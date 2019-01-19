@@ -1,10 +1,10 @@
-package com.purewhite.ywc.purewhite.ptr;
+package com.purewhite.ywc.purewhite.adapter.ptr;
 
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.purewhite.ywc.purewhite.ptr.base.BasePtrFrameLayout;
-import com.purewhite.ywc.purewhite.ptr.head.PtrFrameHead;
+import com.purewhite.ywc.purewhite.adapter.ptr.base.BasePtrFrameLayout;
+import com.purewhite.ywc.purewhite.adapter.ptr.head.PtrFrameHead;
 
 
 /**

@@ -3,16 +3,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.purewhite.ywc.purewhite.ptr.PtrLayout
+        <com.purewhite.ywc.purewhite.adapter.ptr.ScrollPtrLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/ptr_frame">
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/recycler_view">
-            </android.support.v7.widget.RecyclerView>
-        </com.purewhite.ywc.purewhite.ptr.PtrLayout>
+                android:id="@+id/recycler_view"/>
+        </com.purewhite.ywc.purewhite.adapter.ptr.ScrollPtrLayout>
         <ImageView
             android:layout_width="35dp"
             android:layout_height="35dp"

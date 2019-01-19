@@ -32,8 +32,14 @@ public class HttpUtils {
 
 
     private HttpUtils() {
-        httpService = BaseRetrofit.newInstance().init().create(HttpService.class);
+        httpService = BaseRetrofit.newInstance().create(HttpService.class);
     }
+
+
+
+
+
+
 
 
     //例子
@@ -66,8 +72,8 @@ public class HttpUtils {
 
     public void getShopCoupon_Four(String content,int page,HttpObserver<BaseBean<MainBean>> httpObserver)
     {
-        httpService.getShopList(content,20,page).
-                compose(RxSchedulers.<BaseBean<MainBean>>compose()).subscribe(httpObserver);
+        httpService.getShopList(content,20,page)
+                .compose(RxSchedulers.<BaseBean<MainBean>>compose()).subscribe(httpObserver);
     }
 
 

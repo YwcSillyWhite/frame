@@ -1,14 +1,9 @@
 package com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter;
 
-import android.util.Log;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.StickyLayoutHelper;
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.viewholder.BaseViewHolder;
-import com.purewhite.ywc.purewhite.adapter.viewholder.BindHolder;
 import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutType;
 import com.purewhite.ywc.purewhite.adapter.vlayout.child.VlayoutBindTypeAdapter;
 

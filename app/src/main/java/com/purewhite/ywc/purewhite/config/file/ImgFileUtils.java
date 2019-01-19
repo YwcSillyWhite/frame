@@ -2,8 +2,8 @@ package com.purewhite.ywc.purewhite.config.file;
 
 import android.content.Context;
 
-import com.purewhite.ywc.purewhite.imageload.down.ImageDownCall;
-import com.purewhite.ywc.purewhite.imageload.down.ImageDownLoader;
+import com.purewhite.ywc.purewhite.network.imageload.down.ImageDownCall;
+import com.purewhite.ywc.purewhite.network.imageload.down.ImageDownLoader;
 
 import java.io.File;
 

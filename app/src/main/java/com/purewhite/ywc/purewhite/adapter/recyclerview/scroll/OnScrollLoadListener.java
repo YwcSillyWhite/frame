@@ -1,9 +1,9 @@
-package com.purewhite.ywc.purewhite.adapter.scroll;
+package com.purewhite.ywc.purewhite.adapter.recyclerview.scroll;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
-import com.purewhite.ywc.purewhite.imageload.ImageLoader;
+import com.purewhite.ywc.purewhite.network.imageload.ImageLoader;
 
 /**
  * 滑动不加载图片
@@ -11,7 +11,11 @@ import com.purewhite.ywc.purewhite.imageload.ImageLoader;
  *
  */
 public class OnScrollLoadListener extends RecyclerView.OnScrollListener {
-
+    //滑动加载
+    private boolean slideLoad;
+    public void setSlideLoad(boolean slideLoad) {
+        this.slideLoad = slideLoad;
+    }
     /**
      *
      * @param recyclerView
@@ -23,13 +27,17 @@ public class OnScrollLoadListener extends RecyclerView.OnScrollListener {
     @Override
     public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
         super.onScrollStateChanged(recyclerView, newState);
-        if (newState==RecyclerView.SCROLL_STATE_IDLE)
+        if (!slideLoad)
         {
-            ImageLoader.newInstance().start(recyclerView.getContext());
+            if (newState==RecyclerView.SCROLL_STATE_IDLE)
+            {
+                ImageLoader.newInstance().start(recyclerView.getContext());
+            }
+            else
+            {
+                ImageLoader.newInstance().stop(recyclerView.getContext());
+            }
         }
-        else
-        {
-            ImageLoader.newInstance().stop(recyclerView.getContext());
-        }
+
     }
 }
