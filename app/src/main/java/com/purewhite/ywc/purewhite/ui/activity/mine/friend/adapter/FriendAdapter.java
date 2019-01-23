@@ -1,9 +1,9 @@
 package com.purewhite.ywc.purewhite.ui.activity.mine.friend.adapter;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.adapter.recyclerview.BindTypeAdapter;
+import com.purewhite.ywc.purewhite.adapter.recyclerview.BindAdapter;
 import com.purewhite.ywc.purewhite.adapter.viewholder.BindHolder;
-import com.purewhite.ywc.purewhite.bean.main.MainBean;
+import com.purewhite.ywc.purewhite.bean.GoodsListBean;
 import com.purewhite.ywc.purewhite.databinding.AdapterActivityFriendBinding;
 import com.purewhite.ywc.purewhite.network.imageload.ImageLoader;
 
@@ -12,16 +12,16 @@ import java.util.ArrayList;
 /**
  * @author yuwenchao
  */
-public class FriendAdapter extends BindTypeAdapter<MainBean.DataBean> {
+public class FriendAdapter extends BindAdapter<GoodsListBean> {
     public FriendAdapter() {
-        super(new ArrayList<MainBean.DataBean>());
+        super(new ArrayList<GoodsListBean>());
         addLayout(R.layout.adapter_activity_friend);
     }
 
     @Override
-    protected void onData(BindHolder holder, int position, MainBean.DataBean dataBean) {
+    protected void onData(BindHolder holder, int position, GoodsListBean goodsListBean) {
         AdapterActivityFriendBinding dataBinding = (AdapterActivityFriendBinding) holder.getViewDataBinding();
-        ImageLoader.newInstance().init(dataBinding.friendImg,dataBean.getItem_pic());
-        dataBinding.friendText.setText(dataBean.getItem_title());
+        ImageLoader.newInstance().init(dataBinding.friendImg,goodsListBean.getItempic());
+        dataBinding.friendText.setText(goodsListBean.getItemtitle());
     }
 }

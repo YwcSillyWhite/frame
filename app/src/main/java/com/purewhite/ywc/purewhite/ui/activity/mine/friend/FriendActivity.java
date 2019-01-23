@@ -28,7 +28,10 @@ public class FriendActivity extends MvpActivity<ActivityFriendBinding,FriendPres
         public void call(RecyclerView.ViewHolder viewHolder, int type) {
             friendAdapter.removeFlush(viewHolder.getLayoutPosition());
             if (friendAdapter.getDataCount()<=8)
-                mPresenter.getData();
+            {
+                mPresenter.autoPage();
+                mPresenter.requestData();
+            }
             //解决重复
             viewHolder.itemView.setRotation(0);
             if (friendAdapter.dataType(viewHolder) &&viewHolder instanceof BaseViewHolder)
@@ -84,11 +87,10 @@ public class FriendActivity extends MvpActivity<ActivityFriendBinding,FriendPres
 
     @Override
     protected void initView() {
-        ((TextView) mDataBinding.actionBar.findViewById(R.id.action_center)).setText("添加好友");
-        mDataBinding.actionBar.findViewById(R.id.action_left).setOnClickListener(onSingleListener);
+        mDataBinding.action.actionLeft.setOnClickListener(onSingleListener);
+        mDataBinding.action.actionCenter.setText("添加好友");
         initRecycler();
-        mPresenter.setPage(0);
-        mPresenter.getData();
+        mPresenter.requestData();
     }
 
     private void initRecycler() {

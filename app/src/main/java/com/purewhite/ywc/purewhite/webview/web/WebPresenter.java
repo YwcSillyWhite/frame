@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.ui.activity.web;
+package com.purewhite.ywc.purewhite.webview.web;
 
 import com.purewhite.ywc.purewhite.mvp.presenter.PresenterImp;
 

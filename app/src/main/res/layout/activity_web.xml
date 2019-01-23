@@ -4,23 +4,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <include
-            layout="@layout/action_one"
-            android:id="@+id/action_bar"/>
-        <ProgressBar
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:id="@+id/progress_bar"
-            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
-            android:progressDrawable="@drawable/progress_web"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/web_top">
+            <include
+                layout="@layout/action_one"
+                android:id="@+id/action"/>
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/progress_bar"
+                style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/progress_web"/>
+        </LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <WebView
+            <com.purewhite.ywc.purewhite.view.webview.WebLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/web_view">
-            </WebView>
+                android:id="@+id/web_layout">
+            </com.purewhite.ywc.purewhite.view.webview.WebLayout>
+
             <!--
              isIndicator 是否是指示器，如果设置为true,则不可以通过点击来改变进度；
                              如果设置为false，则可点击

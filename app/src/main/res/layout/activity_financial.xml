@@ -4,7 +4,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <include layout="@layout/action_one" android:id="@+id/action_bar"/>
+        <include layout="@layout/action_one" android:id="@+id/action"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

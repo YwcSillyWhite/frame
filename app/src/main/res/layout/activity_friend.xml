@@ -4,7 +4,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <include layout="@layout/action_one" android:id="@+id/action_bar"></include>
+        <include layout="@layout/action_one" android:id="@+id/action"></include>
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="0dp"

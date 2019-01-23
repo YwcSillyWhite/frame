@@ -1,5 +1,6 @@
 package com.purewhite.ywc.purewhite.app;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -49,5 +50,39 @@ public class ActivityUtils {
     {
         AppUtils.removeActivity(id);
         AppUtils.getContext().startActivity(intent);
+    }
+
+    public void finish()
+    {
+        Activity activity = AppUtils.obtainTopActivity();
+        if (activity!=null)
+        {
+            finish(activity);
+        }
+    }
+
+    public void finish(Activity activity)
+    {
+        finish(activity,null);
+    }
+
+    public void finish(Activity activity,Integer requestCode)
+    {
+        finish(activity,requestCode,null);
+    }
+
+    public void finish(Activity activity,Integer requestCode,Bundle bundle)
+    {
+        if (requestCode!=null)
+        {
+            Intent intent = new Intent();
+            if (bundle!=null)
+            {
+                intent.putExtras(bundle);
+            }
+            activity.setResult(requestCode,intent);
+        }
+
+        activity.finish();
     }
 }

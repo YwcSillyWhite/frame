@@ -1,19 +1,19 @@
-package com.purewhite.ywc.purewhite.ui.activity.web;
+package com.purewhite.ywc.purewhite.ui.activity.mine.webchoose;
 
 import com.purewhite.ywc.purewhite.mvp.presenter.BasePresenter;
 import com.purewhite.ywc.purewhite.mvp.view.BaseView;
 
-/**
- * @author yuwenchao
- */
-public class WebContract {
+public class WebChooseContract {
+
     public interface View extends BaseView
     {
 
     }
 
-    public interface Presener extends BasePresenter<View>
+    public interface Presenter extends BasePresenter<View>
     {
 
     }
+
 }
+

@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
-import android.widget.TextView;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
@@ -71,8 +70,8 @@ public class FinancialActivity extends MvpActivity<ActivityFinancialBinding,Fina
 
         int screenWidth = SizeUtils.getScreenWidth();
         int viewWidth = (screenWidth - SizeUtils.dip2px(50)) / 4;
-        ((TextView) mDataBinding.actionBar.findViewById(R.id.action_center)).setText("等级");
-        mDataBinding.actionBar.findViewById(R.id.action_left).setOnClickListener(onSingleListener);
+        mDataBinding.action.actionCenter.setText("等级");
+        mDataBinding.action.actionLeft.setOnClickListener(onSingleListener);
         view=new View[4];
         view[0]= mDataBinding.vipOne;
         view[1]= mDataBinding.vipTwo;

@@ -1,46 +1,37 @@
 package com.purewhite.ywc.purewhite.ui.activity.mine.friend;
 
+import com.purewhite.ywc.purewhite.bean.GoodsListBean;
 import com.purewhite.ywc.purewhite.bean.base.BaseBean;
-import com.purewhite.ywc.purewhite.bean.main.MainBean;
 import com.purewhite.ywc.purewhite.mvp.presenter.PresenterImp;
-import com.purewhite.ywc.purewhite.network.retrofit.request.http.HttpUtils;
+import com.purewhite.ywc.purewhite.network.retrofit.base.BaseRetrofit;
+import com.purewhite.ywc.purewhite.network.retrofit.request.http.HttpService;
 import com.purewhite.ywc.purewhite.network.rxjava.HttpObserver;
+import com.purewhite.ywc.purewhite.network.rxjava.RxSchedulers;
+
+import java.util.List;
 
 public class FriendPresenter extends PresenterImp<FriendContract.View> implements FriendContract.Presenter {
 
-    private boolean isRun=false;
+    private long min_id;
+
     @Override
-    public void getData() {
-        if (!isRun)
-        {
-            isRun=true;
-            autoPage();
-            HttpUtils.newInstance().getShop_friend("女装",getPage(),new HttpObserver<BaseBean<MainBean>>() {
-                @Override
-                public void onSuccess(BaseBean<MainBean> mainBeanBaseBean) {
-                    isRun=false;
-                    if (mainBeanBaseBean.getCode()==0&&mainBeanBaseBean.getT()!=null
-                            &&mainBeanBaseBean.getT().getData()!=null
-                            &&mainBeanBaseBean.getT().getData().size()>0)
-                    {
-
-                        mView.getAdapter().refreshComplete(true,getPage(),mainBeanBaseBean.getT().getData());
-                    }
-                    else
-                    {
-                        mView.getAdapter().refreshComplete(true,getPage(),null);
-                    }
-                }
-
-                @Override
-                public void onFail(String content) {
-                    super.onFail(content);
-                    //加载失败
-                    mView.getAdapter().refreshComplete(false,getPage(),null);
-
-                }
-            });
+    public void requestData() {
+        final int page = getPage();
+        if (page == 1) {
+            min_id = 1;
         }
-
+        BaseRetrofit.newInstance().create(HttpService.class)
+                .obtainGoods(0, 10, min_id)
+                .compose(RxSchedulers.<BaseBean<List<GoodsListBean>>>compose())
+                .subscribe(new HttpObserver<BaseBean<List<GoodsListBean>>>() {
+                    @Override
+                    public void onSuccess(BaseBean<List<GoodsListBean>> baseBean) {
+                        if (baseBean.getCode() == 1 && baseBean.getT() != null
+                                && baseBean.getT().size() > 0) {
+                            min_id = baseBean.getMin_id();
+                            mView.getAdapter().refreshComplete(false, page, baseBean.getT());
+                        }
+                    }
+                });
     }
 }

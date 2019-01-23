@@ -78,7 +78,7 @@ public final class  AppUtils {
     }
 
 
-    private static Activity obtainTopActivity()
+    public static Activity obtainTopActivity()
     {
         if (!stack.isEmpty())
         {

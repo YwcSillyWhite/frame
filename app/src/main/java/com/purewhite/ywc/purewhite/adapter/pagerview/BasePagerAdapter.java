@@ -23,9 +23,14 @@ public abstract class BasePagerAdapter<T> extends PagerAdapter {
         sparseArray=new SparseArray<>();
     }
 
+    protected int getDataCount()
+    {
+        return data.size();
+    }
+
     @Override
     public int getCount() {
-        return data.size();
+        return getDataCount();
     }
 
     @Override
@@ -35,31 +40,49 @@ public abstract class BasePagerAdapter<T> extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        View view = sparseArray.get(position);
-        if (view!=null)
+        int dataCount = getDataCount();
+        if (dataCount>0)
         {
-            container.removeView(view);
+            View view = sparseArray.get(position%dataCount);
+            if (view!=null)
+            {
+                container.removeView(view);
+            }
         }
+
     }
 
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View view = sparseArray.get(position);
-        if (view==null)
+        int dataCount = getDataCount();
+        if (dataCount>0)
         {
-            view= obtainView(position);
-            sparseArray.put(position,view);
+            int end_position = position % dataCount;
+            View view = sparseArray.get(end_position);
+            if (view==null)
+            {
+                view= obtainView(end_position);
+                sparseArray.put(end_position,view);
+            }
+            container.addView(view);
+            return view;
         }
-        container.addView(view);
-        return view;
+        return null;
     }
 
     protected abstract View obtainView(int position);
 
     protected T obtainT(int position)
     {
-        return data!=null&&data.size()>position?data.get(position):null;
+        int dataCount = getDataCount();
+        if (dataCount>0)
+        {
+            int end_position = position % dataCount;
+            return data!=null&&data.size()>end_position?data.get(end_position):null;
+        }
+        return null;
+
     }
 
     //初始化就创建所有view

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DialogTop" parent="android:Animation" >
+        <item name="@android:windowEnterAnimation">@anim/anim_dialogtop_in</item>     //进入时的动画
+        <item name="@android:windowExitAnimation">@anim/anim_dialogtop_out</item>     //退出时的动画
+    </style>
+
+    <style name="DialogBottom" parent="android:Animation" >
+        <item name="@android:windowEnterAnimation">@anim/anim_dialogbottom_in</item>     //进入时的动画
+        <item name="@android:windowExitAnimation">@anim/anim_dialogbottom_out</item>     //退出时的动画
+    </style>
+
+    <style name="DialogLeft" parent="android:Animation" >
+        <item name="@android:windowEnterAnimation">@anim/anim_dialogleft_in</item>     //进入时的动画
+        <item name="@android:windowExitAnimation">@anim/anim_dialogleft_out</item>     //退出时的动画
+    </style>
+
+    <style name="DialogRight" parent="android:Animation" >
+        <item name="@android:windowEnterAnimation">@anim/anim_dialogright_in</item>     //进入时的动画
+        <item name="@android:windowExitAnimation">@anim/anim_dialogright_out</item>     //退出时的动画
+    </style>
+
+
+</resources>

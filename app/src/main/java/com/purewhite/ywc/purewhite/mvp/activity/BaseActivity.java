@@ -6,6 +6,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
 
 import com.purewhite.ywc.purewhite.network.rxjava.RxDisposableManager;
 
@@ -18,7 +19,6 @@ import com.purewhite.ywc.purewhite.network.rxjava.RxDisposableManager;
 public abstract class BaseActivity<DB extends ViewDataBinding> extends AppCompatActivity{
 
     //是否横屏
-    protected boolean isPortait=true;
     protected DB mDataBinding;
     //确宝同一个物品的页面唯一；
     private String activityId;
@@ -36,18 +36,41 @@ public abstract class BaseActivity<DB extends ViewDataBinding> extends AppCompat
         super.onCreate(savedInstanceState);
         beforeView();
         //设置横竖平
+        setOrientation(true);
+        //DataBinding绑定
+        mDataBinding = DataBindingUtil.setContentView(this, getLayout());
+        initView();
+    }
+
+    //设置横竖屏幕
+    protected void setOrientation(boolean vertical)
+    {
         try
         {
-            setRequestedOrientation(isPortait? ActivityInfo.SCREEN_ORIENTATION_PORTRAIT:
+            setRequestedOrientation(vertical? ActivityInfo.SCREEN_ORIENTATION_PORTRAIT:
                     ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
         catch (Exception e)
         {
 
         }
-        //DataBinding绑定
-        mDataBinding = DataBindingUtil.setContentView(this, getLayout());
-        initView();
+    }
+
+    //去除标题栏
+    protected void setFullScreen(boolean full)
+    {
+        //全屏
+        if (full)
+        {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+        else
+        {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+
+
     }
 
     protected void beforeView() {

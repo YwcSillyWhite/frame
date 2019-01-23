@@ -9,10 +9,11 @@ public class FriendContract {
     public interface View extends BaseView
     {
         FriendAdapter getAdapter();
+
     }
 
     public interface Presenter extends BasePresenter<View>
     {
-        void getData();
+        void  requestData();
     }
 }
