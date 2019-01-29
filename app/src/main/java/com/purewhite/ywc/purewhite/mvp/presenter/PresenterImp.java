@@ -32,7 +32,6 @@ public class PresenterImp<V extends BaseView> implements BasePresenter<V> {
         }
     }
 
-
     //当前页数
     private int page;
     public int getPage() {

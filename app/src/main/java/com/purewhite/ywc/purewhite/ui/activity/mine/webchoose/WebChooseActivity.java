@@ -57,7 +57,8 @@ public class WebChooseActivity extends MvpActivity<ActivityWebChooseBinding,WebC
                     url="https://www.jianshu.com/u/670ead4db963";
                     break;
                 case R.id.web_url_two:
-                    url="https://ai.m.taobao.com";
+                    url="https://schwarzkopf.m.tmall.com/?shop_id=67764140&pid=mm_52605298_40122705_45728050201";
+//                    url="https://ai.m.taobao.com";
                     break;
                 case R.id.web_url_three:
                     url="https://m.iqiyi.com";

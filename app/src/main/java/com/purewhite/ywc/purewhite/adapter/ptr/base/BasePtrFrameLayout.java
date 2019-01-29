@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import com.purewhite.ywc.purewhite.adapter.ptr.head.PtrFrameHead;
-import com.purewhite.ywc.purewhite.adapter.ptr.io.OnPtrListener;
+import com.purewhite.ywc.purewhite.adapter.ptr.callback.OnPtrListener;
 
 import in.srain.cube.views.ptr.PtrFrameLayout;
 

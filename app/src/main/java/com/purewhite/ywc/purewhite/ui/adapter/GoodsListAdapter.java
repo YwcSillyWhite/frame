@@ -23,7 +23,7 @@ public class GoodsListAdapter extends BindAdapter<GoodsListBean> {
             AdapterGoodsListBinding binding = (AdapterGoodsListBinding)holder.getBinding();
             ImageLoader.newInstance().init(binding.goodsImg,goodsListBean.getItempic());
             binding.goodsTitle.setText(goodsListBean.getItemtitle());
-            binding.goodsSola.setText("月销"+StringUtils.obtainSola(goodsListBean.getItemsale())+"万");
+            binding.goodsSola.setText("月销"+StringUtils.obtainSola(goodsListBean.getItemsale()));
             binding.shopName.setText(goodsListBean.getShopname());
             binding.goodsTkMoney.setText(goodsListBean.getTkmoney());
             binding.goodsPrice.setText("券前"+goodsListBean.getItemprice()+"元");

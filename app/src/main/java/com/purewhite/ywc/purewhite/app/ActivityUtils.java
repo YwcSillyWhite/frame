@@ -33,6 +33,11 @@ public class ActivityUtils {
     }
 
 
+    public void startActivity(Intent intent)
+    {
+        AppUtils.getContext().startActivity(intent);
+    }
+
     public void startActivity(Class<?> cls, Bundle bundle)
     {
         if (cls==null) {

@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.adapter.ptr.io;
+package com.purewhite.ywc.purewhite.adapter.ptr.callback;
 
 import android.view.View;
 

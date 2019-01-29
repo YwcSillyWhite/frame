@@ -49,6 +49,8 @@ public class WebLayout extends RelativeLayout {
         WebSettings webSettings = webView.getSettings();
         //支持js
         webSettings.setJavaScriptEnabled(true);
+        // 设置允许JS弹窗
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         //是否使用缓存
         //LOAD_CACHE_ONLY: 不使用网络，只读取本地缓存数据
         // LOAD_DEFAULT: （默认）根据cache-control决定是否从网络上取数据。

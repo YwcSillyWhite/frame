@@ -1,9 +1,11 @@
-package com.purewhite.ywc.purewhite.view.imageview;
+package com.purewhite.ywc.purewhite.view.scale;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.config.SizeUtils;
@@ -13,8 +15,6 @@ import com.purewhite.ywc.purewhite.config.SizeUtils;
  * @author yuwenchao
  */
 public class ScaleImageView extends AppCompatImageView {
-
-    private float scale=1f;
     private int scale_wight=1,scale_height=1;
     public ScaleImageView(Context context) {
         this(context,null);
@@ -32,10 +32,9 @@ public class ScaleImageView extends AppCompatImageView {
     private void init(Context context,AttributeSet attrs) {
         if (attrs!=null)
         {
-            TypedArray typedArray = context.obtainStyledAttributes(attrs,R.styleable.ScaleImageView);
-            scale = typedArray.getFloat(R.styleable.ScaleImageView_scale, scale);
-            scale_wight=typedArray.getInt(R.styleable.ScaleImageView_scale_wight,1);
-            scale_height=typedArray.getInt(R.styleable.ScaleImageView_scale_height,1);
+            TypedArray typedArray = context.obtainStyledAttributes(attrs,R.styleable.ScaleView);
+            scale_wight=typedArray.getInt(R.styleable.ScaleView_scale_wight,1);
+            scale_height=typedArray.getInt(R.styleable.ScaleView_scale_height,1);
         }
     }
 

@@ -5,8 +5,10 @@ import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -15,6 +17,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.purewhite.ywc.purewhite.R;
+import com.purewhite.ywc.purewhite.config.LogUtils;
 import com.purewhite.ywc.purewhite.config.OnSingleListener;
 import com.purewhite.ywc.purewhite.config.TagUtils;
 import com.purewhite.ywc.purewhite.databinding.ActivityWebBinding;
@@ -141,14 +144,36 @@ public class WebActivity extends MvpActivity<ActivityWebBinding,WebPresenter> im
             super.onPageStarted(view, url, favicon);
             mDataBinding.progressBar.setVisibility(View.VISIBLE);
             mDataBinding.showImg.setVisibility(View.GONE);
+
+
         }
 
         @Override
-        public void onPageFinished(WebView view, String url) {
+        public void onPageFinished(final WebView view, String url) {
             super.onPageFinished(view, url);
             mDataBinding.progressBar.setVisibility(View.GONE);
+
+            if (view.getProgress()==100)
+            {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d("ywc","执行");
+                        StringBuffer stringBuffer=new StringBuffer();
+                        stringBuffer.append("javascript:function androidHide(){");
+                        stringBuffer.append(js);
+                        stringBuffer.append("}");
+                        view.loadUrl(stringBuffer.toString());
+                        view.loadUrl("javascript:androidHide()");
+                    }
+                },3000);
+
+            }
+
         }
 
+        //隐藏简书的nav
+        private String js="var div=document.getElementsByClassName('wjwuCpkcDOF4ZN1zoijU-')[0];div.parentNode.removeChild(div);";
 
         //拦截非http的接口
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

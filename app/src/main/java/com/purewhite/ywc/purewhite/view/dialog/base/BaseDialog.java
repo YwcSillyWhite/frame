@@ -16,15 +16,12 @@ import com.purewhite.ywc.purewhite.view.dialog.callback.DialogCallBack;
  * @author yuwenchao
  */
 public abstract class BaseDialog extends Dialog {
-
     protected DialogCallBack dialogCallBack;
     //上，下，左，右边
     private int anim[]={R.style.DialogTop,R.style.DialogBottom,R.style.DialogLeft,R.style.DialogRight};
-
     public void setDialogCallBack(DialogCallBack dialogCallBack) {
         this.dialogCallBack = dialogCallBack;
     }
-
     public BaseDialog(Context context) {
         this(context,R.style.BaseDialog);
     }
@@ -33,8 +30,6 @@ public abstract class BaseDialog extends Dialog {
         super(context, themeResId);
         initView();
     }
-
-
     private void initView() {
         View view = LayoutInflater.from(getContext()).inflate(getLayout(), null);
         ViewGroup.LayoutParams layoutParams=new ViewGroup.LayoutParams
@@ -42,24 +37,18 @@ public abstract class BaseDialog extends Dialog {
         setContentView(view,layoutParams);
         initView(view);
     }
-
     //布局id
     protected abstract int getLayout();
-
     protected abstract void initView(View view);
-
     //设置屏幕大小
     protected void setScreen(float num)
     {
         if (num<0||num>1)
-        {
             return;
-        }
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.width =(int)(SizeUtils.getScreenWidth()*num);
         getWindow().setAttributes(lp);
     }
-
     protected void setAnim(int position)
     {
         if (position<0||position>=anim.length)

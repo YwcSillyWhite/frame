@@ -10,7 +10,7 @@ import com.purewhite.ywc.purewhite.adapter.callback.OnItemListener;
 import com.purewhite.ywc.purewhite.adapter.callback.OnLoadListener;
 import com.purewhite.ywc.purewhite.adapter.callback.OnLoadListenerImp;
 import com.purewhite.ywc.purewhite.adapter.fullview.FullView;
-import com.purewhite.ywc.purewhite.adapter.ptr.io.OnPtrListener;
+import com.purewhite.ywc.purewhite.adapter.ptr.callback.OnPtrListener;
 import com.purewhite.ywc.purewhite.adapter.recyclerview.top.ScrollTopListener;
 import com.purewhite.ywc.purewhite.config.TagUtils;
 import com.purewhite.ywc.purewhite.databinding.FragmentHomeChildBinding;

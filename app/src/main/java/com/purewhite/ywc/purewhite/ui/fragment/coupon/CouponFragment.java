@@ -8,7 +8,7 @@ import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.callback.OnLoadListener;
 import com.purewhite.ywc.purewhite.adapter.callback.OnLoadListenerImp;
 import com.purewhite.ywc.purewhite.adapter.fullview.FullView;
-import com.purewhite.ywc.purewhite.adapter.ptr.io.OnPtrListener;
+import com.purewhite.ywc.purewhite.adapter.ptr.callback.OnPtrListener;
 import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutAdapter;
 import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutType;
 import com.purewhite.ywc.purewhite.databinding.FragmentCouponBinding;

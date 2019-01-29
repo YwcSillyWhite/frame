@@ -37,4 +37,15 @@
         <item>one3</item>
         <item>one4</item>
     </string-array>
+
+
+
+    <string-array name="WebHide">
+        <!--<item>document.querySelector('.header-wrap').style.visibility=\"hidden\";</item>-->
+        <!--<item>document.querySelector('.header-wrap').style.visibility=\"hidden\";</item>-->
+    </string-array>
+
+    <string-array name="WebUri">
+        <item>cdn2.jianshu.io/asimov/src/assets/image/nav-logo.</item>
+    </string-array>
 </resources>
