@@ -20,6 +20,12 @@ android {
     dataBinding {
         enabled = true
     }
+    //添加如下配置就ok了
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    buildToolsVersion '28.0.3'
 }
 
 dependencies {

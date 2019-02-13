@@ -59,7 +59,7 @@ public abstract class VlayoutBindAdapter<T> extends VlayoutBaseAdapter<T,BindHol
     private int getLayout(int viewType)
     {
         if (sparseIntArray!=null) {
-            return sparseIntArray.get(viewType);
+            return sparseIntArray.get(viewType,-1);
         }
         return -1;
     }

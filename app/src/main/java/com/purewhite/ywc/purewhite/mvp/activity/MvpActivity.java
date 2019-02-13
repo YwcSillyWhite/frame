@@ -21,6 +21,7 @@ public abstract class MvpActivity<DB extends ViewDataBinding,P extends Presenter
         return this;
     }
 
+    //创建PresenterImp对象
     protected abstract P creartPresenter();
 
     @Override

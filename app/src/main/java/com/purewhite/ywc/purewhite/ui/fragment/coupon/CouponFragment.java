@@ -13,11 +13,10 @@ import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutAdapter;
 import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutType;
 import com.purewhite.ywc.purewhite.databinding.FragmentCouponBinding;
 import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;
-import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.FiveAdapter;
-import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.FourAdapter;
-import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.OneAdapter;
-import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.ThreeAdapter;
-import com.purewhite.ywc.purewhite.ui.fragment.coupon.adapter.TwoAdapter;
+import com.purewhite.ywc.purewhite.ui.adapter.coupon.CouponFourAdapter;
+import com.purewhite.ywc.purewhite.ui.adapter.coupon.CouponOneAdapter;
+import com.purewhite.ywc.purewhite.ui.adapter.coupon.CouponThreeAdapter;
+import com.purewhite.ywc.purewhite.ui.adapter.coupon.CouponTwoAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,20 +27,16 @@ public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPres
     private VirtualLayoutManager virtualLayoutManager;
     private VlayoutAdapter vlayoutAdapter;
     private List<DelegateAdapter.Adapter> list;
-    private OneAdapter oneAdapter;
-    private TwoAdapter twoAdapter;
-    private ThreeAdapter threeAdapter;
-    private FiveAdapter fiveAdapter;
     private OnLoadListener onLoadListener=new OnLoadListenerImp() {
         @Override
         public void pullUp() {
             mPresenter.autoPage();
-            mPresenter.getFoutData();
+            mPresenter.obtainGoodsData();
         }
 
         @Override
         public void loadAgain() {
-            mPresenter.getFoutData();
+            mPresenter.obtainGoodsData();
         }
     };
 
@@ -50,10 +45,9 @@ public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPres
         @Override
         public void pullDown() {
             mPresenter.initPage();
-            mPresenter.getOneData();
+            mPresenter.startData();
         }
     };
-    private FourAdapter fourAdapter;
 
 
     @Override
@@ -70,22 +64,20 @@ public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPres
     protected void initView() {
         mDataBinding.ptrLayout.setPtrHandler(onPtrListener);
         initRecycler();
-//        mPresenter.getOneData();
+        mPresenter.startData();
     }
 
     private void initRecycler() {
         RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
-        recycledViewPool.setMaxRecycledViews(VlayoutType.coupon_one,10);
-        recycledViewPool.setMaxRecycledViews(VlayoutType.coupon_two,1);
-        recycledViewPool.setMaxRecycledViews(VlayoutType.coupon_three,10);
-        recycledViewPool.setMaxRecycledViews(VlayoutType.coupon_five,10);
+        recycledViewPool.setMaxRecycledViews(VlayoutType.coupon_one,1);
+        recycledViewPool.setMaxRecycledViews(VlayoutType.coupon_two,10);
         //vlayout管理器
         virtualLayoutManager = new VirtualLayoutManager(getContext());
         //加入管理器
         mDataBinding.recyclerView.setLayoutManager(virtualLayoutManager);
         //创建vlayout的适配器
         vlayoutAdapter = new VlayoutAdapter(virtualLayoutManager);
-        vlayoutAdapter.setmPagesize(20);
+        vlayoutAdapter.setmPagesize(10);
         vlayoutAdapter.setOnLoadListener(onLoadListener);
         vlayoutAdapter.getFullView().setFullState(FullView.LODA,false);
         //把vlayout的适配器加入recycler
@@ -93,20 +85,18 @@ public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPres
         //创建vlayout子适配器
         list=new ArrayList<>();
 
-        oneAdapter = new OneAdapter();
-        list.add(oneAdapter);
+        CouponOneAdapter couponOneAdapter = new CouponOneAdapter();
+        list.add(couponOneAdapter);
 
-        twoAdapter = new TwoAdapter();
-        list.add(twoAdapter);
+        CouponTwoAdapter couponTwoAdapter = new CouponTwoAdapter();
+        list.add(couponTwoAdapter);
 
-        threeAdapter = new ThreeAdapter();
-        list.add(threeAdapter);
+        CouponThreeAdapter couponThreeAdapter = new CouponThreeAdapter();
+        list.add(couponThreeAdapter);
 
-        fourAdapter = new FourAdapter();
-        list.add(fourAdapter);
+        CouponFourAdapter couponFourAdapter = new CouponFourAdapter();
+        list.add(couponFourAdapter);
 
-        fiveAdapter = new FiveAdapter();
-        list.add(fiveAdapter);
 
         //把子适配的集合加入vlayout的适配器
         vlayoutAdapter.setAdapters(list);
@@ -124,5 +114,10 @@ public class CouponFragment extends MvpFragment<FragmentCouponBinding,CouponPres
             mDataBinding.ptrLayout.refreshComplete();
         }
         vlayoutAdapter.refreshComplete(network,page,pagesize);
+    }
+
+    @Override
+    public List<DelegateAdapter.Adapter> getAdapters() {
+        return list;
     }
 }

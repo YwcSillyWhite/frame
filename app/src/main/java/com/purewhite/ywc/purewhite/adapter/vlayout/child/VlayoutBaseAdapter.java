@@ -30,7 +30,7 @@ public abstract class VlayoutBaseAdapter<T,V extends BaseViewHolder> extends Del
      * @return
      */
 
-    private List<T> mData;
+    protected List<T> mData;
 
     private OnItemListener onItemListener;
     public void setOnItemListener(OnItemListener onItemListener) {

@@ -1,84 +1,83 @@
 package com.purewhite.ywc.purewhite.ui.fragment.coupon;
 
+import com.purewhite.ywc.purewhite.adapter.vlayout.VlayoutType;
+import com.purewhite.ywc.purewhite.bean.GoodsListBean;
 import com.purewhite.ywc.purewhite.bean.base.BaseBean;
-import com.purewhite.ywc.purewhite.bean.main.MainBean;
 import com.purewhite.ywc.purewhite.mvp.presenter.PresenterImp;
-import com.purewhite.ywc.purewhite.network.retrofit.request.http.HttpUtils;
+import com.purewhite.ywc.purewhite.network.retrofit.base.BaseRetrofit;
+import com.purewhite.ywc.purewhite.network.retrofit.request.http.HttpService;
 import com.purewhite.ywc.purewhite.network.rxjava.HttpObserver;
+import com.purewhite.ywc.purewhite.network.rxjava.RxSchedulers;
+import com.purewhite.ywc.purewhite.ui.adapter.coupon.CouponFourAdapter;
+import com.purewhite.ywc.purewhite.ui.adapter.coupon.CouponOneAdapter;
+import com.purewhite.ywc.purewhite.ui.adapter.coupon.CouponThreeAdapter;
+import com.purewhite.ywc.purewhite.ui.adapter.coupon.CouponTwoAdapter;
+
+import java.util.List;
 
 public class CouponPresenter extends PresenterImp<CouponContract.View> implements CouponContract.Presenter {
-    @Override
-    public void getOneData() {
-        HttpUtils.newInstance().getShopCoupon_one("女装",1,new HttpObserver<BaseBean<MainBean>>() {
-            @Override
-            public void onSuccess(BaseBean<MainBean> mainBeanBaseBean) {
-                if (mainBeanBaseBean.getCode()==0&&mainBeanBaseBean.getT()!=null
-                        &&mainBeanBaseBean.getT().getData()!=null
-                        &&mainBeanBaseBean.getT().getData().size()>0)
-                {
-//                    ((OneAdapter) mView.getListAdapter().get(VlayoutType.coupon_one)).
-//                            flush(mainBeanBaseBean.getT().getData());
-                }
-                getThreeData();
-            }
 
-            @Override
-            public void onFail(String content) {
-                super.onFail(content);
-                getThreeData();
-            }
-        });
+    @Override
+    public void startData() {
+        obtainOne();
     }
 
-    @Override
-    public void getThreeData() {
-        HttpUtils.newInstance().getShopCoupon_Three("男装",1,new HttpObserver<BaseBean<MainBean>>() {
-            @Override
-            public void onSuccess(BaseBean<MainBean> mainBeanBaseBean) {
-                if (mainBeanBaseBean.getCode()==0&&mainBeanBaseBean.getT()!=null
-                        &&mainBeanBaseBean.getT().getData()!=null
-                        &&mainBeanBaseBean.getT().getData().size()>0)
-                {
-//                    ((TwoAdapter) mView.getListAdapter().get(VlayoutType.coupon_two)).setShow(true);
-//                    ((ThreeAdapter) mView.getListAdapter().get(VlayoutType.coupon_three)).flush(mainBeanBaseBean.getT().getData());
-                }
-                getFoutData();
-            }
 
-            @Override
-            public void onFail(String content) {
-                super.onFail(content);
-                getFoutData();
-            }
-        });
+    //获取10大金刚数据
+    private void obtainOne() {
+        BaseRetrofit.newInstance().create(HttpService.class)
+                .obtainGoods(5,10,1)
+                .compose(RxSchedulers.<BaseBean<List<GoodsListBean>>>compose())
+                .subscribe(new HttpObserver<BaseBean<List<GoodsListBean>>>() {
+                    @Override
+                    public void onSuccess(BaseBean<List<GoodsListBean>> baseBean) {
+                        if (baseBean.getCode()==1&&baseBean.getT()!=null &&baseBean.getT().size()>0)
+                        {
+                            ((CouponOneAdapter) mView.getAdapters().get(VlayoutType.coupon_one)).flushShow(true);
+                            ((CouponTwoAdapter) mView.getAdapters().get(VlayoutType.coupon_two)).flush(baseBean.getT());
+                        }
+                        obtainGoodsData();
+                    }
+
+                    @Override
+                    public void onFail(String content) {
+                        super.onFail(content);
+                        obtainGoodsData();
+                    }
+                });
     }
 
+    private long new_page;
     @Override
-    public void getFoutData() {
-        HttpUtils.newInstance().getShopCoupon_Four("内衣",getPage(),new HttpObserver<BaseBean<MainBean>>() {
-            @Override
-            public void onSuccess(BaseBean<MainBean> mainBeanBaseBean) {
-                if (mainBeanBaseBean.getCode()==0&&mainBeanBaseBean.getT()!=null
-                        &&mainBeanBaseBean.getT().getData()!=null
-                        &&mainBeanBaseBean.getT().getData().size()>0)
-                {
-//                    ((FourAdapter) mView.getListAdapter().get(VlayoutType.coupon_four)).setShow(true);
-//                    ((FiveAdapter) mView.getListAdapter().get(VlayoutType.coupon_five))
-//                            .addDataFlush(page,mainBeanBaseBean.getT().getData());
-//                    mView.requst(page,true,mainBeanBaseBean.getT().getData().size());
-                }
-                else
-                {
-                    mView.requst(getPage(),true,0);
-                }
+    public void obtainGoodsData() {
+        final int page = getPage();
+        if (page==1)
+        {
+            new_page=1;
+        }
+        BaseRetrofit.newInstance().create(HttpService.class)
+                .obtainGoods(0,10,new_page)
+                .compose(RxSchedulers.<BaseBean<List<GoodsListBean>>>compose())
+                .subscribe(new HttpObserver<BaseBean<List<GoodsListBean>>>() {
+                    @Override
+                    public void onSuccess(BaseBean<List<GoodsListBean>> baseBean) {
+                        int size=0;
+                        if (baseBean.getCode()==1&&baseBean.getT()!=null &&baseBean.getT().size()>0)
+                        {
+                            size=baseBean.getT().size();
+                            new_page=baseBean.getMin_id();
+                            ((CouponThreeAdapter) mView.getAdapters().get(VlayoutType.coupon_three)).flushShow(true);
+                            ((CouponFourAdapter) mView.getAdapters().get(VlayoutType.coupon_four))
+                                    .addDataFlush(page,baseBean.getT());
+                        }
+                        mView.requst(page,true,size);
+                    }
 
-            }
-
-            @Override
-            public void onFail(String content) {
-                super.onFail(content);
-                mView.requst(getPage(),false,0);
-            }
-        });
+                    @Override
+                    public void onFail(String content) {
+                        super.onFail(content);
+                        mView.requst(page,false,0);
+                    }
+                });
     }
 }

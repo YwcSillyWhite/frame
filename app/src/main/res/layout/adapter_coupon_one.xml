@@ -4,7 +4,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#333"
-        android:text="十大金刚"
+        android:text="10大金刚"
         android:id="@+id/coupon_text"
         android:textSize="15sp"
         android:background="@color/write"
