@@ -40,14 +40,10 @@ public abstract class BasePagerAdapter<T> extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        int dataCount = getDataCount();
-        if (dataCount>0)
+        View view = sparseArray.get(position);
+        if (view!=null)
         {
-            View view = sparseArray.get(position%dataCount);
-            if (view!=null)
-            {
-                container.removeView(view);
-            }
+            container.removeView(view);
         }
 
     }
@@ -55,62 +51,41 @@ public abstract class BasePagerAdapter<T> extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        int dataCount = getDataCount();
-        if (dataCount>0)
+        View view = sparseArray.get(position);
+        if (view==null)
         {
-            int end_position = position % dataCount;
-            View view = sparseArray.get(end_position);
-            if (view==null)
-            {
-                view= obtainView(end_position);
-                sparseArray.put(end_position,view);
-            }
-            container.addView(view);
-            return view;
+            view= obtainView(position);
+            sparseArray.put(position,view);
         }
-        return null;
+        container.addView(view);
+        return view;
     }
 
     protected abstract View obtainView(int position);
 
     protected T obtainT(int position)
     {
-        int dataCount = getDataCount();
-        if (dataCount>0)
+        position=getPosition(position);
+        if (getDataCount()>position)
         {
-            int end_position = position % dataCount;
-            return data!=null&&data.size()>end_position?data.get(end_position):null;
+            return data.get(position);
         }
         return null;
 
     }
 
-    //初始化就创建所有view
-    protected void createSpare()
+
+    //给无限循环写的方法
+    protected int getPosition(int position)
     {
-        if (data!=null&&data.size()>0)
-        {
-            for (int i = 0; i < data.size(); i++) {
-                sparseArray.put(i,obtainView(i));
-            }
-        }
+        return position;
     }
 
 
     public void flush(List<T> list)
     {
-        data=list;
+        data=list!=null?list:new ArrayList<T>();
         sparseArray.clear();
         notifyDataSetChanged();
     }
-
-
-    public void flushCreateSpare(List<T> list)
-    {
-        data=list;
-        sparseArray.clear();
-        createSpare();
-        notifyDataSetChanged();
-    }
-
 }

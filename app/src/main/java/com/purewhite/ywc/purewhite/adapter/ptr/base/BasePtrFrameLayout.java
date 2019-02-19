@@ -81,7 +81,4 @@ public abstract class BasePtrFrameLayout extends PtrFrameLayout {
             refreshComplete();
         }
     }
-
-
-
 }

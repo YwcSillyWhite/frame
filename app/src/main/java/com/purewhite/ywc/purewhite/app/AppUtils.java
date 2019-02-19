@@ -95,7 +95,7 @@ public final class  AppUtils {
         for(BaseActivity baseActivity:stack)
         {
             if (baseActivity.getActivityId()!=null&&!baseActivity.getActivityId().isEmpty()
-                    &&baseActivity.getActivityId().equals("id"))
+                    &&baseActivity.getActivityId().equals(id))
             {
                 //在activity的生命周期监听谢了删除stack里面的activity，所以这边不用处理
                 baseActivity.finish();
