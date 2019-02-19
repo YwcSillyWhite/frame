@@ -5,6 +5,7 @@ package com.purewhite.ywc.purewhite.adapter.callback;
  */
 public abstract   class OnLoadListenerImp implements OnLoadListener{
 
+    //是否可以加载更多
     protected boolean judge()
     {
         return true;

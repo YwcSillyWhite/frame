@@ -90,10 +90,15 @@ public class HomeChildFragment extends MvpFragment<FragmentHomeChildBinding,Home
 
     private void initRecycler() {
         goodsListAdapter = new GoodsListAdapter();
+        //网络异常点击刷新
         goodsListAdapter.setOnFullListener(onFullListener);
+        //初始加载状态
         goodsListAdapter.setFullState(FullView.LODA,false);
+        //滑动监听
         goodsListAdapter.setOnLoadListener(onLoadListener);
+        //点击监听
         goodsListAdapter.setOnItemListener(onItemListener);
+        //长度10
         goodsListAdapter.setPageSize(10);
 
         mDataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

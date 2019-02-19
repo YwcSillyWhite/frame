@@ -278,11 +278,13 @@ public abstract class BaseAdapter<T,V extends BaseViewHolder> extends RecyclerVi
     //判断是不是加载更多
     protected  void loadMore(int position)
     {
-        if (getLoadCount()==0||position<getItemCount()-1) {
+        //loadview长度不能为0，position等于最后一个，position不能为loadview的position
+        if (getLoadCount()==0||position<getItemCount()-1||getLoadCount()-1==position) {
             return;
         }
         //加载结束
         if (loadView.getState()==LoadView.FINISH) {
+            //网络判断
             if (NetWorkUtils.isConnected())
             {
                 setLoadState(LoadView.LOAD,false);

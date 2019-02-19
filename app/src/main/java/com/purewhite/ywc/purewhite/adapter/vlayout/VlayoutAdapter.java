@@ -187,7 +187,7 @@ public class VlayoutAdapter extends DelegateAdapter
 
     //判断是否能加载更多
     private void judgeLoadMore(int position) {
-        if (getLoadCount()==0||position<getItemCount()-1) {
+        if (getLoadCount()==0||position<getItemCount()-1||position==getLoadCount()-1) {
             return;
         }
         if (loadView.getState()==LoadView.FINISH)
