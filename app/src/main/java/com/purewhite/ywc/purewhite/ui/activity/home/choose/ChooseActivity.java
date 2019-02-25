@@ -3,7 +3,7 @@ package com.purewhite.ywc.purewhite.ui.activity.home.choose;
 import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.config.OnSingleListener;
+import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
 import com.purewhite.ywc.purewhite.databinding.ActivityChooseBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
 

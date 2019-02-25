@@ -39,9 +39,17 @@ public class HomeChildPresenter extends PresenterImp<HomeChildContract.View> imp
                                 &&baseBean.getT().size()>0)
                         {
                             min_id=baseBean.getMin_id();
-                            mView.getAdapter().refreshComplete(false,page,baseBean.getT());
+                            mView.getAdapter().refreshComplete(true,page,baseBean.getT());
                         }
                         mView.responseData(page);
+
+                    }
+
+                    @Override
+                    public void onFail(String content) {
+                        super.onFail(content);
+                        mView.responseData(page);
+                        mView.getAdapter().refreshComplete(false,page,null);
                     }
                 });
     }

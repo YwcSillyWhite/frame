@@ -36,53 +36,6 @@ public class HttpUtils {
     }
 
 
-
-
-
-
-
-
-    //例子
-    public <T>void getRequest(String Url,Map<String,String> maps,HttpObserver<T> httpObserver)
-    {
-        httpService.<T>get(Url,maps).compose(RxSchedulers.<T>compose()).subscribe(httpObserver);
-    }
-
-
-
-    public void getShop(String content,int page,HttpObserver<BaseBean<MainBean>> httpObserver)
-    {
-        httpService.getShopList(content,19,page).
-                compose(RxSchedulers.<BaseBean<MainBean>>compose()).subscribe(httpObserver);
-    }
-
-
-    public void getShopCoupon_one(String content,int page,HttpObserver<BaseBean<MainBean>> httpObserver)
-    {
-        httpService.getShopList(content,10,page).
-                compose(RxSchedulers.<BaseBean<MainBean>>compose()).subscribe(httpObserver);
-    }
-
-    public void getShopCoupon_Three(String content,int page,HttpObserver<BaseBean<MainBean>> httpObserver)
-    {
-        httpService.getShopList(content,10,page).
-                compose(RxSchedulers.<BaseBean<MainBean>>compose()).subscribe(httpObserver);
-    }
-
-
-    public void getShopCoupon_Four(String content,int page,HttpObserver<BaseBean<MainBean>> httpObserver)
-    {
-        httpService.getShopList(content,20,page)
-                .compose(RxSchedulers.<BaseBean<MainBean>>compose()).subscribe(httpObserver);
-    }
-
-
-    public void getShop_friend(String content,int page,HttpObserver<BaseBean<MainBean>> httpObserver)
-    {
-        httpService.getShopList(content,10,page).
-                compose(RxSchedulers.<BaseBean<MainBean>>compose()).subscribe(httpObserver);
-    }
-
     public void getFinancil(String content,int pagesize,HttpObserver<BaseBean<MainBean>> httpObserver)
     {
         httpService.getShopList(content,pagesize,1).

@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
-import com.purewhite.ywc.purewhite.config.OnSingleListener;
+import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
 
 /**
  *

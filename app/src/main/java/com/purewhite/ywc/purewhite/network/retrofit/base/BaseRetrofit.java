@@ -68,6 +68,7 @@ public class BaseRetrofit {
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
+            map.put(baseUri,retrofit);
         }
         return retrofit;
     }
@@ -90,9 +91,10 @@ public class BaseRetrofit {
         builder.writeTimeout(10000,TimeUnit.MILLISECONDS);
         builder.readTimeout(10000,TimeUnit.MILLISECONDS);
 
-
         return builder.build();
     }
+
+
 
     private HttpLoggingInterceptor obtainLog()
     {

@@ -6,8 +6,8 @@ import android.widget.RadioGroup;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.app.ActivityUtils;
-import com.purewhite.ywc.purewhite.config.BundleUtils;
-import com.purewhite.ywc.purewhite.config.OnSingleListener;
+import com.purewhite.ywc.purewhite.app.BundleUtils;
+import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
 import com.purewhite.ywc.purewhite.config.TagUtils;
 import com.purewhite.ywc.purewhite.databinding.ActivityWebChooseBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;

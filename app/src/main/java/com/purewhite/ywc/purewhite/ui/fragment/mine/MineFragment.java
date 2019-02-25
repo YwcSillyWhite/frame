@@ -6,7 +6,7 @@ import android.view.View;
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.app.ActivityUtils;
 import com.purewhite.ywc.purewhite.app.AppUtils;
-import com.purewhite.ywc.purewhite.config.OnSingleListener;
+import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
 import com.purewhite.ywc.purewhite.databinding.FragmentMineBinding;
 import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;
 import com.purewhite.ywc.purewhite.network.imageload.ImageLoader;

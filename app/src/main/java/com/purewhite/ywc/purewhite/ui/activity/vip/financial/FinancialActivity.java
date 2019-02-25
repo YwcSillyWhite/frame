@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.config.OnSingleListener;
+import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
 import com.purewhite.ywc.purewhite.config.SizeUtils;
 import com.purewhite.ywc.purewhite.databinding.ActivityFinancialBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
@@ -67,7 +67,6 @@ public class FinancialActivity extends MvpActivity<ActivityFinancialBinding,Fina
     protected void initView() {
 
         mDataBinding.progressBar.startAnim(0,50,0,200);
-
         int screenWidth = SizeUtils.getScreenWidth();
         int viewWidth = (screenWidth - SizeUtils.dip2px(50)) / 4;
         mDataBinding.action.actionCenter.setText("等级");
@@ -94,7 +93,6 @@ public class FinancialActivity extends MvpActivity<ActivityFinancialBinding,Fina
         mDataBinding.viewPager.setAdapter(financialPagerAdapter);
         mDataBinding.viewPager.setOffscreenPageLimit(3);
     }
-
 
     private void startAnimation(final View view)
     {

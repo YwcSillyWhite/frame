@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.config;
+package com.purewhite.ywc.purewhite.bean.click;
 
 import android.view.View;
 

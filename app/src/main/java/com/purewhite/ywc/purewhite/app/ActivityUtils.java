@@ -10,7 +10,7 @@ import android.os.Bundle;
  * @date 2018/11/13
  */
 public class ActivityUtils {
-    private static ActivityUtils activityUtils;
+    private volatile static ActivityUtils activityUtils;
     public static ActivityUtils newInstance() {
         if (activityUtils==null)
         {
@@ -26,12 +26,10 @@ public class ActivityUtils {
     }
 
 
-
     public void startActivity(Class<?> cls)
     {
         startActivity(cls,null);
     }
-
 
     public void startActivity(Intent intent)
     {

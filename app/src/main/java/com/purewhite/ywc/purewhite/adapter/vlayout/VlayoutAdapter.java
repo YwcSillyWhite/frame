@@ -17,7 +17,7 @@ import com.purewhite.ywc.purewhite.adapter.loadview.LoadView;
 import com.purewhite.ywc.purewhite.adapter.loadview.LoadViewImp;
 import com.purewhite.ywc.purewhite.adapter.viewholder.BaseViewHolder;
 import com.purewhite.ywc.purewhite.config.NetWorkUtils;
-import com.purewhite.ywc.purewhite.config.OnSingleListener;
+import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -13,7 +13,6 @@ import retrofit2.HttpException;
 
 public abstract class HttpObserver<T> implements Observer<T> {
 
-
     @Override
     public void onSubscribe(Disposable d) {
         RxDisposableManager.getInstance().addDis(AppUtils.getContext(),d);
@@ -33,7 +32,6 @@ public abstract class HttpObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        LogUtils.error(e.toString());
         if (!NetWorkUtils.isConnected())
         {
             onFail("网络异常");

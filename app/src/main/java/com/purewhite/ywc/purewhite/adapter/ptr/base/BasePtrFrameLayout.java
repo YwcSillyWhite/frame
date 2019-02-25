@@ -51,8 +51,9 @@ public abstract class BasePtrFrameLayout extends PtrFrameLayout {
         setKeepHeaderWhenRefresh(true);
         //默认就是false
         setPullToRefresh(false);
-        //初始化不能刷新
-        setEnabled(false);
+        //手动刷新
+        autoRefresh(true);
+
     }
 
 
@@ -74,10 +75,6 @@ public abstract class BasePtrFrameLayout extends PtrFrameLayout {
     {
         if (pasgezie==1)
         {
-            if (!isEnabled())
-            {
-                setEnabled(true);
-            }
             refreshComplete();
         }
     }

@@ -7,6 +7,9 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.widget.ProgressBar;
 
+/**
+ * @author yuwenchao
+ */
 public class PureProgressBar extends ProgressBar {
     public PureProgressBar(Context context) {
         this(context,null);
@@ -26,7 +29,6 @@ public class PureProgressBar extends ProgressBar {
         Drawable drawable = ContextCompat.getDrawable(getContext(), rescouse);
         setProgressDrawable(drawable);
     }
-
 
 
     public void startAnim(int endPosition)

@@ -5,7 +5,7 @@ import android.widget.ImageView;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.app.ActivityUtils;
-import com.purewhite.ywc.purewhite.config.OnSingleListener;
+import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
 import com.purewhite.ywc.purewhite.databinding.ActivityGuideBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
 import com.purewhite.ywc.purewhite.ui.activity.main.MainActivity;

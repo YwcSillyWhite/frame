@@ -9,6 +9,10 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+/**
+ * @author yuwenchao
+ * 添加公共参数
+ */
 public class ParamsInterceptor implements Interceptor {
 
     @Override

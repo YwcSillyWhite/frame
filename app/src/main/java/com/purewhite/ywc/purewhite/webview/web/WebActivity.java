@@ -17,7 +17,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.config.OnSingleListener;
+import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
 import com.purewhite.ywc.purewhite.config.TagUtils;
 import com.purewhite.ywc.purewhite.databinding.ActivityWebBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;

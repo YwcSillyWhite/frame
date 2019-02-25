@@ -11,6 +11,9 @@ import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
 
+/**
+ * @author yuwenchao
+ */
 public class TrapezoidView extends View {
     private Paint paint;
     private int dimension;
@@ -40,7 +43,6 @@ public class TrapezoidView extends View {
             dimension = typedArray.getDimensionPixelOffset(R.styleable.TrapezoidView_trap_padding, 0);
         }
         //实心
-
     }
 
     @Override
