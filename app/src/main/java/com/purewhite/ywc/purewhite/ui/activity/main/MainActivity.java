@@ -8,6 +8,7 @@ import android.view.View;
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.app.ActivityUtils;
 import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
+import com.purewhite.ywc.purewhite.config.LogUtils;
 import com.purewhite.ywc.purewhite.config.ToastUtils;
 import com.purewhite.ywc.purewhite.databinding.ActivityMainBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
@@ -125,6 +126,9 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
         return super.onKeyDown(keyCode, event);
     }
 
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 
 }

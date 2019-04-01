@@ -1,7 +1,6 @@
 package com.purewhite.ywc.purewhite.network.rxjava;
 
 import com.purewhite.ywc.purewhite.app.AppUtils;
-import com.purewhite.ywc.purewhite.config.LogUtils;
 import com.purewhite.ywc.purewhite.config.NetWorkUtils;
 
 import java.net.ConnectException;
