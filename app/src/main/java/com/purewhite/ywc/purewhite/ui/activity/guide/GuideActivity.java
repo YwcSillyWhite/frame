@@ -66,17 +66,12 @@ public class GuideActivity extends MvpActivity<ActivityGuideBinding,GuidePresent
         mDataBinding.guideViewpager.setAdapter(guidePagerAdapter);
         mDataBinding.guideViewpager.setPageTransformer(false, new AimaTransforme());
 
+
     }
 
 
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-    }
 
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-    }
+
+
 
 }

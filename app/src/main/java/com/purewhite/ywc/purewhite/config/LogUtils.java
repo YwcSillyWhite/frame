@@ -6,14 +6,14 @@ public final class LogUtils {
 
     private static boolean okhttp=true;
     private static boolean error=true;
-
+    private static boolean appLog=true;
 
     //请求数据参数
     public static void okHttp(String msg)
     {
         if (okhttp)
         {
-            Log.d("Okhttp",msg);
+            app("Okhttp",msg);
         }
     }
 
@@ -22,7 +22,15 @@ public final class LogUtils {
     {
         if (error)
         {
-            Log.d("error",msg);
+            app("error",msg);
+        }
+    }
+
+    public static void app(String tag,String content)
+    {
+        if (appLog)
+        {
+            Log.d(tag,content);
         }
     }
 

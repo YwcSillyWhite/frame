@@ -20,4 +20,5 @@ public class CollectFragment extends MvpFragment<ViewDataBinding,PresenterImp> {
     protected void initView() {
 
     }
+
 }

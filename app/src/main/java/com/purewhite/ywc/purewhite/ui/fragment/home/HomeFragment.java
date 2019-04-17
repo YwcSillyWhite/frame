@@ -49,9 +49,4 @@ public class HomeFragment extends MvpFragment<FragmentHomeBinding,HomePresenter>
     }
 
 
-    @Override
-    protected void showLoad() {
-        super.showLoad();
-
-    }
 }

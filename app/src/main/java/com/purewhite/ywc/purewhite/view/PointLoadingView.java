@@ -9,6 +9,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
@@ -191,4 +192,8 @@ public class PointLoadingView extends View {
         super.onDetachedFromWindow();
         stopLoading();
     }
+
+
+
+
 }

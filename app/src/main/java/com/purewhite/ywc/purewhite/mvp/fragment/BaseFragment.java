@@ -3,6 +3,7 @@ package com.purewhite.ywc.purewhite.mvp.fragment;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -87,6 +88,7 @@ public abstract class BaseFragment<DB extends ViewDataBinding> extends Fragment{
             decideSoleLoad();
         }
     }
+
 
 
     /**
