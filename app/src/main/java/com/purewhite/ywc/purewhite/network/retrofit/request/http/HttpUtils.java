@@ -7,8 +7,6 @@ import com.purewhite.ywc.purewhite.network.retrofit.base.BaseRetrofit;
 import com.purewhite.ywc.purewhite.network.rxjava.HttpObserver;
 import com.purewhite.ywc.purewhite.network.rxjava.RxSchedulers;
 
-import java.util.Map;
-
 /**
  * @author yuwenchao
  */ //第3方封装利于后期的修改第3方数据

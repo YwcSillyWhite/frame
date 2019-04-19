@@ -1,8 +1,6 @@
 package com.purewhite.ywc.purewhite.ui.adapter.coupon;
 
 import android.graphics.Paint;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;

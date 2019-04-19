@@ -9,6 +9,8 @@ public interface DialogCallBack {
 
     void callback();
 
-    void callback(String content);
+
+    void callback(int index);
+
 
 }

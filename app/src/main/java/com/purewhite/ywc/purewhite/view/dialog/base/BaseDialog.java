@@ -28,13 +28,16 @@ public abstract class BaseDialog extends Dialog {
 
     public BaseDialog(Context context, int themeResId) {
         super(context, themeResId);
+        //解决首次不能点击
         initView();
     }
     private void initView() {
+
         View view = LayoutInflater.from(getContext()).inflate(getLayout(), null);
         ViewGroup.LayoutParams layoutParams=new ViewGroup.LayoutParams
                 (ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
         setContentView(view,layoutParams);
+
         initView(view);
     }
     //布局id

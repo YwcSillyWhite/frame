@@ -2,7 +2,6 @@ package com.purewhite.ywc.purewhite.ui.fragment.home.child;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;

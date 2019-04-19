@@ -2,6 +2,9 @@ package com.purewhite.ywc.purewhite.app;
 
 import android.os.Bundle;
 
+/**
+ * @author yuwenchao
+ */
 public class BundleUtils {
 
     private Bundle bundle;

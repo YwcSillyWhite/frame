@@ -1,12 +1,11 @@
 package com.purewhite.ywc.purewhite.ui.fragment.mine;
 
-import android.content.Context;
 import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.app.ActivityUtils;
-import com.purewhite.ywc.purewhite.app.AppUtils;
 import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
+import com.purewhite.ywc.purewhite.config.permisson.PermissonUtils;
 import com.purewhite.ywc.purewhite.databinding.FragmentMineBinding;
 import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;
 import com.purewhite.ywc.purewhite.network.imageload.ImageLoader;
@@ -51,6 +50,9 @@ public class MineFragment extends MvpFragment<FragmentMineBinding,MinePresenter>
         mDataBinding.addFriend.setOnClickListener(onSingleListener);
         mDataBinding.seckill.setOnClickListener(onSingleListener);
         mPresenter.getCache();
+
+        PermissonUtils.startPermissons(getContext(),this,"android.permission.CAMERA","android.permission.WRITE_CONTACTS");
+
     }
 
     @Override
@@ -60,10 +62,6 @@ public class MineFragment extends MvpFragment<FragmentMineBinding,MinePresenter>
 
 
 
-    @Override
-    public Context getContext() {
-        return super.getContext()!=null?super.getContext():AppUtils.getContext();
-    }
 
 
 }

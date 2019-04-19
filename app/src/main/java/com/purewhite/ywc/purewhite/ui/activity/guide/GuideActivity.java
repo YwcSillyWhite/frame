@@ -1,14 +1,12 @@
 package com.purewhite.ywc.purewhite.ui.activity.guide;
 
-import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.app.ActivityUtils;
 import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
-import com.purewhite.ywc.purewhite.config.LogUtils;
+import com.purewhite.ywc.purewhite.config.permisson.PermissonUtils;
 import com.purewhite.ywc.purewhite.databinding.ActivityGuideBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
 import com.purewhite.ywc.purewhite.ui.activity.main.MainActivity;
@@ -18,6 +16,8 @@ import com.purewhite.ywc.purewhite.view.pagerview.AimaTransforme;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import top.zibin.luban.Luban;
 
 /**
  *
@@ -66,12 +66,9 @@ public class GuideActivity extends MvpActivity<ActivityGuideBinding,GuidePresent
         mDataBinding.guideViewpager.setAdapter(guidePagerAdapter);
         mDataBinding.guideViewpager.setPageTransformer(false, new AimaTransforme());
 
+        PermissonUtils.startPermissons(this,this,"android.permission.CAMERA","android.permission.WRITE_CONTACTS");
 
+
+//        Luban.with(this).load().
     }
-
-
-
-
-
-
 }

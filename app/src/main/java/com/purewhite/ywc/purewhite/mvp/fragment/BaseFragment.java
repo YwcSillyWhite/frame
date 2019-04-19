@@ -1,26 +1,34 @@
 package com.purewhite.ywc.purewhite.mvp.fragment;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.purewhite.ywc.purewhite.app.AppUtils;
+import com.purewhite.ywc.purewhite.config.permisson.PermissonCallBack;
+
 /**
  *
  * @author yuwenchao
  * @date 2018/11/14
  */
-
-public abstract class BaseFragment<DB extends ViewDataBinding> extends Fragment{
+public abstract class BaseFragment<DB extends ViewDataBinding> extends Fragment implements PermissonCallBack {
 
     protected DB mDataBinding;
     //唯一加载
     private boolean soleLoad;
+
+    @Override
+    public Context getContext() {
+        return super.getContext()!=null?super.getContext():AppUtils.getContext();
+    }
+
 
     @Nullable
     @Override
@@ -104,4 +112,19 @@ public abstract class BaseFragment<DB extends ViewDataBinding> extends Fragment{
         }
     }
 
+
+    @Override
+    public void onPermissonSuccess(int requestCode) {
+
+    }
+
+    /**
+     * 这个权限类有点不完善，所以只能在activity的返回
+     * @param requestCode
+     * @param permisssons
+     */
+    @Override
+    public void onPermissonRepulse(int requestCode, String... permisssons) {
+
+    }
 }
