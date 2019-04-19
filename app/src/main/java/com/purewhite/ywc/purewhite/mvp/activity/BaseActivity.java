@@ -127,13 +127,9 @@ public abstract class BaseActivity<DB extends ViewDataBinding> extends AppCompat
     //权限开始失败
     @Override
     public void onPermissonRepulse(int requestCode, String... permisssons) {
-        if (PermissonUtils.judgePermissions(this,permisssons))
-        {
-            mainDialog = new MainDialog(this);
-            mainDialog.setDialogCallBack(dialogCallBackImp);
-            mainDialog.show();
-        }
-
+        mainDialog = new MainDialog(this);
+        mainDialog.setDialogCallBack(dialogCallBackImp);
+        mainDialog.show();
     }
 
     //权限开启成功
