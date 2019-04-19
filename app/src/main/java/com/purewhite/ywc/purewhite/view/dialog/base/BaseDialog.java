@@ -16,6 +16,11 @@ import com.purewhite.ywc.purewhite.view.dialog.callback.DialogCallBack;
  * @author yuwenchao
  */
 public abstract class BaseDialog extends Dialog {
+
+    protected final static int TOP=0;
+    protected final static int BOTTOM=1;
+    protected final static int LEFT=2;
+    protected final static int RIGHT=3;
     protected DialogCallBack dialogCallBack;
     //上，下，左，右边
     private int anim[]={R.style.DialogTop,R.style.DialogBottom,R.style.DialogLeft,R.style.DialogRight};

@@ -19,8 +19,7 @@ public class MainDialog extends BaseDialog {
     public MainDialog(Context context) {
         super(context);
         setScreen(0.8f);
-        int i = new Random().nextInt(3);
-        setAnim(i);
+        setAnim(RIGHT);
     }
 
     @Override
