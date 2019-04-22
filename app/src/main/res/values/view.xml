@@ -55,8 +55,6 @@
     <declare-styleable name="WrapViewPager">
         //是否使用缓存高度
         <attr name="cache" format="boolean"></attr>
-        //子类缓存的最小高度
-        <attr name="child_height" format="dimension"></attr>
     </declare-styleable>
     
     

@@ -21,8 +21,7 @@ public class WrapViewPager extends ViewPager {
     private int paddingBottom;
     private int paddingTop;
     private boolean cache=false;
-    //子类的最小高度，如果使用缓存的时候记得子类会不会存在最小高度=
-    private float child_height;
+
     public void setPosition(int position) {
         this.position = position;
     }
@@ -32,10 +31,6 @@ public class WrapViewPager extends ViewPager {
 
     public void setCache(boolean cache) {
         this.cache = cache;
-    }
-
-    public void setChild_height(float child_height) {
-        this.child_height = child_height;
     }
 
     public WrapViewPager(@NonNull Context context) {
@@ -56,7 +51,6 @@ public class WrapViewPager extends ViewPager {
         {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.WrapViewPager);
             cache = typedArray.getBoolean(R.styleable.WrapViewPager_cache, cache);
-            child_height = typedArray.getDimension(R.styleable.WrapViewPager_child_height, 0);
         }
         if (cache)
         {
@@ -79,7 +73,7 @@ public class WrapViewPager extends ViewPager {
         if (cache)
         {
             int cacheHeight = sparseArray.get(position*1000+index,0);
-            if (cacheHeight>child_height+paddingBottom+paddingTop)
+            if (cacheHeight>paddingBottom+paddingTop)
             {
                 height=cacheHeight;
                 heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
@@ -90,9 +84,12 @@ public class WrapViewPager extends ViewPager {
                 if (view!=null)
                 {
                     view.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-                    height = view.getMeasuredHeight()+paddingTop+paddingBottom;
-                    heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
-                    sparseArray.put(position*1000+index,height);
+                    if (view.getMeasuredHeight()>0)
+                    {
+                        height = view.getMeasuredHeight()+paddingTop+paddingBottom;
+                        heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+                        sparseArray.put(position*1000+index,height);
+                    }
                 }
             }
         }
@@ -102,8 +99,11 @@ public class WrapViewPager extends ViewPager {
             if (view!=null)
             {
                 view.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-                height = view.getMeasuredHeight()+paddingTop+paddingBottom;
-                heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+                if (view.getMeasuredHeight()>0)
+                {
+                    height = view.getMeasuredHeight()+paddingTop+paddingBottom;
+                    heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+                }
             }
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);

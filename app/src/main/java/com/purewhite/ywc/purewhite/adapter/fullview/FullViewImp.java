@@ -3,8 +3,8 @@ package com.purewhite.ywc.purewhite.adapter.fullview;
 import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
 import com.purewhite.ywc.purewhite.config.NetWorkUtils;
+import com.purewhite.ywc.purewhite.config.click.OnSingleListener;
 
 public class FullViewImp extends FullView{
 

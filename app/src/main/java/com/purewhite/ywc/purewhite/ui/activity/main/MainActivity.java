@@ -7,8 +7,8 @@ import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.app.ActivityUtils;
-import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
 import com.purewhite.ywc.purewhite.config.ToastUtils;
+import com.purewhite.ywc.purewhite.config.click.OnSingleListener;
 import com.purewhite.ywc.purewhite.databinding.ActivityMainBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
 import com.purewhite.ywc.purewhite.mvp.fragment.BaseFragment;

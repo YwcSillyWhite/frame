@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
 import com.purewhite.ywc.purewhite.config.SizeUtils;
+import com.purewhite.ywc.purewhite.config.click.OnSingleListener;
 import com.purewhite.ywc.purewhite.databinding.ActivityFinancialBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
 import com.purewhite.ywc.purewhite.ui.activity.vip.financial.adapter.FinancialPagerAdapter;

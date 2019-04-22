@@ -4,11 +4,9 @@ import android.content.Context;
 import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
+import com.purewhite.ywc.purewhite.config.click.OnSingleListener;
 import com.purewhite.ywc.purewhite.view.dialog.base.BaseDialog;
 import com.purewhite.ywc.purewhite.view.dialog.callback.DialogCallBackImp;
-
-import java.util.Random;
 
 /**
  * @author yuwenchao

@@ -1,8 +1,6 @@
-package com.purewhite.ywc.purewhite.bean.main;
+package com.purewhite.ywc.purewhite.config.click;
 
 import android.view.View;
-
-import com.purewhite.ywc.purewhite.bean.click.ClickUtils;
 
 /**
  *点击事件优化，防止多次点击

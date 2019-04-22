@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
+import com.purewhite.ywc.purewhite.config.click.OnSingleListener;
 
 /**
  *这次优化准要是解决，如果底部view显示在当前fragment，那么子bottom该如何变化

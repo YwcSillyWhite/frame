@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import com.purewhite.ywc.purewhite.adapter.pagerview.BasePagerAdapter;
 import com.purewhite.ywc.purewhite.app.ActivityUtils;
-import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
+import com.purewhite.ywc.purewhite.config.click.OnSingleListener;
 import com.purewhite.ywc.purewhite.ui.activity.main.MainActivity;
 
 import java.util.List;

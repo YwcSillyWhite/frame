@@ -5,7 +5,8 @@ import android.widget.ImageView;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.app.ActivityUtils;
-import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
+import com.purewhite.ywc.purewhite.config.LogUtils;
+import com.purewhite.ywc.purewhite.config.click.OnSingleListener;
 import com.purewhite.ywc.purewhite.config.permisson.PermissonUtils;
 import com.purewhite.ywc.purewhite.databinding.ActivityGuideBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
@@ -16,8 +17,6 @@ import com.purewhite.ywc.purewhite.view.pagerview.AimaTransforme;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import top.zibin.luban.Luban;
 
 /**
  *
@@ -65,6 +64,13 @@ public class GuideActivity extends MvpActivity<ActivityGuideBinding,GuidePresent
         GuidePagerAdapter guidePagerAdapter = new GuidePagerAdapter(Arrays.asList(img),this);
         mDataBinding.guideViewpager.setAdapter(guidePagerAdapter);
         mDataBinding.guideViewpager.setPageTransformer(false, new AimaTransforme());
+
+
+        String name="123.456";
+        String[] split = name.split(".");
+        for (int i = 0; i < split.length; i++) {
+            LogUtils.okHttp(split[i]);
+        }
 
         PermissonUtils.startPermissons(this,this,"android.permission.CAMERA","android.permission.WRITE_CONTACTS");
 

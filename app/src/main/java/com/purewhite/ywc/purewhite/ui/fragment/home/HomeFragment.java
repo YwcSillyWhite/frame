@@ -3,7 +3,7 @@ package com.purewhite.ywc.purewhite.ui.fragment.home;
 import android.view.View;
 
 import com.purewhite.ywc.purewhite.R;
-import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
+import com.purewhite.ywc.purewhite.config.click.OnSingleListener;
 import com.purewhite.ywc.purewhite.databinding.FragmentHomeBinding;
 import com.purewhite.ywc.purewhite.mvp.fragment.MvpFragment;
 import com.purewhite.ywc.purewhite.ui.fragment.home.adapter.HomePagerAdapter;

@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.adapter.fullview.FullView;
 import com.purewhite.ywc.purewhite.adapter.viewholder.BaseViewHolder;
-import com.purewhite.ywc.purewhite.bean.main.OnSingleListener;
+import com.purewhite.ywc.purewhite.config.click.OnSingleListener;
 import com.purewhite.ywc.purewhite.databinding.ActivityFriendBinding;
 import com.purewhite.ywc.purewhite.mvp.activity.MvpActivity;
 import com.purewhite.ywc.purewhite.ui.activity.mine.friend.adapter.FriendAdapter;
