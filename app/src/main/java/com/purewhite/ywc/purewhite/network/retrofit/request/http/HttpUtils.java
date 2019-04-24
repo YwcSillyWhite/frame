@@ -1,8 +1,6 @@
 package com.purewhite.ywc.purewhite.network.retrofit.request.http;
 
 
-import android.text.TextUtils;
-
 import com.purewhite.ywc.purewhite.bean.base.BaseBean;
 import com.purewhite.ywc.purewhite.bean.main.MainBean;
 import com.purewhite.ywc.purewhite.network.retrofit.base.BaseRetrofit;

@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.view;
+package com.purewhite.ywc.purewhite.view.bottom;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -83,22 +83,8 @@ public class BottomLayout extends LinearLayout{
     public void clearCheck()
     {
         lastView.setCheck(false);
+        lastView=null;
     }
-
-
-    public void cutCheck()
-    {
-        lastView.invalidate();
-    }
-
-
-    //回退选中
-    public void backCheck()
-    {
-        clearCheck();
-        lastLastView.setInitCheck();
-    }
-
 
 
 
@@ -115,8 +101,11 @@ public class BottomLayout extends LinearLayout{
     {
         if (onBottomLayoutChageListener==null||lastView==view)
             return;
-        lastLastView=lastView;
-        lastView.setCheck(false);
+        if (lastView!=null)
+        {
+            lastLastView=lastView;
+            lastView.setCheck(false);
+        }
         lastView=view;
         view.setCheck(true);
         onBottomLayoutChageListener.onCheckChange(view);

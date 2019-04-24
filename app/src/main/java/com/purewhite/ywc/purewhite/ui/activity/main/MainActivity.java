@@ -17,7 +17,7 @@ import com.purewhite.ywc.purewhite.ui.fragment.collect.CollectFragment;
 import com.purewhite.ywc.purewhite.ui.fragment.coupon.CouponFragment;
 import com.purewhite.ywc.purewhite.ui.fragment.home.HomeFragment;
 import com.purewhite.ywc.purewhite.ui.fragment.mine.MineFragment;
-import com.purewhite.ywc.purewhite.view.BottomLayout;
+import com.purewhite.ywc.purewhite.view.bottom.BottomLayout;
 
 import java.util.ArrayList;
 import java.util.List;

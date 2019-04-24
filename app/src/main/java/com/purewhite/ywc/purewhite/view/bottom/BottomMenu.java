@@ -1,4 +1,4 @@
-package com.purewhite.ywc.purewhite.view;
+package com.purewhite.ywc.purewhite.view.bottom;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

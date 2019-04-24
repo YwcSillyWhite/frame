@@ -22,14 +22,14 @@
             android:id="@+id/frame_layout">
         </FrameLayout>
 
-        <com.purewhite.ywc.purewhite.view.BottomLayout
+        <com.purewhite.ywc.purewhite.view.bottom.BottomLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:orientation="horizontal"
             android:background="@color/write"
             android:layout_gravity="center"
             android:id="@+id/bottom_layout">
-            <com.purewhite.ywc.purewhite.view.BottomMenu
+            <com.purewhite.ywc.purewhite.view.bottom.BottomMenu
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
@@ -41,7 +41,7 @@
                 app:checkTv_flase="@color/text_deep"
                 app:checkImg_true="@mipmap/icon_tab_home_selected"
                 app:checkImg_flase="@mipmap/icon_tab_home_normal"/>
-            <com.purewhite.ywc.purewhite.view.BottomMenu
+            <com.purewhite.ywc.purewhite.view.bottom.BottomMenu
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
@@ -67,7 +67,7 @@
                     android:id="@+id/main_vip"
                     android:src="@mipmap/icon_nav_vip"/>
             </RelativeLayout>
-            <com.purewhite.ywc.purewhite.view.BottomMenu
+            <com.purewhite.ywc.purewhite.view.bottom.BottomMenu
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
@@ -79,7 +79,7 @@
                 app:checkTv_flase="@color/text_deep"
                 app:checkImg_true="@mipmap/icon_tab_coupon_selected"
                 app:checkImg_flase="@mipmap/icon_tab_coupon_normal"/>
-            <com.purewhite.ywc.purewhite.view.BottomMenu
+            <com.purewhite.ywc.purewhite.view.bottom.BottomMenu
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
@@ -91,7 +91,7 @@
                 app:checkTv_flase="@color/text_deep"
                 app:checkImg_true="@mipmap/icon_tab_mine_selected"
                 app:checkImg_flase="@mipmap/icon_tab_mime_normal">
-            </com.purewhite.ywc.purewhite.view.BottomMenu>
-        </com.purewhite.ywc.purewhite.view.BottomLayout>
+            </com.purewhite.ywc.purewhite.view.bottom.BottomMenu>
+        </com.purewhite.ywc.purewhite.view.bottom.BottomLayout>
     </LinearLayout>
 </layout>
