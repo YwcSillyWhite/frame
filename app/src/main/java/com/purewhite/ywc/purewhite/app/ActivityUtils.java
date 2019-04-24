@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 
 /**
  *
@@ -17,7 +16,6 @@ public class ActivityUtils {
     {
         startActivity(cls,null);
     }
-
     public static void startActivity(Class<?> cls, Bundle bundle)
     {
         startActivity(cls,bundle,null,0);
@@ -42,7 +40,7 @@ public class ActivityUtils {
 
     public static void startActivity(Intent intent, Context context,int requestCode)
     {
-        if (context==null||context instanceof Activity)
+        if (context!=null&&context instanceof Activity)
         {
             ((Activity) context).startActivityForResult(intent,requestCode);
         }

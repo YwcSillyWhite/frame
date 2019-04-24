@@ -1,92 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
+    <com.purewhite.ywc.purewhite.view.scrollview.PureScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            android:gravity="center_vertical"
-            android:background="@color/write">
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:id="@+id/mine_head"/>
-            <TextView
-                android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="纯白出品必属于精品"
-                android:textSize="15sp"
-                android:textColor="#333"
-                android:layout_marginLeft="10dp"/>
-        </LinearLayout>
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="1dp" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:id="@+id/mine_mLayout"
-            android:background="@color/write">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="清理缓存"
-                android:textSize="15sp"
-                android:textColor="#333" />
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:gravity="center_vertical"
+                android:background="@color/write">
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:id="@+id/mine_head"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="纯白出品必属于精品"
+                    android:textSize="15sp"
+                    android:textColor="#333"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
             <Space
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-            <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="0k"
-                android:textSize="15sp"
-                android:id="@+id/mine_mSize"
-                android:textColor="#333"
-                android:layout_marginLeft="10dp"/>
-        </LinearLayout>
+                android:padding="10dp"
+                android:id="@+id/mine_mLayout"
+                android:background="@color/write">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="清理缓存"
+                    android:textSize="15sp"
+                    android:textColor="#333" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0k"
+                    android:textSize="15sp"
+                    android:id="@+id/mine_mSize"
+                    android:textColor="#333"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="1dp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="15sp"
-            android:textColor="#333"
-            android:background="@color/write"
-            android:text="webview的使用"
-            android:id="@+id/web_view"/>
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="1dp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="15sp"
-            android:textColor="#333"
-            android:background="@color/write"
-            android:text="添加好友"
-            android:id="@+id/add_friend"/>
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="1dp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="15sp"
-            android:textColor="#333"
-            android:background="@color/write"
-            android:text="即使秒杀"
-            android:id="@+id/seckill"/>
-    </LinearLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="15sp"
+                android:textColor="#333"
+                android:background="@color/write"
+                android:text="webview的使用"
+                android:id="@+id/web_view"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="15sp"
+                android:textColor="#333"
+                android:background="@color/write"
+                android:text="添加好友"
+                android:id="@+id/add_friend"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="15sp"
+                android:textColor="#333"
+                android:background="@color/write"
+                android:text="即使秒杀"
+                android:id="@+id/seckill"/>
+        </LinearLayout>
+    </com.purewhite.ywc.purewhite.view.scrollview.PureScrollView>
 </layout>

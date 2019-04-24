@@ -23,7 +23,7 @@ import retrofit2.http.Url;
 public interface HttpService {
 
     @GET()
-    <T> Observable<T> get(@Url String url, @QueryMap Map<String,String> maps);
+    Observable<ResponseBody> get(@Url String url, @QueryMap Map<String,Object> maps);
 
 
     @GET()

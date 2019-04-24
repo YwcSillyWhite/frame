@@ -22,9 +22,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class BaseRetrofit {
     //好单库api接口
     private final String baseUri="http://v2.api.haodanku.com";
-    private Retrofit retrofit;
     private static BaseRetrofit basRetrofit;
     private Map<String,Retrofit> map=new HashMap<>();
+
     public static BaseRetrofit newInstance() {
         if (basRetrofit==null)
         {
@@ -38,23 +38,6 @@ public class BaseRetrofit {
         }
         return basRetrofit;
     }
-
-
-    //初始化
-    private Retrofit init()
-    {
-        if (retrofit==null)
-        {
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(baseUri)
-                    .client(getOkHttp())
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .build();
-        }
-        return retrofit;
-    }
-
 
     //初始化
     private Retrofit init(String baseUri)
@@ -119,15 +102,16 @@ public class BaseRetrofit {
 
 
 
+    public <T> T create(Class<T> service) {
+        return create(baseUri,service);
+    }
 
     public <T> T create(String baseUri,Class<T> service)
     {
-        return  init(baseUri).create(service);
+        return init(baseUri).create(service);
     }
 
-    public <T> T create(Class<T> service) {
-        return init().create(service);
-    }
+
 
 
 

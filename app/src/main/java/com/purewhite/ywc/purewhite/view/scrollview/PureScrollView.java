@@ -5,15 +5,20 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ScrollView;
+
+import com.purewhite.ywc.purewhite.config.LogUtils;
 
 /**
  * @author yuwenchao
  */
-public class PureScrollView extends ScrollView {
-    //上次位置的xy
-    private int lastX,lastY;
+public class PureScrollView extends ClashScrollView {
+    //上次位置的y
+    private int pureY;
     private View childView;
+    private boolean isAnim;
     private Rect rect=new Rect();
     public PureScrollView(Context context) {
         super(context);
@@ -27,7 +32,6 @@ public class PureScrollView extends ScrollView {
         super(context, attrs, defStyleAttr);
     }
 
-
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
@@ -37,63 +41,43 @@ public class PureScrollView extends ScrollView {
         }
     }
 
-    /**
-     * 用于解决横竖冲突
-     * @param ev
-     * @return
-     */
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        //是否拦截
-        boolean intercept=false;
-        //当前先x，y位置
-        int new_x = (int) ev.getX();
-        int new_y = (int) ev.getY();
-        switch (ev.getAction())
-        {
-            case MotionEvent.ACTION_DOWN:
-                lastX=new_x;
-                lastY=new_y;
-                break;
-            case MotionEvent.ACTION_MOVE:
-                //移动距离
-                int move_x=Math.abs(new_x-lastX);
-                int move_y=Math.abs(new_y-lastY);
-                if (move_y>move_x)
-                {
-                    intercept=true;
-                }
-                lastX=new_x;
-                lastY=new_y;
-                break;
-        }
-        return intercept;
-    }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction()==MotionEvent.ACTION_DOWN)
+        {
+            pureY= ((int) ev.getY());
+        }
+        return super.dispatchTouchEvent(ev);
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        if (childView!=null)
+        if (childView!=null&&!isAnim)
         {
-            int new_y = (int) ev.getY();
-            switch (ev.getAction())
+            int newY = (int) ev.getY();
+            if (ev.getAction()==MotionEvent.ACTION_MOVE)
             {
-                case MotionEvent.ACTION_DOWN:
-                    lastY=new_y;
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    int move_y=new_y-lastY;
-                    if (isMove())
+                int moveY=newY-pureY;
+                if (isMove())
+                {
+                    //rect没有纪录值
+                    if (rect.isEmpty())
                     {
-                        if (rect.isEmpty())
-                        {
-                            rect.set(childView.getLeft(),childView.getTop(),childView.getRight(),childView.getBottom());
-                        }
-                        childView.layout(childView.getLeft(),childView.getTop()+move_y/2,childView.getRight(),childView.getBottom()+move_y/2);
+                        //纪录当前位置
+                        rect.set(childView.getLeft(),childView.getTop(),childView.getRight(),childView.getBottom());
                     }
-                    lastY=move_y;
-                    break;
+                    childView.layout(childView.getLeft(),childView.getTop()+moveY/2,childView.getRight(),childView.getBottom()+moveY/2);
+                }
             }
+            else if (ev.getAction()==MotionEvent.ACTION_UP)
+            {
+                if (!rect.isEmpty())
+                {
+                    anim();
+                }
+            }
+            pureY=newY;
         }
         return super.onTouchEvent(ev);
     }
@@ -110,5 +94,36 @@ public class PureScrollView extends ScrollView {
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * 结束返回
+     */
+    private void anim()
+    {
+        int translateY = rect.bottom - childView.getBottom();
+        TranslateAnimation animation=new TranslateAnimation(0,0,0,translateY);
+        animation.setDuration(200);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                isAnim=true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                isAnim=false;
+                childView.clearAnimation();
+                childView.layout(rect.left,rect.top,rect.right,rect.bottom);
+                rect.setEmpty();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        childView.startAnimation(animation);
     }
 }

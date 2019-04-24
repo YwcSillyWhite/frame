@@ -1,12 +1,10 @@
 package com.purewhite.ywc.purewhite.ui.activity.guide;
 
-import android.content.pm.PackageManager;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.app.ActivityUtils;
-import com.purewhite.ywc.purewhite.config.LogUtils;
 import com.purewhite.ywc.purewhite.config.click.OnSingleListener;
 import com.purewhite.ywc.purewhite.config.permisson.PermissonUtils;
 import com.purewhite.ywc.purewhite.databinding.ActivityGuideBinding;
