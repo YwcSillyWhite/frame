@@ -14,6 +14,9 @@ import android.widget.LinearLayout;
 import com.purewhite.ywc.purewhite.R;
 import com.purewhite.ywc.purewhite.view.viewpager.port.OnPageChangeImp;
 
+/**
+ * @author yuwenchao
+ */
 public class WrapViewPager extends ViewPager {
 
     //防止复用（在list里面使用复用）

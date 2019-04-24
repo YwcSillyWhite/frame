@@ -1,8 +1,10 @@
 package com.purewhite.ywc.purewhite.app;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 /**
  *
@@ -10,33 +12,18 @@ import android.os.Bundle;
  * @date 2018/11/13
  */
 public class ActivityUtils {
-    private volatile static ActivityUtils activityUtils;
-    public static ActivityUtils newInstance() {
-        if (activityUtils==null)
-        {
-            synchronized (ActivityUtils.class)
-            {
-                if (activityUtils==null)
-                {
-                    activityUtils=new ActivityUtils();
-                }
-            }
-        }
-        return activityUtils;
-    }
 
-
-    public void startActivity(Class<?> cls)
+    public static void startActivity(Class<?> cls)
     {
         startActivity(cls,null);
     }
 
-    public void startActivity(Intent intent)
+    public static void startActivity(Class<?> cls, Bundle bundle)
     {
-        AppUtils.getContext().startActivity(intent);
+        startActivity(cls,bundle,null,0);
     }
 
-    public void startActivity(Class<?> cls, Bundle bundle)
+    public static void startActivity(Class<?> cls, Bundle bundle,Context context,int requestCode)
     {
         if (cls==null) {
             return;
@@ -45,17 +32,39 @@ public class ActivityUtils {
         if (bundle!=null) {
             intent.putExtras(bundle);
         }
-        AppUtils.getContext().startActivity(intent);
+        startActivity(intent,context,requestCode);
     }
 
+    public static void startActivity(Intent intent)
+    {
+        startActivity(intent,null,0);
+    }
+
+    public static void startActivity(Intent intent, Context context,int requestCode)
+    {
+        if (context==null||context instanceof Activity)
+        {
+            ((Activity) context).startActivityForResult(intent,requestCode);
+        }
+        else
+        {
+            AppUtils.getContext().startActivity(intent);
+        }
+    }
+
+
+
     //跳转唯一商品activity
-    public void startSoleActivity(Intent intent,String id)
+    public static void startSoleActivity(Intent intent,String id)
     {
         AppUtils.removeActivity(id);
         AppUtils.getContext().startActivity(intent);
     }
 
-    public void finish()
+
+
+
+    public static void finish()
     {
         Activity activity = AppUtils.obtainTopActivity();
         if (activity!=null)
@@ -64,17 +73,17 @@ public class ActivityUtils {
         }
     }
 
-    public void finish(Activity activity)
+    public static void finish(Activity activity)
     {
         finish(activity,null);
     }
 
-    public void finish(Activity activity,Integer requestCode)
+    public static void finish(Activity activity,Integer requestCode)
     {
         finish(activity,requestCode,null);
     }
 
-    public void finish(Activity activity,Integer requestCode,Bundle bundle)
+    public static void finish(Activity activity,Integer requestCode,Bundle bundle)
     {
         if (requestCode!=null)
         {

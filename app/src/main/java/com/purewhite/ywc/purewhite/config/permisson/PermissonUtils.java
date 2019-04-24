@@ -6,10 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 
+import com.purewhite.ywc.purewhite.app.ActivityUtils;
 import com.purewhite.ywc.purewhite.app.AppUtils;
 
 import java.util.ArrayList;
@@ -27,8 +31,14 @@ public class PermissonUtils {
     public static final String READ = Manifest.permission.READ_EXTERNAL_STORAGE;
     public static final String CONTACTS = Manifest.permission.READ_CONTACTS;
     public static final String LOCATION = Manifest.permission.LOCATION_HARDWARE;
+    //应用安装权限
+    public static final String REQUEST= Manifest.permission.REQUEST_INSTALL_PACKAGES;
 
+    //默认请求
     public static final int DEFAULT=10001;
+    //安装权限
+    public static final int per_request=10002;
+
 
     /**
      * 判断之前有没有拒绝过这个权限
@@ -195,5 +205,51 @@ public class PermissonUtils {
         intent.setData(Uri.fromParts("package", AppUtils.getContext().getPackageName(), null));
         AppUtils.getContext().startActivity(intent);
     }
+
+
+    /**
+     * android 8.0以上安装权限
+     * @param context
+     * @return
+     */
+    public static boolean canRequestPackageInstalls(Context context)
+    {
+        if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.O)
+        {
+            return context.getPackageManager().canRequestPackageInstalls();
+        }
+        return true;
+    }
+
+    /**
+     * 跳转安装权限页面
+     * @param context
+     * @param requestCode
+     */
+    public static void intentPackageInstalls(Context context,int requestCode)
+    {
+        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES
+                ,Uri.parse("package:"+context.getPackageManager()));
+        ActivityUtils.startActivity(intent,context,requestCode);
+    }
+
+    /**
+     * 启动安装权限页面
+     * @param context
+     * @param requestCode
+     * @return
+     */
+    public static boolean startPackageInstalls(Context context,int requestCode)
+    {
+        if (!canRequestPackageInstalls(context))
+        {
+            intentPackageInstalls(context,requestCode);
+            return false;
+        }
+        return true;
+    }
+
+
+
 
 }

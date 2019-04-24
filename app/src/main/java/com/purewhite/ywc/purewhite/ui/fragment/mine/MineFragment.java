@@ -21,13 +21,13 @@ public class MineFragment extends MvpFragment<FragmentMineBinding,MinePresenter>
             switch (v.getId())
             {
                 case R.id.add_friend:
-                    ActivityUtils.newInstance().startActivity(FriendActivity.class);
+                    ActivityUtils.startActivity(FriendActivity.class);
                     break;
                 case R.id.seckill:
-                    ActivityUtils.newInstance().startActivity(SeckillActivity.class);
+                    ActivityUtils.startActivity(SeckillActivity.class);
                     break;
                 case R.id.web_view:
-                    ActivityUtils.newInstance().startActivity(WebChooseActivity.class);
+                    ActivityUtils.startActivity(WebChooseActivity.class);
                     break;
             }
         }

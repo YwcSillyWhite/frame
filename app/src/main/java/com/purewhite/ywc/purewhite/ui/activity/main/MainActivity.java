@@ -55,7 +55,7 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
             switch (v.getId())
             {
                 case R.id.main_vip:
-                    ActivityUtils.newInstance().startActivity(FinancialActivity.class);
+                    ActivityUtils.startActivity(FinancialActivity.class);
                     break;
             }
         }

@@ -1,5 +1,6 @@
 package com.purewhite.ywc.purewhite.ui.activity.guide;
 
+import android.content.pm.PackageManager;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -34,7 +35,7 @@ public class GuideActivity extends MvpActivity<ActivityGuideBinding,GuidePresent
         @Override
         public void onSingleClick(View v) {
 
-            ActivityUtils.newInstance().startActivity(MainActivity.class);
+            ActivityUtils.startActivity(MainActivity.class);
             finish();
 
         }
@@ -66,15 +67,7 @@ public class GuideActivity extends MvpActivity<ActivityGuideBinding,GuidePresent
         mDataBinding.guideViewpager.setPageTransformer(false, new AimaTransforme());
 
 
-        String name="123.456";
-        String[] split = name.split(".");
-        for (int i = 0; i < split.length; i++) {
-            LogUtils.okHttp(split[i]);
-        }
+        PermissonUtils.startPackageInstalls(this,1);
 
-        PermissonUtils.startPermissons(this,this,"android.permission.CAMERA","android.permission.WRITE_CONTACTS");
-
-
-//        Luban.with(this).load().
     }
 }

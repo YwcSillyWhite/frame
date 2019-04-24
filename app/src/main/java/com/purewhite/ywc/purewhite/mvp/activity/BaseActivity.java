@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
-import com.purewhite.ywc.purewhite.config.LogUtils;
 import com.purewhite.ywc.purewhite.config.permisson.PermissonCallBack;
 import com.purewhite.ywc.purewhite.config.permisson.PermissonUtils;
 import com.purewhite.ywc.purewhite.network.rxjava.RxDisposableManager;
@@ -120,16 +119,23 @@ public abstract class BaseActivity<DB extends ViewDataBinding> extends AppCompat
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissonUtils.permissionsResult(this,requestCode,permissions,grantResults,this);
-        LogUtils.okHttp("回调");
     }
 
 
     //权限开始失败
     @Override
     public void onPermissonRepulse(int requestCode, String... permisssons) {
-        mainDialog = new MainDialog(this);
-        mainDialog.setDialogCallBack(dialogCallBackImp);
-        mainDialog.show();
+        if (requestCode==PermissonUtils.DEFAULT)
+        {
+            mainDialog = new MainDialog(this);
+            mainDialog.setDialogCallBack(dialogCallBackImp);
+            mainDialog.show();
+        }
+        else if(requestCode==PermissonUtils.per_request)
+        {
+
+        }
+
     }
 
     //权限开启成功

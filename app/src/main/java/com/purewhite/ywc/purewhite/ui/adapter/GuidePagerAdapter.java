@@ -29,10 +29,10 @@ public class GuidePagerAdapter extends BasePagerAdapter<Integer> {
            imageView.setOnClickListener(new OnSingleListener() {
                @Override
                public void onSingleClick(View v) {
-                   ActivityUtils.newInstance().startActivity(MainActivity.class);
+                   ActivityUtils.startActivity(MainActivity.class);
                    if (context instanceof Activity)
                    {
-                       ActivityUtils.newInstance().finish();
+                       ActivityUtils.finish();
                    }
                }
            });

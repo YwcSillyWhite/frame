@@ -36,13 +36,13 @@ public class WebChooseActivity extends MvpActivity<ActivityWebChooseBinding,WebC
             switch (v.getId())
             {
                 case R.id.action_left:
-                    ActivityUtils.newInstance().finish();
+                    ActivityUtils.finish();
                     break;
                 case R.id.web_sure:
                     Bundle build = BundleUtils.newInstance()
                             .putString(TagUtils.uri, url)
                             .build();
-                    ActivityUtils.newInstance().startActivity(WebActivity.class,build);
+                    ActivityUtils.startActivity(WebActivity.class,build);
                     break;
             }
         }
