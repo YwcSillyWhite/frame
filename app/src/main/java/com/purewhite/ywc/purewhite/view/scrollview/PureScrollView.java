@@ -16,6 +16,7 @@ public class PureScrollView extends ClashScrollView {
     private int pureY;
     private View childView;
     private boolean isAnim;
+    //用来纪录位置
     private Rect rect=new Rect();
     public PureScrollView(Context context) {
         super(context);

@@ -14,10 +14,8 @@
         tools:ignore="ProtectedPermissions" />
     <!-- 硬件加速对X5视频播放非常重要，建议开启 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
-
     <!--  安装权限  -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -52,5 +50,4 @@
         //web选择器
         <activity android:name=".ui.activity.mine.webchoose.WebChooseActivity"/>
     </application>
-
 </manifest>

@@ -6,6 +6,9 @@ import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * @author yuwenchao
+ */
 public class BasePagerAdapterImp extends PagerAdapter {
 
     private SparseArray<View> sparseArray;

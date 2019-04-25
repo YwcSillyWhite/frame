@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author yuwenchao
+ */
 public abstract class BasePagerAdapter<T> extends PagerAdapter {
 
     private List<T> data;

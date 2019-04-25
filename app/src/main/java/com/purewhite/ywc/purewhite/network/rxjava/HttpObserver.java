@@ -10,6 +10,9 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import retrofit2.HttpException;
 
+/**
+ * @author yuwenchao
+ */
 public abstract class HttpObserver<T> implements Observer<T> {
 
     @Override
