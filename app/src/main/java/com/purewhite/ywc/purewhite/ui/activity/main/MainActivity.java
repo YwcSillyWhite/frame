@@ -87,20 +87,23 @@ public class MainActivity extends MvpActivity<ActivityMainBinding,MainPresenter>
     }
 
     private void initFragment(int position) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        //是否加入
-        if (list.get(position).isAdded())
+        if (old_position!=position)
         {
-            fragmentTransaction.show(list.get(position));
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            //是否加入
+            if (list.get(position).isAdded())
+            {
+                fragmentTransaction.show(list.get(position));
+            }
+            else
+            {
+                fragmentTransaction.add(R.id.frame_layout,list.get(position));
+            }
+            if (old_position>=0&&old_position<list.size())
+                fragmentTransaction.hide(list.get(old_position));
+            fragmentTransaction.commit();
+            old_position=position;
         }
-        else
-        {
-            fragmentTransaction.add(R.id.frame_layout,list.get(position));
-        }
-        if (old_position>=0&&old_position<list.size())
-            fragmentTransaction.hide(list.get(old_position));
-        fragmentTransaction.commit();
-        old_position=position;
     }
 
 

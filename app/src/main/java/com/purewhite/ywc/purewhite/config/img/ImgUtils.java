@@ -10,7 +10,9 @@ import android.view.View;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * 在Android应用中，图片的主要存在方式：
@@ -111,6 +113,27 @@ public class ImgUtils {
         }
     }
 
+
+    public static void compress(File file,int inSampleSize) {
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        //设置此参数是仅仅读取图片的宽高到options中，不会将整张图片读到内存中，防止oom
+        options.inJustDecodeBounds = true;
+        Bitmap emptyBitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+        options.inJustDecodeBounds = false;
+        options.inSampleSize = inSampleSize;
+        Bitmap resultBitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        resultBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(bos.toByteArray());
+            fos.flush();
+            fos.close();
+        } catch (Exception e) {
+
+        }
+    }
 
     /** 采样率压缩
      * @param filePath 压缩图

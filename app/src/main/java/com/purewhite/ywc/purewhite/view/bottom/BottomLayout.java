@@ -82,8 +82,11 @@ public class BottomLayout extends LinearLayout{
     //清空选中
     public void clearCheck()
     {
-        lastView.setCheck(false);
-        lastView=null;
+        if (lastView!=null)
+        {
+            lastView.setCheck(false);
+            lastView=null;
+        }
     }
 
 
