@@ -1,6 +1,8 @@
 # 纯白基本框架
 ## 版本1.0.0
 * 框架模式 mvp模式封装<br>
+* activity的封装
+* fragment的封装
 * recyclerview适配器的封装<br>
 功能：初始化，添加头尾，加载更多<br>
 * vlayout的封装<br>
