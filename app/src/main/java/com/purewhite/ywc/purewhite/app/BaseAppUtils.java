@@ -2,6 +2,8 @@ package com.purewhite.ywc.purewhite.app;
 
 import android.app.Application;
 
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
+
 /**
  *
  * @author yuwenchao
@@ -21,5 +23,6 @@ public class BaseAppUtils extends Application{
         super.onCreate();
         baseAppUtils=this;
         AppUtils.init();
+        ZXingLibrary.initDisplayOpinion(this);
     }
 }

@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import io.reactivex.Observable;
+
 /**
  *
  * @author yuwenchao
@@ -66,6 +68,9 @@ public class GuideActivity extends MvpActivity<ActivityGuideBinding,GuidePresent
 
 
         PermissonUtils.startPackageInstalls(this,1);
+
+
+        Observable.just("","","");
 
     }
 }

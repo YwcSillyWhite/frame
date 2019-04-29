@@ -10,9 +10,7 @@ import android.view.View;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 /**
  * 在Android应用中，图片的主要存在方式：
@@ -164,7 +162,68 @@ public class ImgUtils {
         }
 
     }
-    
-    
+
+
+
+
+
+    public static void compress(Bitmap bitmap,int bitmapSize,File file)
+    {
+        int quality=100;
+        ByteArrayOutputStream baos=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,quality,baos);
+        int sizeK = baos.toByteArray().length / 1024;
+        if (sizeK<bitmapSize)
+        {
+            return;
+        }
+        else if (sizeK>bitmapSize*10)
+        {
+            BitmapFactory.Options options=new BitmapFactory.Options();
+            options.inSampleSize=sizeK/(bitmapSize*10);
+            options.inPreferredConfig = Bitmap.Config.RGB_565;
+            //inJustDecodeBounds设为True时，不会真正加载图片，而是得到图片的宽高信息。
+            options.inJustDecodeBounds=false;
+            bitmap= BitmapFactory.decodeFile(file.getName(),options);
+            bitmap.compress(Bitmap.CompressFormat.JPEG,quality,baos);
+            while (baos.toByteArray().length/1024>sizeK)
+            {
+                baos.reset();
+                quality-=20;
+                bitmap.compress(Bitmap.CompressFormat.WEBP,quality,baos);
+            }
+        }
+        else
+        {
+
+            while (baos.toByteArray().length/1024>sizeK)
+            {
+                baos.reset();
+                quality-=20;
+                bitmap.compress(Bitmap.CompressFormat.JPEG,quality,baos);
+            }
+        }
+
+        try {
+            if (file.exists()){
+                file.delete();
+            }else{
+                file.createNewFile();
+            }
+            FileOutputStream fileOutputStream=new FileOutputStream(file);
+            fileOutputStream.write(baos.toByteArray());
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
+
+
     
 }

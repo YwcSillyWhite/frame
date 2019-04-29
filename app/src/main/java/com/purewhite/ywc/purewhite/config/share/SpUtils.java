@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 
 import com.purewhite.ywc.purewhite.app.AppUtils;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,45 +12,45 @@ import java.util.Set;
  * sharedPreferences工具类
  * @author yuwenchao
  */
-public class ShareUtils {
+public class SpUtils {
 
     private static final String default_name="pureWhite";
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    private static ShareUtils shareUtils;
-    public ShareUtils()
+    private static SpUtils shareUtils;
+    public SpUtils()
     {
         if (shareUtils==null)
         {
-            synchronized (ShareUtils.class)
+            synchronized (SpUtils.class)
             {
                 if (shareUtils==null)
                 {
-                    shareUtils=new ShareUtils();
+                    shareUtils=new SpUtils();
                 }
             }
         }
     }
 
 
-    public ShareUtils init()
+    public SpUtils init()
     {
         return init(default_name);
     }
 
-    public ShareUtils init(String content)
+    public SpUtils init(String content)
     {
         sharedPreferences = AppUtils.getContext().getSharedPreferences(default_name,Context.MODE_PRIVATE);
         return this;
     }
 
-    public ShareUtils save()
+    public SpUtils save()
     {
          editor = sharedPreferences.edit();
          return this;
     }
 
-    public ShareUtils put(String key,Object object)
+    public SpUtils put(String key, Object object)
     {
         if (object instanceof Boolean)
         {
@@ -80,13 +79,13 @@ public class ShareUtils {
         return this;
     }
 
-    public ShareUtils clear()
+    public SpUtils clear()
     {
         editor.clear();
         return this;
     }
 
-    public ShareUtils remove(String key)
+    public SpUtils remove(String key)
     {
         editor.remove(key);
         return this;

@@ -91,6 +91,30 @@
                 android:background="@color/write"
                 android:text="即使秒杀"
                 android:id="@+id/seckill"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="15sp"
+                android:textColor="#333"
+                android:background="@color/write"
+                android:text="二维码优化"
+                android:id="@+id/qr_code"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="15sp"
+                android:textColor="#333"
+                android:background="@color/write"
+                android:text="支付宝扫码"
+                android:id="@+id/qr_code_zfb"/>
         </LinearLayout>
     </com.purewhite.ywc.purewhite.view.scrollview.PureScrollView>
 </layout>
