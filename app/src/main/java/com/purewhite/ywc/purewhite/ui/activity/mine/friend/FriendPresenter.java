@@ -22,7 +22,7 @@ public class FriendPresenter extends PresenterImp<FriendContract.View> implement
         }
         BaseRetrofit.newInstance().create(HttpService.class)
                 .obtainGoods(0, 10, min_id)
-                .compose(RxSchedulers.<BaseBean<List<GoodsListBean>>>compose())
+                .compose(RxSchedulers.<BaseBean<List<GoodsListBean>>>ioToMain())
                 .subscribe(new HttpObserver<BaseBean<List<GoodsListBean>>>() {
                     @Override
                     public void onSuccess(BaseBean<List<GoodsListBean>> baseBean) {

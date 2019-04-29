@@ -28,6 +28,7 @@ public final class RxDisposableManager {
         return sInstance;
     }
 
+    //添加订阅
     public void addDis(Object tag, Disposable subscription) {
         CompositeDisposable compositeDisposable = mCompositeDisposables.get(tag);
         if (compositeDisposable == null) {
@@ -39,6 +40,7 @@ public final class RxDisposableManager {
 
 
     /**
+     * 取消订阅
      * 下面两方法防止内存泄露
      * @param tag
      */

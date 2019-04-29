@@ -18,7 +18,7 @@ public class MinePresenter extends PresenterImp<MineContract.View> implements Mi
                 emitter.onNext(FileUtils.getFileSizeShift(FileUtils.getFileSize(mView.getContext().
                         getCacheDir())));
             }
-        }).compose(RxSchedulers.<String>compose())
+        }).compose(RxSchedulers.<String>ioToMain())
                 .subscribe(new HttpObserver<String>() {
                     @Override
                     public void onSuccess(String s) {

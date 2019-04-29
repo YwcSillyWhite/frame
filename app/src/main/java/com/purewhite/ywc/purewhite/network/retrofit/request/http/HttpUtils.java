@@ -50,6 +50,6 @@ public class HttpUtils {
     public void getFinancil(String content,int pagesize,HttpObserver<BaseBean<MainBean>> httpObserver)
     {
         httpService.getShopList(content,pagesize,1).
-                compose(RxSchedulers.<BaseBean<MainBean>>compose()).subscribe(httpObserver);
+                compose(RxSchedulers.<BaseBean<MainBean>>ioToMain()).subscribe(httpObserver);
     }
 }

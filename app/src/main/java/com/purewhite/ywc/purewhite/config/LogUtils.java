@@ -32,8 +32,6 @@ public final class LogUtils {
     }
 
 
-
-
     //错误类型
     public static void error(String msg)
     {
@@ -61,7 +59,6 @@ public final class LogUtils {
                     Log.d(tag,content);
                     break;
             }
-
         }
     }
 

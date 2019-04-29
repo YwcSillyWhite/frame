@@ -31,7 +31,7 @@ public class HomeChildPresenter extends PresenterImp<HomeChildContract.View> imp
         }
         BaseRetrofit.newInstance().create(HttpService.class)
                 .obtainGoods(position,10,min_id)
-                .compose(RxSchedulers.<BaseBean<List<GoodsListBean>>>compose())
+                .compose(RxSchedulers.<BaseBean<List<GoodsListBean>>>ioToMain())
                 .subscribe(new HttpObserver<BaseBean<List<GoodsListBean>>>() {
                     @Override
                     public void onSuccess(BaseBean<List<GoodsListBean>> baseBean) {

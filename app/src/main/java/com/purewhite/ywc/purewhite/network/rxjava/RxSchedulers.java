@@ -13,9 +13,9 @@ public final class RxSchedulers {
     }
 
     /**
-     * 线程调度
+     * 线程从io到main
      */
-    public static <T> ObservableTransformer<T, T> compose() {
+    public static <T> ObservableTransformer<T, T> ioToMain() {
         return new ObservableTransformer<T, T>() {
             @Override
             public ObservableSource<T> apply(Observable<T> observable) {

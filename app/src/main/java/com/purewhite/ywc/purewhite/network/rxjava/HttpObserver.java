@@ -1,6 +1,7 @@
 package com.purewhite.ywc.purewhite.network.rxjava;
 
 import com.purewhite.ywc.purewhite.app.AppUtils;
+import com.purewhite.ywc.purewhite.config.LogUtils;
 import com.purewhite.ywc.purewhite.config.NetWorkUtils;
 
 import java.net.ConnectException;
@@ -55,11 +56,19 @@ public abstract class HttpObserver<T> implements Observer<T> {
 
     @Override
     public void onComplete() {
-
+        onAfter();
     }
 
-    public abstract void onSuccess(T t);
-    public void onFail(String content)
+    protected abstract void onSuccess(T t);
+
+    protected  void onFail(String content)
+    {
+        LogUtils.error(content);
+        onAfter();
+    }
+
+    //执行方法之后
+    protected void onAfter()
     {
 
     }

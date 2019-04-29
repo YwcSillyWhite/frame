@@ -27,7 +27,7 @@ public class CouponPresenter extends PresenterImp<CouponContract.View> implement
     private void obtainOne() {
         BaseRetrofit.newInstance().create(HttpService.class)
                 .obtainGoods(5,10,1)
-                .compose(RxSchedulers.<BaseBean<List<GoodsListBean>>>compose())
+                .compose(RxSchedulers.<BaseBean<List<GoodsListBean>>>ioToMain())
                 .subscribe(new HttpObserver<BaseBean<List<GoodsListBean>>>() {
                     @Override
                     public void onSuccess(BaseBean<List<GoodsListBean>> baseBean) {
@@ -57,7 +57,7 @@ public class CouponPresenter extends PresenterImp<CouponContract.View> implement
         }
         BaseRetrofit.newInstance().create(HttpService.class)
                 .obtainGoods(0,10,new_page)
-                .compose(RxSchedulers.<BaseBean<List<GoodsListBean>>>compose())
+                .compose(RxSchedulers.<BaseBean<List<GoodsListBean>>>ioToMain())
                 .subscribe(new HttpObserver<BaseBean<List<GoodsListBean>>>() {
                     @Override
                     public void onSuccess(BaseBean<List<GoodsListBean>> baseBean) {
