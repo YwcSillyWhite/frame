@@ -15,7 +15,6 @@ import com.purewhite.ywc.purewhite.ui.activity.mine.friend.FriendActivity;
 import com.purewhite.ywc.purewhite.ui.activity.mine.seckill.SeckillActivity;
 import com.purewhite.ywc.purewhite.ui.activity.mine.webchoose.WebChooseActivity;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
-import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 public class MineFragment extends MvpFragment<FragmentMineBinding,MinePresenter> implements MineContract.View {
 

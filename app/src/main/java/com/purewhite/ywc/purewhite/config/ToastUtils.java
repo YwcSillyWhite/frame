@@ -2,7 +2,6 @@ package com.purewhite.ywc.purewhite.config;
 
 import android.widget.Toast;
 
-import com.purewhite.ywc.purewhite.BuildConfig;
 import com.purewhite.ywc.purewhite.app.AppUtils;
 
 public class ToastUtils {
