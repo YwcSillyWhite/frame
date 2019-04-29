@@ -2,35 +2,66 @@ package com.purewhite.ywc.purewhite.config;
 
 import android.util.Log;
 
+import com.purewhite.ywc.purewhite.BuildConfig;
+
+/**
+ * @author yuwenchao
+ */
 public final class LogUtils {
 
-    private static boolean okhttp=true;
+    private static boolean debug=true;
     private static boolean error=true;
-    private static boolean appLog=true;
+
+    private static final int ERROR=0;
+    private static final int DEBUG=1;
 
     //请求数据参数
-    public static void okHttp(String msg)
+    public static void debug(String msg)
     {
-        if (okhttp)
+        debug("",msg);
+    }
+
+
+    //请求数据参数
+    public static void debug(String tag,String msg)
+    {
+        if (debug)
         {
-            app("Okhttp",msg);
+            export(1,"Debug "+tag+"：",msg);
         }
     }
+
+
+
 
     //错误类型
     public static void error(String msg)
     {
+        error("",msg);
+    }
+
+    public static void error(String tag,String msg)
+    {
         if (error)
         {
-            app("error",msg);
+            export(0,"Error "+tag+"：",msg);
         }
     }
 
-    public static void app(String tag,String content)
+    private static void export(int type,String tag,String content)
     {
-        if (appLog)
+        if (BuildConfig.LOG)
         {
-            Log.d(tag,content);
+            switch (type)
+            {
+                case ERROR:
+                    Log.e(tag,content);
+                    break;
+                case DEBUG:
+                    Log.d(tag,content);
+                    break;
+            }
+
         }
     }
 

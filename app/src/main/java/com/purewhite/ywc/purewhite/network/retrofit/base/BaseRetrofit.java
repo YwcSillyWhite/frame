@@ -84,7 +84,7 @@ public class BaseRetrofit {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                LogUtils.okHttp(message);
+                LogUtils.debug("okhttp",message);
             }
         });
         /**
